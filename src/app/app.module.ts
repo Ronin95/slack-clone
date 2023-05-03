@@ -23,6 +23,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HeaderComponent } from './header/header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
+import { WorkspaceColumnComponent } from './side-menu/workspace-column/workspace-column.component';
+import { ChannelColumnComponent } from './side-menu/channel-column/channel-column.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
     RegisterComponent,
     HeaderComponent,
     SideMenuComponent,
+    WorkspaceColumnComponent,
+    ChannelColumnComponent,
   ],
   imports: [
     BrowserModule,

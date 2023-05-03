@@ -1,29 +1,44 @@
 .dialog-user-info {
-    background-color: #513386;
+  background-color: #4e154e;
+  color: #ffff;
 
-    img {
-        height: 30px;
-        margin-right: 12px;
-    }
+  img {
+    height: 30px;
+    margin-right: 12px;
+  }
 }
 
 .logout-container {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 
-    button {
-        &:hover {
-            background-color: #3f2075;
-        }
+  button {
+    background-color: #3b123b;
+    color: #ffff;
+    border: unset;
+    height: 35px;
+    width: 70px;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #310231;
     }
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
-.align-center {
-    display: flex;
-    align-items: center;
+.font-500 {
+  font-weight: 500;
 }
 
-.flex-column {
-    display: flex;
-    flex-direction: column;
+.online-dot {
+  background-color: #39e500;
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  margin-right: 5px;
 }

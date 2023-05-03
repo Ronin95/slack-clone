@@ -21,13 +21,21 @@ import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { HeaderComponent } from './header/header.component';
+import { SideMenuComponent } from './side-menu/side-menu.component';
+import { WorkspaceColumnComponent } from './side-menu/side-menu/workspace-column/workspace-column.component';
+import { ChannelColumnComponent } from './side-menu/side-menu/channel-column/channel-column.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeScreenComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HeaderComponent,
+    SideMenuComponent,
+    WorkspaceColumnComponent,
+    ChannelColumnComponent
   ],
   imports: [
     BrowserModule,

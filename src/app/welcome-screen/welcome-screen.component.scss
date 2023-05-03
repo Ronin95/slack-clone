@@ -1,0 +1,127 @@
+@import 'src/fixedCSS/fixedVar.scss';
+
+
+.start-screen-section {
+    background-color: $bgClr-start;
+    padding: 75px 100px 75px 100px;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+
+    .introduction-container {
+        min-width: 250px;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        h2 {
+            color: white;
+            font-size: 45px;
+            line-height: 45px;
+        }
+
+
+        .btn-box {
+            display: flex;
+            justify-content: center;
+
+            button {
+                margin-top: 50px;
+                width: 250px;
+                padding: 10px;
+                background-color: $sign-in-btn-clr;
+                color: white;
+                font-weight: 400;
+                font-size: 20px;
+            }
+        }
+
+        .register-msg-box {
+            color: white;
+            font-size: 16px;
+            display: flex;
+            gap: 20px;
+
+
+            a {
+                color: white;
+                cursor: pointer;
+            }
+        }
+
+        img {
+            width: 60px;
+        }
+    }
+
+    .logo-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // margin-bottom: 50px;
+        // margin-top: 75px;
+
+        h1 {
+            font-size: 50px;
+            color: white;
+            margin: unset;
+        }
+    }
+
+
+    .world-img {
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        img {
+            height: 500px;
+            width: 500px;
+            // position: absolute;
+            // top: 0;
+            // bottom: 0;
+            // margin: auto;
+            // right: 100px;
+            border-radius: 100%;
+        }
+    }
+}
+
+@media(max-width:1000px) {
+    .world-img {
+        display: none !important;
+    }
+
+    .btn-box {
+        justify-content: flex-start !important;
+    }
+}
+
+@media (max-width:600px) {
+    .start-screen-section {
+        padding: 50px 75px 50px 75px !important;
+    }
+}
+
+@media(max-width:462px) {
+    .start-screen-section {
+        padding: 25px !important;
+
+        .introduction-container {
+            h2 {
+                font-size: 30px !important;
+            }
+
+            .btn-box {
+                button {
+                    width: 190px !important;
+                    padding: 8px !important;
+                    font-size: 16px !important;
+                }
+            }
+        }
+    }
+}

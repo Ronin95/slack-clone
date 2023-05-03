@@ -25,7 +25,6 @@ import { HeaderComponent } from './header/header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { WorkspaceColumnComponent } from './side-menu/workspace-column/workspace-column.component';
 import { ChannelColumnComponent } from './side-menu/channel-column/channel-column.component';
-import { ChooseChannelComponent } from './choose-channel/choose-channel.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +36,6 @@ import { ChooseChannelComponent } from './choose-channel/choose-channel.componen
     SideMenuComponent,
     WorkspaceColumnComponent,
     ChannelColumnComponent,
-    ChooseChannelComponent,
   ],
   imports: [
     BrowserModule,

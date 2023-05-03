@@ -3,6 +3,7 @@
 
     img {
         height: 30px;
+        margin-right: 12px;
     }
 }
 
@@ -11,8 +12,18 @@
     justify-content: flex-end;
 
     button {
-        :hover {
-            background-color: #1a0049;
+        &:hover {
+            background-color: #3f2075;
         }
     }
+}
+
+.align-center {
+    display: flex;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
 }

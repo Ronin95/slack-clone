@@ -1,7 +1,15 @@
 <div class="dialog-user-info">
-  <div mat-dialog-content>
-    <img class="dialog-profile-img" src="./assets/img/blank-profile-img.png" />
-    <span>User</span>
+  <div class="display-flex" mat-dialog-content>
+    <div class="align-center">
+      <img
+        class="dialog-profile-img"
+        src="./assets/img/blank-profile-img.png"
+      />
+      <div class="flex-column">
+        <span>User</span>
+        <span>Active</span>
+      </div>
+    </div>
   </div>
   <div class="logout-container" mat-dialog-actions>
     <button mat-button cdkFocusInitial>Logout</button>

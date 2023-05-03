@@ -15,7 +15,6 @@
     }
 
     .dropdown-menu {
-        padding-left: 8px;
         display: block;
 
         li {
@@ -39,6 +38,5 @@
 
 .turn {
     transform: rotate(90deg);
-    transition: all 5000ms ease-in-out;
-
+    transition: all 3ms ease-in-out;
 }

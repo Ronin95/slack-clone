@@ -34,6 +34,15 @@ import { HomeComponent } from './home/home.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { UsersComponent } from './users/users.component';
 
+import { SendMessageComponent } from './send-message/send-message.component';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ChannelsComponent } from './side-menu/channel-column/channels/channels.component';
+import { DirectMessagesComponent } from './side-menu/channel-column/direct-messages/direct-messages.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +56,9 @@ import { UsersComponent } from './users/users.component';
     HomeComponent,
     ThreadsComponent,
     UsersComponent,
+    SendMessageComponent,
+    ChannelsComponent,
+    DirectMessagesComponent
   ],
   imports: [
     BrowserModule,

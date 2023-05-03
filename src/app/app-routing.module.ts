@@ -14,7 +14,10 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'home/threads', component: ThreadsComponent },
   { path: 'home/users', component: UsersComponent },
+<<<<<<< HEAD
   { path: 'home/sendMessage', component: SendMessageComponent },
+=======
+>>>>>>> 25406b9f63daa33f2c09dd9098212becbeb42932
   { path: 'welcomeScreen', component: WelcomeScreenComponent },
   { path: 'sideMenu', component: SideMenuComponent },
 ];

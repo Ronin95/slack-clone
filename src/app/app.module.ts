@@ -33,12 +33,6 @@ import { ChannelColumnComponent } from './side-menu/channel-column/channel-colum
 import { HomeComponent } from './home/home.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { UsersComponent } from './users/users.component';
-import { SendMessageComponent } from './send-message/send-message.component';
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 
 @NgModule({
   declarations: [
@@ -53,7 +47,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     ThreadsComponent,
     UsersComponent,
-    SendMessageComponent,
   ],
   imports: [
     BrowserModule,

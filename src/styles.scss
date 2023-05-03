@@ -6,7 +6,7 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Roboto", "Helvetica Neue";
 }
 
 .bstyle {
@@ -17,6 +17,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Roboto", "Helvetica Neue";
 }
 
 .d-none {
@@ -27,5 +28,59 @@ body {
   display: flex;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.ml-12 {
+  margin-left: 12px;
+}
+
+.mr-12 {
+  margin-right: 12px;
+}
+
+.mb-12 {
+  margin-bottom: 12px;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.ml-12 {
+  margin-left: 12px;
+}
+
+.mr-12 {
+  margin-right: 12px;
+}
+
+.mb-12 {
+  margin-bottom: 12px;
+}
+
+button {
+  cursor: pointer;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Roboto", "Helvetica Neue";
+}

@@ -1,0 +1,23 @@
+.dropdown {
+  padding: 0 12px;
+
+  button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    color: white;
+    border: none;
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    padding-left: 8px;
+    display: none;
+
+    li {
+      list-style-type: none !important;
+      padding-top: 12px;
+      font-family: "Roboto";
+    }
+  }
+}

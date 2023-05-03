@@ -1,0 +1,44 @@
+.dropdown {
+    padding: 0 12px;
+
+    button {
+        display: flex;
+        align-items: center;
+        background-color: transparent;
+        color: white;
+        border: none;
+        width: 100%;
+
+        .arrow-right {
+            transition: all 3ms ease-in-out;
+        }
+    }
+
+    .dropdown-menu {
+        padding-left: 8px;
+        display: block;
+
+        li {
+            list-style-type: none !important;
+            padding-top: 12px;
+            font-family: "Roboto";
+
+            span {
+                padding-left: 8px;
+            };
+        }
+
+        .icon-placeholder {
+            height: 30px;
+            width: 30px;
+            border-radius: 10px;
+            background-color: grey;
+        }
+    }
+}
+
+.turn {
+    transform: rotate(90deg);
+    transition: all 5000ms ease-in-out;
+
+}

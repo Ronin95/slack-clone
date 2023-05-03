@@ -28,6 +28,8 @@ import { ChannelColumnComponent } from './side-menu/channel-column/channel-colum
 import { HomeComponent } from './home/home.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { UsersComponent } from './users/users.component';
+import { ChannelsComponent } from './side-menu/channel-column/channels/channels.component';
+import { DirectMessagesComponent } from './side-menu/channel-column/direct-messages/direct-messages.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { UsersComponent } from './users/users.component';
     HomeComponent,
     ThreadsComponent,
     UsersComponent,
+    ChannelsComponent,
+    DirectMessagesComponent,
   ],
   imports: [
     BrowserModule,

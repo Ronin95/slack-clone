@@ -1,0 +1,29 @@
+.header-toolbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+
+    img {
+        height: 30px;
+        border-radius: 8px;
+        position: absolute;
+        right: 15px;
+        cursor: pointer;
+    }
+}
+
+.search-input {
+    height: 30px;
+    width: 500px;
+    border-radius: 8px;
+    border: unset;
+    background-color: #1a0049;
+    color: white;
+    padding-left: 10px;
+
+    &:focus {
+        outline: none;
+    }
+}
+

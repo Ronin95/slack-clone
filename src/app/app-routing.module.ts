@@ -13,7 +13,6 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'home/threads', component: ThreadsComponent },
   { path: 'home/users', component: UsersComponent },
-
   { path: 'welcomeScreen', component: WelcomeScreenComponent },
   { path: 'sideMenu', component: SideMenuComponent },
 ];

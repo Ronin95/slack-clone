@@ -1,2 +1,11 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<app-header [class.d-none]="router.url == '/welcomeScreen'"></app-header>
+
+<div
+  [class.main-container]="router.url !== '/welcomeScreen'"
+  class="main-container"
+>
+  <app-side-menu
+    [class.d-none]="router.url == '/welcomeScreen'"
+  ></app-side-menu>
+  <router-outlet></router-outlet>
+</div>

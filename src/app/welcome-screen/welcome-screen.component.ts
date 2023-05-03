@@ -6,20 +6,18 @@ import { RegisterComponent } from '../register/register.component';
 @Component({
   selector: 'app-welcome-screen',
   templateUrl: './welcome-screen.component.html',
-  styleUrls: ['./welcome-screen.component.scss']
+  styleUrls: ['./welcome-screen.component.scss'],
 })
 export class WelcomeScreenComponent implements OnInit {
-  
-    constructor(public dialog: MatDialog) { }
-  
-    ngOnInit(): void {
-    }
+  constructor(public dialog: MatDialog) {}
 
-    openLogin() {
-      this.dialog.open(LoginComponent);
-    }
-  
-    openSignUp() {
-      this.dialog.open(RegisterComponent);
-    }
+  ngOnInit(): void {}
+
+  openLogin() {
+    this.dialog.open(LoginComponent);
+  }
+
+  openSignUp() {
+    this.dialog.open(RegisterComponent);
+  }
 }

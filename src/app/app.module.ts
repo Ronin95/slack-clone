@@ -1,24 +1,29 @@
-import { NgModule } from '@angular/core';
+// Angular Firebase
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment.prod';
+
+// Material Design
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
-import { BrowserModule } from '@angular/platform-browser';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
-import { AppComponent } from './app.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { AppRoutingModule } from './app-routing.module';
-import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Angular
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+// Components
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HeaderComponent } from './header/header.component';
@@ -28,6 +33,12 @@ import { ChannelColumnComponent } from './side-menu/channel-column/channel-colum
 import { HomeComponent } from './home/home.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { UsersComponent } from './users/users.component';
+import { SendMessageComponent } from './send-message/send-message.component';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -42,10 +53,16 @@ import { UsersComponent } from './users/users.component';
     HomeComponent,
     ThreadsComponent,
     UsersComponent,
+    SendMessageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    // provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideAuth(() => getAuth()),
+    // provideDatabase(() => getDatabase()),
+    // provideFirestore(() => getFirestore()),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -62,7 +79,7 @@ import { UsersComponent } from './users/users.component';
     MatListModule,
     MatDividerModule,
     MatSelectModule,
-    MatAutocompleteModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent],

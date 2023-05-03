@@ -7,13 +7,14 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { UsersComponent } from './users/users.component';
+import { SendMessageComponent } from './send-message/send-message.component';
 
 const routes: Routes = [
   { path: 'headerMenu', component: HeaderComponent },
   { path: 'home', component: HomeComponent },
   { path: 'home/threads', component: ThreadsComponent },
   { path: 'home/users', component: UsersComponent },
-
+  { path: 'home/sendMessage', component: SendMessageComponent },
   { path: 'welcomeScreen', component: WelcomeScreenComponent },
   { path: 'sideMenu', component: SideMenuComponent },
 ];

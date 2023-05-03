@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "slack-clone-da"
+  },
+  "targets": {
+    "slack-clone-da": {
+      "hosting": {
+        "slack-clone": [
+          "slack-clone-da"
+        ]
+      }
+    }
+  }
+}

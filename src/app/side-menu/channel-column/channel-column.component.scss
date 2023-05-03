@@ -9,10 +9,14 @@
   gap: 12px;
 
   .channel_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
     h2 {
       color: $txt-clr-h2;
       text-align: center;
-      line-height: unset;
+      // line-height: unset;
     }
   }
 
@@ -40,5 +44,23 @@
         object-fit: contain;
       }
     }
+  }
+}
+
+.new-chat-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  background-color: white;
+  cursor: pointer;
+
+  mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
   }
 }

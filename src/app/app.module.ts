@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import {  MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,8 +23,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HeaderComponent } from './header/header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
-import { WorkspaceColumnComponent } from './side-menu/side-menu/workspace-column/workspace-column.component';
-import { ChannelColumnComponent } from './side-menu/side-menu/channel-column/channel-column.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +32,6 @@ import { ChannelColumnComponent } from './side-menu/side-menu/channel-column/cha
     RegisterComponent,
     HeaderComponent,
     SideMenuComponent,
-    WorkspaceColumnComponent,
-    ChannelColumnComponent
   ],
   imports: [
     BrowserModule,
@@ -56,9 +52,9 @@ import { ChannelColumnComponent } from './side-menu/side-menu/channel-column/cha
     MatListModule,
     MatDividerModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

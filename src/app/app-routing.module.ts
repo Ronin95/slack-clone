@@ -17,6 +17,8 @@ const routes: Routes = [
 
   { path: 'home/sendMessage', component: SendMessageComponent },
 
+  { path: 'home/sendMessage', component: SendMessageComponent },
+
   { path: 'welcomeScreen', component: WelcomeScreenComponent },
   { path: 'sideMenu', component: SideMenuComponent },
 ];

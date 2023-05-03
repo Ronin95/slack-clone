@@ -25,6 +25,9 @@ import { HeaderComponent } from './header/header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { WorkspaceColumnComponent } from './side-menu/workspace-column/workspace-column.component';
 import { ChannelColumnComponent } from './side-menu/channel-column/channel-column.component';
+import { HomeComponent } from './home/home.component';
+import { ThreadsComponent } from './threads/threads.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import { ChannelColumnComponent } from './side-menu/channel-column/channel-colum
     SideMenuComponent,
     WorkspaceColumnComponent,
     ChannelColumnComponent,
+    HomeComponent,
+    ThreadsComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,

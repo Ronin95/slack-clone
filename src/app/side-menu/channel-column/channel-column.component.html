@@ -1,16 +1,40 @@
 <div class="channel-container">
-  <div class="channel-btn-container">
-    <button routerLinkActive="active" class="channel-btn active">DA</button>
-
-    <button routerLinkActive="active" class="channel-btn">NA</button>
+  <div class="channel_header">
+    <h2>Developer Akademie</h2>
   </div>
 
-  <button
-    class="add-workspace-btn"
-    mat-fab
-    color="primary"
-    aria-label="Example icon button with a delete icon"
-  >
-    <mat-icon>add</mat-icon>
-  </button>
+  <a routerLink="home/threads">
+    <div class="option-container">
+      <img src="./../../../assets/icons/threads.png" alt="" />
+      <span class="option-title">Threads</span>
+    </div>
+  </a>
+
+  <a routerLink="home/users">
+    <div class="option-container">
+      <img src="./../../../assets/icons/user.png" alt="" />
+      <span class="option-title">Users</span>
+    </div>
+  </a>
+
+  <a routerLink="">
+    <div class="option-container">
+      <img src="./../../../assets/icons/later.png" alt="" />
+      <span class="option-title">Later</span>
+    </div>
+  </a>
+
+  <a routerLink="">
+    <div class="option-container">
+      <img src="./../../../assets/icons/direct-message.png" alt="" />
+      <span class="option-title">Direct Message</span>
+    </div>
+  </a>
+
+  <a routerLink="">
+    <div class="option-container">
+      <img src="./../../../assets/icons/drafts.png" alt="" />
+      <span class="option-title">Drafts & sent</span>
+    </div>
+  </a>
 </div>

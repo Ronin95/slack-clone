@@ -1,14 +1,28 @@
-@import 'src/fixedCSS/fixedVar.scss';
+@import "src/fixedCSS/fixedVar.scss";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .bstyle {
-    border-style: dotted;
+  border-style: dotted;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-flex {
+  display: flex;
 }

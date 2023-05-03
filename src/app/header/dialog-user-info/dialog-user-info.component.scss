@@ -1,0 +1,18 @@
+.dialog-user-info {
+    background-color: #513386;
+
+    img {
+        height: 30px;
+    }
+}
+
+.logout-container {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+        :hover {
+            background-color: #1a0049;
+        }
+    }
+}

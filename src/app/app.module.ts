@@ -40,6 +40,7 @@ import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChannelsComponent } from './side-menu/channel-column/channels/channels.component';
 import { DirectMessagesComponent } from './side-menu/channel-column/direct-messages/direct-messages.component';
+import { DialogNewChannelComponent } from './side-menu/channel-column/channels/dialog-new-channel/dialog-new-channel.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { DirectMessagesComponent } from './side-menu/channel-column/direct-messa
     UsersComponent,
     SendMessageComponent,
     ChannelsComponent,
-    DirectMessagesComponent
+    DirectMessagesComponent,
+    DialogNewChannelComponent
   ],
   imports: [
     BrowserModule,

@@ -20,8 +20,12 @@
     border-radius: 8px;
     border: unset;
     background-color: #1b002d;
-    color: #808080;
+    color: #ffff;
     padding-left: 10px;
+
+    &::placeholder {
+        color: #ffff;
+    }
 
     &:focus {
         outline: none;

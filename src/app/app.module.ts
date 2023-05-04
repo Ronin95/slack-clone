@@ -60,7 +60,7 @@ import { NewWorkspaceDialogComponent } from './side-menu/workspace-column/new-wo
     ChannelsComponent,
     DirectMessagesComponent,
     DialogNewChannelComponent,
-    NewWorkspaceDialogComponent
+    NewWorkspaceDialogComponent,
   ],
   imports: [
     BrowserModule,

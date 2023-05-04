@@ -1,48 +1,24 @@
 @import "src/fixedCSS/fixedVar.scss";
 
+* {
+  overflow: hidden;
+}
+
 .channel-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  width: 250px;
-  padding-top: 12px;
-  gap: 12px;
+  width: 300px;
+  height: 100vh;
+  padding-top: 15px;
+  gap: 15px;
+}
 
-  .channel_header {
-    display: flex;
-    justify-content: space-evenly;
+.channel_header {
+  display: flex;
+  justify-content: space-evenly;
 
-    h2 {
-      color: $txt-clr-h2;
-      text-align: center;
-      // line-height: unset;
-    }
-  }
-
-  a {
-    text-decoration: none;
-    color: $txt-clr-primary;
-    font-size: 0.9rem;
-    padding: 0 8px;
-
-    .option-container {
-      display: flex;
-      align-items: center;
-      padding: 6px;
-      gap: 8px;
-
-      &:hover {
-        color: $txt-clr-secondary;
-        background-color: $bgClr-hover-channels;
-        border-radius: $br-primary;
-      }
-
-      img {
-        width: 20px;
-        height: 20px;
-        object-fit: contain;
-      }
-    }
+  h2 {
+    color: $txt-clr-h2;
   }
 }
 

@@ -17,6 +17,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 // Angular
 import { NgModule } from '@angular/core';
@@ -42,6 +43,8 @@ import { ChannelsComponent } from './side-menu/channel-column/channels/channels.
 import { DirectMessagesComponent } from './side-menu/channel-column/direct-messages/direct-messages.component';
 import { DialogNewChannelComponent } from './side-menu/channel-column/channels/dialog-new-channel/dialog-new-channel.component';
 import { NewWorkspaceDialogComponent } from './side-menu/workspace-column/new-workspace-dialog/new-workspace-dialog.component';
+import { FurtherServicesComponent } from './side-menu/channel-column/further-services/further-services.component';
+
 
 @NgModule({
   declarations: [
@@ -61,6 +64,8 @@ import { NewWorkspaceDialogComponent } from './side-menu/workspace-column/new-wo
     DirectMessagesComponent,
     DialogNewChannelComponent,
     NewWorkspaceDialogComponent,
+    FurtherServicesComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -86,7 +91,8 @@ import { NewWorkspaceDialogComponent } from './side-menu/workspace-column/new-wo
     MatListModule,
     MatDividerModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

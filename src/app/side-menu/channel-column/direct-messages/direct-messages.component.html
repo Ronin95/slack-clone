@@ -5,21 +5,30 @@
         Direct Messages
     </button>
     <ul class="dropdown-menu" [class.d-none]="!openMenu">
-        <li>
-            <button class="dropdown-item" type="button" title="JavaScript" routerLink="/home/sendMessage">
-                <div class="icon-placeholder"></div><span>Max Mustermann</span>
-            </button>
-        </li>
-        <li>
-            <button class="dropdown-item" type="button" title="JavaScript" routerLink="/home/sendMessage">
-                <div class="icon-placeholder"></div><span>John Doe</span>
-            </button>
-        </li>
-        <li>
-            <button class="dropdown-item" type="button" title="JavaScript" routerLink="/home/sendMessage">
-                <div class="icon-placeholder"></div><span>Mister Universe</span>
-            </button>
-        </li>
+      <li>
+        <button class="dropdown-item" type="button" title="JavaScript" routerLink="/home/sendMessage">
+          <div class="user-img-span">
+            <img src="../../../../assets/img/profilePictures/christian.png" alt="user-img">
+            <span>Christian Greenfield</span>
+          </div>
+        </button>
+      </li>
+      <li>
+        <button class="dropdown-item" type="button" title="JavaScript" routerLink="/home/sendMessage">
+          <div class="user-img-span">
+            <img src="../../../../assets/img/profilePictures/nikola.png" alt="user-img">
+            <span>Nikola Badjevic</span>
+          </div>
+        </button>
+      </li>
+      <li>
+        <button class="dropdown-item" type="button" title="JavaScript" routerLink="/home/sendMessage">
+          <div class="user-img-span">
+            <img src="../../../../assets/img/profilePictures/shawn.png" alt="user-img">
+            <span>Shawn Kastner</span>
+          </div>
+        </button>
+      </li>
         <li>
             <div class="align-center" routerLink="home/sendMessage">
                 <button class="new-chat-btn dropdown-item" type="button">

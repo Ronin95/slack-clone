@@ -1,18 +1,21 @@
+.dropdown-channels {
+  display: flex;
+  align-items: safe center;
+  
+}
+
+.arrow-right {
+  transition: all 3ms ease-in-out;
+
+  &:hover {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 50%;
+  }
+}
+
 .dropdown {
   padding: 0 12px;
 
-  button {
-    display: flex;
-    align-items: center;
-    background-color: transparent;
-    color: white;
-    border: none;
-    width: 100%;
-
-    .arrow-right {
-      transition: all 3ms ease-in-out;
-    }
-  }
 
   .dropdown-menu {
     padding-left: 8px;

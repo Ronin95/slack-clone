@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogNewChannelComponent } from './dialog-new-channel/dialog-new-channel.component';
 
@@ -8,7 +8,6 @@ import { DialogNewChannelComponent } from './dialog-new-channel/dialog-new-chann
   styleUrls: ['./channels.component.scss'],
 })
 export class ChannelsComponent implements OnInit {
-
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {}

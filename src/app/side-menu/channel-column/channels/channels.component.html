@@ -1,37 +1,20 @@
-<div class="dropdown">
-  <button
-    (click)="toggleChannels()"
-    class="btn btn-secondary dropdown-toggle"
-    type="button"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
+<div class="dropdown ">
+  <div class="dropdown-channels " (click)="toggleChannels()">
     <mat-icon class="arrow-right" [class.turn]="openMenu">arrow_right</mat-icon>
-    Channels
-  </button>
-  <ul class="dropdown-menu" [class.d-none]="!openMenu">
-    <li>
-      <button class="dropdown-item" type="button" title="JavaScript">
-        &#35; JavaScript
-      </button>
-    </li>
-    <li>
-      <button class="dropdown-item" type="button" title="Angular">
-        &#35; Angular
-      </button>
-    </li>
-    <li>
-      <button class="dropdown-item" type="button" title="Allgemein">
-        &#35; Allgemein
-      </button>
-    </li>
-    <li (click)="openDialogNewChannel()" class="align-center">
-      <button  class="dropdown-item" type="button">
-        &#43; New channel
-      </button>
-   
-    </li>
-
-  </ul>
+    <h1>Channels</h1>
+  </div>
+  <div class="dropdown-menu " [class.d-none]="!openMenu">
+    <div class="tag-channel-name-pos" >
+      <mat-icon>tag</mat-icon>
+      <h2>General</h2>
+    </div>
+    <div class="tag-channel-name-pos"  (click)="openDialogNewChannel()">
+      <mat-icon>add</mat-icon>
+      <h2>Add channel</h2>
+    </div>
+  </div>
 
 </div>
+
+
+<!-- (click)="openDialogNewChannel()" -->

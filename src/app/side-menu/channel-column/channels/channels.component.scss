@@ -8,11 +8,15 @@
     color: white;
     border: none;
     width: 100%;
+
+    .arrow-right {
+      transition: all 3ms ease-in-out;
+    }
   }
 
   .dropdown-menu {
     padding-left: 8px;
-    display: none;
+    display: block;
 
     li {
       list-style-type: none !important;
@@ -21,3 +25,10 @@
     }
   }
 }
+
+.turn {
+  transition: all 3ms ease-in-out;
+  transform: rotate(90deg);
+}
+
+

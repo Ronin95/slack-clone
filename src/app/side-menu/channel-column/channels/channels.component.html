@@ -6,10 +6,10 @@
     data-bs-toggle="dropdown"
     aria-expanded="false"
   >
-    <mat-icon class="arrow-right">arrow_right</mat-icon>
+    <mat-icon class="arrow-right" [class.turn]="openMenu">arrow_right</mat-icon>
     Channels
   </button>
-  <ul class="dropdown-menu">
+  <ul class="dropdown-menu" [class.d-none]="!openMenu">
     <li>
       <button class="dropdown-item" type="button" title="JavaScript">
         &#35; JavaScript
@@ -22,7 +22,7 @@
     </li>
     <li>
       <button class="dropdown-item" type="button" title="Allgemein">
-        &#35; Allgmein
+        &#35; Allgemein
       </button>
     </li>
   </ul>

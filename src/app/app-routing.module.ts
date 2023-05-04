@@ -14,9 +14,13 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'home/threads', component: ThreadsComponent },
   { path: 'home/users', component: UsersComponent },
+
   { path: 'home/sendMessage', component: SendMessageComponent },
+
+  { path: 'home/sendMessage', component: SendMessageComponent },
+
   { path: 'welcomeScreen', component: WelcomeScreenComponent },
-  { path: 'sideMenu', component: SideMenuComponent }
+  { path: 'sideMenu', component: SideMenuComponent },
 ];
 
 @NgModule({

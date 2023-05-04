@@ -1,0 +1,75 @@
+@import 'src/fixedCSS/fixedVar.scss';
+
+mat-toolbar-row {
+  width: 100vw;
+}
+
+
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 46px);
+}
+
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: $bgClr-primary;
+    color: $txt-clr-primary;
+
+    mat-toolbar-row {
+
+        input {
+            background-color: inherit;
+            outline: none;
+            border: none;
+            width: 100%;
+        }
+    }
+}
+
+.last-messages {
+    height: 100%;
+    padding: 16px;
+    background-color: $bgClr-newChat;
+
+
+    mat-card {
+        cursor: pointer;
+
+        &:hover {
+        }
+
+        mat-card-content {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+
+.selectedUser-container {
+    display: flex;
+
+    .selectedUser {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        mat-icon {
+            cursor: pointer;
+        }
+    }
+}
+
+// .new-chat-info {
+
+// }
+
+.img-container {
+  padding-left: 15px;
+  
+  img {
+    width: 40px;
+  }
+}

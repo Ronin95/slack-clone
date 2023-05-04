@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'home/threads', component: ThreadsComponent },
   { path: 'home/users', component: UsersComponent },
-
+  
   { path: 'home/sendMessage', component: SendMessageComponent },
 
   { path: 'home/sendMessage', component: SendMessageComponent },

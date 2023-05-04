@@ -1,1 +1,34 @@
-<p>send-message works!</p>
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Direct message</span>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <span>To: </span>
+    <div class="selectedUser-container">
+      <div class="selectedUser">
+        <div class="img-container sidenav-shrink">
+          <img class="profile-img" src="../../assets/img/slack-icon.svg" alt="profile-img" />
+        </div>
+        <span #user[i]> Name of user </span>
+        <mat-icon>close</mat-icon>
+      </div>
+    </div>
+    <input type="text" [matAutocomplete]="searchedUsers" #usersField placeholder="Type a name..." />
+    <mat-autocomplete #searchedUsers="matAutocomplete">
+      <div >
+        <div >
+          <mat-option >
+            <span>
+
+            </span>
+          </mat-option>
+        </div>
+      </div>
+    </mat-autocomplete>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="texteditor-container">
+  <div class="message-box">
+    <app-message-box></app-message-box>
+  </div>
+</div>

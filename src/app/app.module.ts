@@ -33,15 +33,15 @@ import { ChannelColumnComponent } from './side-menu/channel-column/channel-colum
 import { HomeComponent } from './home/home.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { UsersComponent } from './users/users.component';
-
 import { SendMessageComponent } from './send-message/send-message.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { ChannelsComponent } from './side-menu/channel-column/channels/channels.component';
 import { DirectMessagesComponent } from './side-menu/channel-column/direct-messages/direct-messages.component';
+import { DialogDeleteMessageComponent } from './dialog-delete-message/dialog-delete-message.component';
+import { MessageBoxComponent } from './message-box/message-box.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +58,9 @@ import { DirectMessagesComponent } from './side-menu/channel-column/direct-messa
     UsersComponent,
     SendMessageComponent,
     ChannelsComponent,
-    DirectMessagesComponent
+    DirectMessagesComponent,
+    DialogDeleteMessageComponent,
+    MessageBoxComponent
   ],
   imports: [
     BrowserModule,

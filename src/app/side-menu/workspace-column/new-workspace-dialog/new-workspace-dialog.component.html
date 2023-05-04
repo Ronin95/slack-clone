@@ -1,16 +1,17 @@
-<h1>Create new Workspace</h1>
-<form class="example-form">
-    <mat-form-field>
+<div>
+  <h1>Create new Workspace</h1>
+    <form class="example-form">
+      <mat-form-field>
         <mat-label>Workspace name</mat-label>
-        <input [(ngModel)]="workspace.workspaceName" matInput placeholder="Banking Talk...">
-    </mat-form-field>
+        <input [(ngModel)]="workspace.workspaceName" name="workspace" matInput placeholder="Banking Talk...">
+      </mat-form-field>
 
-    <mat-form-field>
+      <mat-form-field>
         <mat-label>Short description of the Workspace (optional)</mat-label>
-        <textarea [(ngModel)]="workspace.workspaceDescription" matInput placeholder="We control the money..."></textarea>
-    </mat-form-field>
-</form>
-<div mat-dialog-actions>
+        <textarea [(ngModel)]="workspace.workspaceDescription" name="workspace" matInput placeholder="We control the money..."></textarea>
+      </mat-form-field>
+    </form>
+  <div mat-dialog-actions>
     <button
       mat-button
       mat-dialog-close>Cancel
@@ -22,4 +23,5 @@
       mat-dialog-close
       (click)="createNewWorkspace()">Create
     </button>
+  </div>
 </div>

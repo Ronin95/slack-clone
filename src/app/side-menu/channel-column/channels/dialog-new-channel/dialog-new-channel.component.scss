@@ -1,25 +1,8 @@
 .dialog-add-new-channel {
-    background-color: #4e154e;
-    
-    h1, button {
-        color: #ffff;
-    }
-}
+  background-color: #4e154e;
 
-input {
-    background-color: #4e154e;
+  h1,
+  button {
     color: #ffff;
-    height: 50px;
-    border: none;
-    border-bottom: 1px solid #ffff;
-    width: 100%;
-    padding-left: 10px;
-
-    &::placeholder {
-        color: #ffff;
-    }
-
-    &:focus {
-        outline: none;
-    }
+  }
 }

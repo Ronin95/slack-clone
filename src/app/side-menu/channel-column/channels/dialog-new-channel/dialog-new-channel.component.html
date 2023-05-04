@@ -1,0 +1,12 @@
+<div class="dialog-add-new-channel">
+  <h1 class="color-white" mat-dialog-title>Create new channel</h1>
+  <div class="input-new-channel" mat-dialog-content>
+    <mat-form-field color="primary">
+      <input matInput placeholder="Channel name" />
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button cdkFocusInitial>Ok</button>
+  </div>
+</div>

@@ -20,6 +20,6 @@ export class ChannelsComponent implements OnInit {
   }
 
   openDialogNewChannel() {
-    this.dialog.open(DialogNewChannelComponent)
+    this.dialog.open(DialogNewChannelComponent);
   }
 }

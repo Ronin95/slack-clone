@@ -6,6 +6,20 @@
     }
 }
 
-.input-new-channel {
-    background-color: #4e154e !important;
+input {
+    background-color: #4e154e;
+    color: #ffff;
+    height: 50px;
+    border: none;
+    border-bottom: 1px solid #ffff;
+    width: 100%;
+    padding-left: 10px;
+
+    &::placeholder {
+        color: #ffff;
+    }
+
+    &:focus {
+        outline: none;
+    }
 }

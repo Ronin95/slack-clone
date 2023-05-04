@@ -9,16 +9,17 @@ import { NewWorkspaceDialogComponent } from './new-workspace-dialog/new-workspac
   styleUrls: ['./workspace-column.component.scss']
 })
 export class WorkspaceColumnComponent implements OnInit {
-  ngOnInit(): void {
-
-  }
-
   constructor(public dialog: MatDialog) {}
+  ngOnInit() {}
 
   openNewWorkspaceDialog(): void {
     this.dialog.open(NewWorkspaceDialogComponent, {
       width: '400px',
     });
   }
+
+
 }
-  
+
+
+

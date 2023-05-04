@@ -39,8 +39,16 @@ button {
   }
 
   .add-workspace-btn {
+    color: white;
     margin-top: 12px;
+    background-color: $bgClr-start;
     height: 40px;
     width: 40px;
+    border: none;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: $bgClr-hover;
+    }
   }
 }

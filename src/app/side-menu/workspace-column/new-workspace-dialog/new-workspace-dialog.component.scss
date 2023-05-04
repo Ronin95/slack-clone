@@ -1,0 +1,16 @@
+h1 {
+  text-align: center;
+  padding: 10px;
+}
+
+mat-form-field {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  textarea {
+    height: 100px;
+  }
+}

@@ -39,13 +39,13 @@ button {
   }
 
   .add-workspace-btn {
+    border: none;
     color: white;
-    margin-top: 12px;
+    border-radius: 50%;
     background-color: $bgClr-start;
+    margin-top: 12px;
     height: 40px;
     width: 40px;
-    border: none;
-    border-radius: 50%;
 
     &:hover {
       background-color: $bgClr-hover;

@@ -2,15 +2,24 @@
 <form class="example-form">
     <mat-form-field>
         <mat-label>Workspace name</mat-label>
-        <input matInput placeholder="Banking Talk...">
+        <input [(ngModel)]="workspace.workspaceName" matInput placeholder="Banking Talk...">
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>Short description of the Workspace</mat-label>
-        <textarea matInput placeholder="We control the money..."></textarea>
+        <mat-label>Short description of the Workspace (optional)</mat-label>
+        <textarea [(ngModel)]="workspace.workspaceDescription" matInput placeholder="We control the money..."></textarea>
     </mat-form-field>
 </form>
 <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button mat-dialog-close>Create</button>
+    <button
+      mat-button
+      mat-dialog-close>Cancel
+    </button>
+    <button
+      disable="loading"
+      [disabled]="!workspace.workspaceName"
+      mat-button
+      mat-dialog-close
+      (click)="createNewWorkspace()">Create
+    </button>
 </div>

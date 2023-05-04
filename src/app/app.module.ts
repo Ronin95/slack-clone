@@ -41,6 +41,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChannelsComponent } from './side-menu/channel-column/channels/channels.component';
 import { DirectMessagesComponent } from './side-menu/channel-column/direct-messages/direct-messages.component';
 import { DialogNewChannelComponent } from './side-menu/channel-column/channels/dialog-new-channel/dialog-new-channel.component';
+import { NewWorkspaceDialogComponent } from './side-menu/workspace-column/new-workspace-dialog/new-workspace-dialog.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { DialogNewChannelComponent } from './side-menu/channel-column/channels/d
     SendMessageComponent,
     ChannelsComponent,
     DirectMessagesComponent,
-    DialogNewChannelComponent
+    DialogNewChannelComponent,
+    NewWorkspaceDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,88 +1,167 @@
-@import 'src/fixedCSS/fixedVar.scss';
+@import "src/fixedCSS/fixedVar.scss";
 
 * {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .start-screen-section {
-    background-color: $bgClr-start;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 100vh;
+  background-color: $bgClr-start;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100vh;
 }
 
 .introduction-container {
-    min-width: 250px;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 30px;
+  min-width: 250px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 30px;
 
-    h2 {
-        color: white;
-        font-size: 45px;
-        line-height: 45px;
-    }
+  h2 {
+    color: white;
+    font-size: 45px;
+    line-height: 45px;
+  }
 }
 
 .register-msg-box {
-    display: flex;
+  display: flex;
+  color: white;
+  font-size: 16px;
+  gap: 30px;
+
+  h3 {
+    padding: 15px;
     color: white;
-    font-size: 16px;
-    gap: 30px;
+    cursor: pointer;
 
-
-    h3 {
-        padding: 15px;
-        color: white;
-        cursor: pointer;
-
-        :nth-child(1) {
-            padding: 5px;
-            border-style: solid;
-            border-radius: 10px;
-        }
+    :nth-child(1) {
+      padding: 5px;
+      border-style: solid;
+      border-radius: 10px;
     }
+  }
 }
 
 .logo-img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 
-    h1 {
-        padding: 15px;
-        font-size: 50px;
-        color: white;
-        margin: unset;
-    }
+  h1 {
+    padding: 15px;
+    font-size: 50px;
+    color: white;
+    margin: unset;
+  }
 
-    img {
-        width: 60px;
-    }
+  img {
+    width: 60px;
+  }
 }
 
 .text-btn {
-    width: 400px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  width: 400px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .btn-box {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 
-    button {
-        background-color: $sign-in-btn-clr;
-        width: 300px;
-        color: white;
-        font-weight: 400;
-        font-size: 20px;
+  button {
+    background-color: $sign-in-btn-clr;
+    width: 300px;
+    color: white;
+    font-weight: 400;
+    font-size: 20px;
+  }
+}
+
+.welcome-screen-img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 1120px) {
+  .text-btn {
+    width: auto;
+  }
+}
+
+@media (max-width: 800px) {
+  .start-screen-section {
+    justify-content: center;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .introduction-container {
+    h2 {
+      font-size: 35px;
     }
+  }
+}
+
+@media (max-width: 450px) {
+  h3 {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 375px) {
+  h3 {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 320px) {
+  .logo-img {
+    gap: 12px;
+  }
+
+  .introduction-container {
+    h2 {
+      font-size: 20px;
+    }
+  }
+
+  h3 {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 280px) {
+  .logo-img {
+    h1 {
+      font-size: 45px;
+    }
+
+    img {
+      width: 45px;
+    }
+  }
+
+  h3 {
+    font-size: 8px;
+  }
+
+  .btn-box {
+    button {
+      width: 220px;
+      font-size: 16px;
+    }
+  }
 }

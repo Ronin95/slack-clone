@@ -3,7 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { User } from 'src/models/user.class';
-import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
+/* import { Firestore } from '@angular/fire/firestore';
+import { AuthService } from '../services/auth.service'; */
+
 // import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -12,7 +14,7 @@ import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
 	styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-	firestore: Firestore = inject(Firestore);
+	/* 	firestore: Firestore = inject(Firestore); */
 	user: User = new User();
 
 	ngOnInit(): void {}
@@ -24,7 +26,8 @@ export class RegisterComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		public dialogRef: MatDialogRef<RegisterComponent>,
 		public dialog: MatDialog
-	) {
+	) /* public authService: AuthService */
+	{
 		this.registerForm = this.formBuilder.group({
 			displayName: ['', [Validators.required], []],
 			email: ['', [Validators.required, Validators.email], []],

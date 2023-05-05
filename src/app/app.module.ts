@@ -68,7 +68,7 @@ import { FurtherServicesComponent } from './side-menu/channel-column/further-ser
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		AngularFireModule.initializeApp(environment.firebase),
+		AngularFireModule.initializeApp(environment.firebaseConfig),
 		// provideFirebaseApp(() => initializeApp(environment.firebase)),
 		// provideAuth(() => getAuth()),
 		// provideDatabase(() => getDatabase()),
@@ -94,9 +94,6 @@ import { FurtherServicesComponent } from './side-menu/channel-column/further-ser
 		// provideFirebaseApp(() => initializeApp(environment.firebase)),
 		// provideMessaging(() => getMessaging()),
 		// provideStorage(() => getStorage()),
-		AngularFireAuthModule,
-		AngularFireModule.initializeApp(environment.firebase),
-		AngularFireAuthModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

@@ -1,11 +1,22 @@
+.dropdown {
+  padding: 15px;
+}
+
 .dropdown-channels {
+  cursor: pointer;
   display: flex;
   align-items: safe center;
-  
+  color: white;
+
+  h1 {
+    padding-top: 15px;
+    padding-left: 10px;
+  }
 }
 
 .arrow-right {
   transition: all 3ms ease-in-out;
+  transform: scale(1.3);
 
   &:hover {
     background-color: rgba(0,0,0,0.2);
@@ -13,24 +24,21 @@
   }
 }
 
-.dropdown {
-  padding: 0 12px;
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+}
 
+.tag-channel-name-pos {
+  cursor: pointer;
+  padding-left: 20px;
+  color: white;
+  display: flex;
+  align-items: center;
 
-  .dropdown-menu {
-    padding-left: 8px;
-    display: block;
-
-    li {
-      list-style-type: none !important;
-      padding-top: 12px;
-      font-family: "Roboto";
-
-      span {
-        color: #ffff;
-        cursor: pointer;
-      }
-    }
+  h2 {
+    padding-left: 10px;
+    padding-top: 15px;
   }
 }
 
@@ -39,9 +47,3 @@
   transform: rotate(90deg);
 }
 
-// .add-channel-btn {
-//   height: 25px;
-//   width: 25px !important;
-//   color: #ffff;
-//   cursor: pointer;
-// }

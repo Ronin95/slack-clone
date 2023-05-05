@@ -123,7 +123,14 @@
 
 @media (max-width: 375px) {
   h3 {
-    font-size: 12px;
+    font-size: 10px;
+  }
+
+  .btn-box {
+    button {
+      width: 220px;
+      font-size: 16px;
+    }
   }
 }
 
@@ -139,7 +146,7 @@
   }
 
   h3 {
-    font-size: 10px;
+    font-size: 8.5px;
   }
 }
 
@@ -156,12 +163,5 @@
 
   h3 {
     font-size: 8px;
-  }
-
-  .btn-box {
-    button {
-      width: 220px;
-      font-size: 16px;
-    }
   }
 }

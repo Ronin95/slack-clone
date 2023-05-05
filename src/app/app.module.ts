@@ -32,7 +32,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HeaderComponent } from './header/header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
-import { WorkspaceColumnComponent } from './side-menu/workspace-column/workspace-column.component';
 import { ChannelColumnComponent } from './side-menu/channel-column/channel-column.component';
 import { HomeComponent } from './home/home.component';
 import { ThreadsComponent } from './threads/threads.component';
@@ -45,7 +44,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChannelsComponent } from './side-menu/channel-column/channels/channels.component';
 import { DirectMessagesComponent } from './side-menu/channel-column/direct-messages/direct-messages.component';
 import { DialogNewChannelComponent } from './side-menu/channel-column/channels/dialog-new-channel/dialog-new-channel.component';
-import { NewWorkspaceDialogComponent } from './side-menu/workspace-column/new-workspace-dialog/new-workspace-dialog.component';
 import { FurtherServicesComponent } from './side-menu/channel-column/further-services/further-services.component';
 
 
@@ -57,7 +55,6 @@ import { FurtherServicesComponent } from './side-menu/channel-column/further-ser
     RegisterComponent,
     HeaderComponent,
     SideMenuComponent,
-    WorkspaceColumnComponent,
     ChannelColumnComponent,
     HomeComponent,
     ThreadsComponent,
@@ -66,7 +63,6 @@ import { FurtherServicesComponent } from './side-menu/channel-column/further-ser
     ChannelsComponent,
     DirectMessagesComponent,
     DialogNewChannelComponent,
-    NewWorkspaceDialogComponent,
     FurtherServicesComponent,
 
   ],

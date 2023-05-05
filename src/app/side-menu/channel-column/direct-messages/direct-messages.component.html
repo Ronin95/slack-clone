@@ -1,41 +1,32 @@
-<div class="dropdown">
-    <button (click)="toggleDirectMessages()" class="btn btn-secondary dropdown-toggle" type="button"
-        data-bs-toggle="dropdown" aria-expanded="false">
-        <mat-icon class="arrow-right" [class.turn]="openMenu">arrow_right</mat-icon>
-        Direct Messages
-    </button>
-    <ul class="dropdown-menu" [class.d-none]="!openMenu">
-      <li>
-        <button class="dropdown-item" type="button" title="JavaScript" routerLink="/home/sendMessage">
-          <div class="user-img-span">
-            <img src="../../../../assets/img/profilePictures/christian.png" alt="user-img">
-            <span>Christian Greenfield</span>
-          </div>
-        </button>
-      </li>
-      <li>
-        <button class="dropdown-item" type="button" title="JavaScript" routerLink="/home/sendMessage">
-          <div class="user-img-span">
-            <img src="../../../../assets/img/profilePictures/nikola.png" alt="user-img">
-            <span>Nikola Badjevic</span>
-          </div>
-        </button>
-      </li>
-      <li>
-        <button class="dropdown-item" type="button" title="JavaScript" routerLink="/home/sendMessage">
-          <div class="user-img-span">
-            <img src="../../../../assets/img/profilePictures/shawn.png" alt="user-img">
-            <span>Shawn Kastner</span>
-          </div>
-        </button>
-      </li>
-        <li>
-            <div class="align-center" routerLink="home/sendMessage">
-                <button class="new-chat-btn dropdown-item" type="button">
-                    <mat-icon>add</mat-icon>
-                </button>
-                <span>New chat</span>
-            </div>
-        </li>
-    </ul>
+<div class="dropdown ">
+  <div class="dropdown-channels " (click)="toggleDirectMessages()">
+    <mat-icon class="arrow-right" [class.turn]="openMenu">arrow_right</mat-icon>
+    <h1>Direct Messages</h1>
+  </div>
+  <div [class.d-none]="!openMenu">
+    <div class="user-img-span ">
+      <img src="../../../../assets/img/profilePictures/christian.png" alt="user-img">
+      <span>Christian Greenfield</span>
+    </div>
+    <div class="user-img-span ">
+      <img src="../../../../assets/img/profilePictures/nikola.png" alt="user-img">
+      <span>Nikola Badjevic</span>
+    </div>
+    <div class="user-img-span ">
+      <img src="../../../../assets/img/profilePictures/shawn.png" alt="user-img">
+      <span>Shawn Kastner</span>
+    </div>
+    <div class="tag-channel-name-pos">
+      <mat-icon class="mat-icon-style">add</mat-icon>
+      <h2>New Chat</h2>
+    </div>
+  </div>
 </div>
+
+
+<!-- <div class="user-img-span">
+  <img src="../../../../assets/img/profilePictures/shawn.png" alt="user-img">
+  <span>Shawn Kastner</span>
+</div> -->
+<!-- routerLink="home/sendMessage" -->
+<!-- (click)="toggleDirectMessages()" -->

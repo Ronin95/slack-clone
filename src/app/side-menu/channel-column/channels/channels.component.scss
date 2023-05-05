@@ -9,8 +9,16 @@
   color: white;
 
   h1 {
-    padding-top: 15px;
-    padding-left: 10px;
+    position: relative;
+    top: 8px;
+    margin-left: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    &:hover {
+      background-color: rgba(222, 220, 220, 0.2);
+      border-radius: 5px;
+    }
   }
 }
 
@@ -19,7 +27,7 @@
   transform: scale(1.3);
 
   &:hover {
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(222, 220, 220, 0.2);
     border-radius: 50%;
   }
 }
@@ -36,9 +44,24 @@
   display: flex;
   align-items: center;
 
+  .mat-icon-style {
+    &:hover {
+      background-color: rgba(222, 220, 220, 0.2);
+      border-radius: 50%;
+    }
+  }
+
   h2 {
-    padding-left: 10px;
-    padding-top: 15px;
+    position: relative;
+    top: 8px;
+    margin-left: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    &:hover {
+      background-color: rgba(222, 220, 220, 0.2);
+      border-radius: 5px;
+    }
   }
 }
 

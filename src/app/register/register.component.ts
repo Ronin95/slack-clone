@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { User } from 'src/models/user.class';
-import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, setDoc, getDocs } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore/public_api';
 
 // import { AuthService } from '../services/auth.service';
@@ -19,7 +19,10 @@ export class RegisterComponent implements OnInit {
 	user: User = new User();
 	allUsers: any[] = [];
 
-	ngOnInit(): void {}
+	async ngOnInit() {
+		await this.getUsers();
+		console.table(this.allUsers);
+	}
 
 	public registerForm: FormGroup;
 
@@ -27,9 +30,8 @@ export class RegisterComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder,
 		public dialogRef: MatDialogRef<RegisterComponent>,
-		public dialog: MatDialog /* public authService: AuthService */
-	) /* private firestore: AngularFirestore */
-	{
+		public dialog: MatDialog /* public authService: AuthService */ /* private firestore: AngularFirestore */
+	) {
 		this.registerForm = this.formBuilder.group({
 			displayName: ['', [Validators.required], []],
 			email: ['', [Validators.required, Validators.email], []],
@@ -42,6 +44,9 @@ export class RegisterComponent implements OnInit {
 		this.dialog.open(LoginComponent);
 	}
 
+	/**
+	 * Registers a new user
+	 */
 	registerUser() {
 		this.user.toJSON();
 		console.log(this.user);
@@ -50,14 +55,16 @@ export class RegisterComponent implements OnInit {
 		setDoc(aDoc, this.user.toJSON()); //? setDoc() sets the data to the document
 	}
 
-	/* getAllUsers() {
-		this.firestore
-			.collection('users')
-			.valueChanges({ idField: 'customIdName' }) //? valueChanges() returns an Observable that emits an array of documents every time a document in the collection changes
-			.subscribe((changes: any) => {
-				//? subscribe() is used to listen to the changes in the database
-				console.log(changes); //? json of users collection
-				this.allUsers = changes;
-			});
-	} */
+	/**
+	 * Gets all users from the database
+	 */
+	async getUsers() {
+		const querySnapshot = await getDocs(collection(this.firestore, 'users'));
+		querySnapshot.forEach((doc) => {
+			this.allUsers.push(doc.data());
+		});
+	}
+
+	//hier weiter
+	doubleEntry() {}
 }

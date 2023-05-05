@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-export const firebaseConfig = {
+export const environment = {
   firebase: {
     projectId: 'slack-clone-da',
     appId: '1:135875603663:web:9e5addc58e4248cbd21bba',
@@ -13,13 +13,13 @@ export const firebaseConfig = {
     authDomain: 'slack-clone-da.firebaseapp.com',
     messagingSenderId: '135875603663',
   },
-  production: false,
-  firebaseConfig: {
-    apiKey: "AIzaSyCRgSI4GSvVWDTFsob_Q0juWjE5aTpbn1k",
-    authDomain: "slack-clone-da.firebaseapp.com",
-    projectId: "slack-clone-da",
-    storageBucket: "slack-clone-da.appspot.com",
-    messagingSenderId: "135875603663",
-    appId: "1:135875603663:web:9e5addc58e4248cbd21bba"
-  }
+  production: false
+  // firebaseConfig: {
+  //   apiKey: "AIzaSyCRgSI4GSvVWDTFsob_Q0juWjE5aTpbn1k",
+  //   authDomain: "slack-clone-da.firebaseapp.com",
+  //   projectId: "slack-clone-da",
+  //   storageBucket: "slack-clone-da.appspot.com",
+  //   messagingSenderId: "135875603663",
+  //   appId: "1:135875603663:web:9e5addc58e4248cbd21bba"
+  // }
 };

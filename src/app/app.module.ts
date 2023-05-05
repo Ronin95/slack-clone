@@ -1,6 +1,9 @@
 // Angular Firebase
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment.prod';
+// import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+// import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+// import { provideStorage,getStorage } from '@angular/fire/storage';
 
 // Material Design
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -93,6 +96,9 @@ import { FurtherServicesComponent } from './side-menu/channel-column/further-ser
     MatSelectModule,
     MatAutocompleteModule,
     MatExpansionModule,
+    // provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideMessaging(() => getMessaging()),
+    // provideStorage(() => getStorage()),
   ],
   providers: [],
   bootstrap: [AppComponent],

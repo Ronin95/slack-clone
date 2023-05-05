@@ -1,11 +1,6 @@
-<app-header [class.d-none]="router.url == '/welcomescreen'"></app-header>
+<app-header [class.d-none]="router.url == '/'"></app-header>
 
-<div
-  [class.main-container]="router.url !== '/welcomescreen'"
-  class="main-container"
->
-  <app-side-menu
-    [class.d-none]="router.url == '/welcomescreen'"
-  ></app-side-menu>
-  <router-outlet></router-outlet>
+<div [class.main-container]="router.url !== '/'" class="main-container">
+	<app-side-menu [class.d-none]="router.url == '/'"></app-side-menu>
+	<router-outlet></router-outlet>
 </div>

@@ -17,7 +17,7 @@ export const environment = {
 	//   appId: "1:135875603663:web:9e5addc58e4248cbd21bba"
 	// }
 
-	firebaseConfig: {
+	firebase: {
 		apiKey: 'AIzaSyDI2YOSnhk2ZCsEH9DEmjKoGzMqS249k8U',
 		authDomain: 'slack-clone-2566e.firebaseapp.com',
 		projectId: 'slack-clone-2566e',

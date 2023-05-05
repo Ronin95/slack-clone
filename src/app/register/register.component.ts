@@ -3,8 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { User } from 'src/models/user.class';
-/* import { Firestore } from '@angular/fire/firestore';
-import { AuthService } from '../services/auth.service'; */
+import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
 
 // import { AuthService } from '../services/auth.service';
 
@@ -14,7 +13,7 @@ import { AuthService } from '../services/auth.service'; */
 	styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-	/* 	firestore: Firestore = inject(Firestore); */
+	firestore: Firestore = inject(Firestore);
 	user: User = new User();
 
 	ngOnInit(): void {}
@@ -25,9 +24,8 @@ export class RegisterComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder,
 		public dialogRef: MatDialogRef<RegisterComponent>,
-		public dialog: MatDialog
-	) /* public authService: AuthService */
-	{
+		public dialog: MatDialog /* public authService: AuthService */
+	) {
 		this.registerForm = this.formBuilder.group({
 			displayName: ['', [Validators.required], []],
 			email: ['', [Validators.required, Validators.email], []],
@@ -43,5 +41,8 @@ export class RegisterComponent implements OnInit {
 	registerUser() {
 		this.user.toJSON();
 		console.log(this.user);
+		const aCollection = collection(this.firestore, 'users'); //? collection() creates a reference to the collection 'users' in the database 'firestore
+		const aDoc = doc(aCollection); //? Creates a reference to a document in a collection
+		setDoc(aDoc, this.user.toJSON()); //? setDoc() sets the data to the document
 	}
 }

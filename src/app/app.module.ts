@@ -7,6 +7,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 
 // Material Design
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -48,6 +49,7 @@ import { ChannelsComponent } from './side-menu/channel-column/channels/channels.
 import { DirectMessagesComponent } from './side-menu/channel-column/direct-messages/direct-messages.component';
 import { DialogNewChannelComponent } from './side-menu/channel-column/channels/dialog-new-channel/dialog-new-channel.component';
 import { FurtherServicesComponent } from './side-menu/channel-column/further-services/further-services.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
 	declarations: [
@@ -96,11 +98,12 @@ import { FurtherServicesComponent } from './side-menu/channel-column/further-ser
 		provideFirebaseApp(() => initializeApp(environment.firebase)),
 		AngularFireModule.initializeApp(environment.firebase),
 		provideFirestore(() => getFirestore()),
+		provideAuth(() => getAuth()),
 		AngularFireDatabaseModule,
 		AngularFirestoreModule,
 		AngularFireStorageModule,
 	],
-	providers: [],
+	providers: [AuthService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

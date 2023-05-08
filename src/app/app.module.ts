@@ -49,11 +49,11 @@ import { ChannelsComponent } from './side-menu/channel-column/channels/channels.
 import { DialogNewChannelComponent } from './side-menu/channel-column/channels/dialog-new-channel/dialog-new-channel.component';
 import { DirectMessagesComponent } from './side-menu/channel-column/direct-messages/direct-messages.component';
 import { FurtherServicesComponent } from './side-menu/channel-column/further-services/further-services.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { UsersComponent } from './users/users.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
 	declarations: [
@@ -74,6 +74,8 @@ import { HttpClientModule } from '@angular/common/http';
 		FurtherServicesComponent,
 		DialogUserInfoComponent,
 		ForgotPasswordComponent,
+		ForgotPasswordComponent,
+		VerifyEmailComponent,
 	],
 	imports: [
 		CommonModule,
@@ -109,7 +111,6 @@ import { HttpClientModule } from '@angular/common/http';
 		AngularFireDatabaseModule,
 		AngularFirestoreModule,
 		AngularFireStorageModule,
-		HttpClientModule,
 	],
 	providers: [AuthService],
 	bootstrap: [AppComponent],

@@ -41,6 +41,7 @@
 
       <div mat-dialog-actions>
         <button
+          (click)="authService.SignIn(email.value, userPassword.value)"
           mat-raised-button
           mat-dialog-close
           [disabled]="

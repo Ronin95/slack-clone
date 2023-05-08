@@ -2,8 +2,8 @@
   <div class="display-flex" mat-dialog-content>
     <div class="align-center">
       <img class="ml-12" src="./assets/img/blank-profile-img.png" />
-      <div class="flex-column">
-        <span class="font-500">User</span>
+      <div *ngIf="authService.userData as user" class="flex-column">
+        <span class="font-500">{{(user.displayName) ? user.displayName : 'User'}}</span>
         <div class="align-center">
           <div class="online-dot"></div>
           <span>Active</span>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-dialog-user-info',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class DialogUserInfoComponent {
 
+  constructor(public authService: AuthService) {}
 }

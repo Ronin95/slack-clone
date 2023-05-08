@@ -5,8 +5,11 @@
 /tmp
 /out-tsc
 /bazel-out
-/environments.prod.ts
-/environments.ts
+
+.environments/*
+!.environments/environments.prod.ts
+!.environments/environments.ts
+.history/*
 
 # Node
 /node_modules

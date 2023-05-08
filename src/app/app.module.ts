@@ -52,6 +52,7 @@ import { DialogNewChannelComponent } from './side-menu/channel-column/channels/d
 import { FurtherServicesComponent } from './side-menu/channel-column/further-services/further-services.component';
 import { AuthService } from './services/auth.service';
 import { DialogUserInfoComponent } from './header/dialog-user-info/dialog-user-info.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
 	declarations: [
@@ -70,7 +71,8 @@ import { DialogUserInfoComponent } from './header/dialog-user-info/dialog-user-i
 		DirectMessagesComponent,
 		DialogNewChannelComponent,
 		FurtherServicesComponent,
-		DialogUserInfoComponent
+		DialogUserInfoComponent,
+  ForgotPasswordComponent
 	],
 	imports: [
 		CommonModule,

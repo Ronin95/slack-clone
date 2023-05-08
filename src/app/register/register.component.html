@@ -62,7 +62,7 @@
 
 				<div mat-dialog-actions>
 					<button
-					(click)="authService.SignUp(userEmail.value, userPwd.value, userName.value)"
+					(click)="authService.SignUp(userEmail.value, userPwd.value, userName.value); closeDialog()"
 						mat-raised-button
 						[disabled]="
 							!(

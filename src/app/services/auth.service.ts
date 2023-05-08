@@ -85,13 +85,13 @@ export class AuthService {
 
   // Send email verfificaiton when new user sign up
   SendVerificationMail() {
-    return this.afAuth.currentUser.then((u: any) => u.sendEmailVerification());
-    // .then(() => {
-    //   this.router.navigate(['verify-email-address']);
-    // });
+    return this.afAuth.currentUser.then((u: any) => u.sendEmailVerification())
+  //    .then(() => {
+  //     this.router.navigate(['']);
+  //  });
   }
 
-  // Reset Forggot password
+  // Reset password
   ForgotPassword(passwordResetEmail: string) {
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
@@ -149,3 +149,7 @@ export class AuthService {
     });
   }
 }
+function then(arg0: () => void) {
+  throw new Error('Function not implemented.');
+}
+

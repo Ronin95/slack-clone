@@ -20,8 +20,8 @@ export class RegisterComponent implements OnInit {
 	allUsers: any[] = [];
 
 	async ngOnInit() {
-		await this.getUsers();
-		console.table(this.allUsers);
+		// await this.getUsers();
+		// console.table(this.allUsers);
 	}
 
 	public registerForm: FormGroup;

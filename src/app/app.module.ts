@@ -1,5 +1,8 @@
 import { environment } from 'src/environments/environment.prod';
 
+// Services
+import { OpenAiService } from './services/open-ai.service';
+
 /* FireBase */
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -36,7 +39,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+
 import { DialogUserInfoComponent } from './header/dialog-user-info/dialog-user-info.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -54,7 +57,8 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { UsersComponent } from './users/users.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
-import { HttpClientModule } from '@angular/common/http';
+import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
 	declarations: [
@@ -73,8 +77,13 @@ import { HttpClientModule } from '@angular/common/http';
 		DirectMessagesComponent,
 		DialogNewChannelComponent,
 		FurtherServicesComponent,
+		ChatgptComponent,
 		DialogUserInfoComponent,
+
 		ForgotPasswordComponent,
+		ForgotPasswordComponent,
+		VerifyEmailComponent,
+
 		ForgotPasswordComponent,
 		VerifyEmailComponent,
 	],
@@ -113,7 +122,7 @@ import { HttpClientModule } from '@angular/common/http';
 		AngularFirestoreModule,
 		AngularFireStorageModule,
 	],
-	providers: [AuthService],
+	providers: [AuthService, OpenAiService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

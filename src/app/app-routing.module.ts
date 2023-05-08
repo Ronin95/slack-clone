@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { UsersComponent } from './users/users.component';
 import { SendMessageComponent } from './send-message/send-message.component';
+import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
 	{ path: 'home', component: HomeComponent },
 	{ path: 'home/threads', component: ThreadsComponent },
 	{ path: 'home/users', component: UsersComponent },
+  { path: 'home/chatgpt', component: ChatgptComponent},
 	{ path: 'home/sendMessage', component: SendMessageComponent },
 	{ path: '', component: WelcomeScreenComponent },
 	{ path: 'sideMenu', component: SideMenuComponent },

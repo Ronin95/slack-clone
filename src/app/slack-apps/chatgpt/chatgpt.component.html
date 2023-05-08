@@ -1,0 +1,13 @@
+<div class="chat-gpt-style">
+  <div>
+    <h1>Hello I am your personal SlackCloneAI assistant.</h1>
+    <h3>If you need any help, with anything, I will give my best to help you out.</h3>
+  </div>
+  <div >
+    <div class="input-style">
+      <input type="text" [(ngModel)]="inputText" placeholder="Place your concerns..." />
+      <mat-icon (click)="callOpenAiApi(inputText)">send</mat-icon>
+    </div>
+    <p class="bstyle response-style" *ngIf="openAiResponse">AI: {{ openAiResponse }}</p>
+  </div>
+</div>

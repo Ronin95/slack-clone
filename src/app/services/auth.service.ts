@@ -81,14 +81,11 @@ export class AuthService {
         window.alert(error.message);
       });
   }
-  
 
   // Send email verfificaiton when new user sign up
   SendVerificationMail() {
-    return this.afAuth.currentUser.then((u: any) => u.sendEmailVerification())
-  //    .then(() => {
-  //     this.router.navigate(['']);
-  //  });
+    return this.afAuth.currentUser
+      .then((u: any) => u.sendEmailVerification())
   }
 
   // Reset password
@@ -152,4 +149,3 @@ export class AuthService {
 function then(arg0: () => void) {
   throw new Error('Function not implemented.');
 }
-

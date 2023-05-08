@@ -29,6 +29,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 // Components
 import { LoginComponent } from './login/login.component';
@@ -99,6 +100,7 @@ import { FurtherServicesComponent } from './side-menu/channel-column/further-ser
 		AngularFireDatabaseModule,
 		AngularFirestoreModule,
 		AngularFireStorageModule,
+		HttpClientModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

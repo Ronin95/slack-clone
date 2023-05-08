@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
 import { User } from 'src/models/user.class';
 import { Firestore, collection, doc, setDoc, getDocs } from '@angular/fire/firestore';
-import { AngularFirestore } from '@angular/fire/compat/firestore/public_api';
+import { AuthService } from '../services/auth.service';
 
 // import { AuthService } from '../services/auth.service';
 
@@ -20,8 +20,8 @@ export class RegisterComponent implements OnInit {
 	allUsers: any[] = [];
 
 	async ngOnInit() {
-		await this.getUsers();
-		console.table(this.allUsers);
+		// await this.getUsers();
+		// console.table(this.allUsers);
 	}
 
 	public registerForm: FormGroup;
@@ -30,7 +30,8 @@ export class RegisterComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder,
 		public dialogRef: MatDialogRef<RegisterComponent>,
-		public dialog: MatDialog /* public authService: AuthService */ /* private firestore: AngularFirestore */
+		public dialog: MatDialog, /* public authService: AuthService */ /* private firestore: AngularFirestore */
+		public authService: AuthService
 	) {
 		this.registerForm = this.formBuilder.group({
 			displayName: ['', [Validators.required], []],
@@ -47,13 +48,13 @@ export class RegisterComponent implements OnInit {
 	/**
 	 * Registers a new user
 	 */
-	registerUser() {
-		this.user.toJSON();
-		console.log(this.user);
-		const aCollection = collection(this.firestore, 'users'); //? collection() creates a reference to the collection 'users' in the database 'firestore
-		const aDoc = doc(aCollection); //? Creates a reference to a document in a collection
-		setDoc(aDoc, this.user.toJSON()); //? setDoc() sets the data to the document
-	}
+	// registerUser() {
+	// this.user.toJSON();
+	// console.log(this.user);
+	// const aCollection = collection(this.firestore, 'users'); //? collection() creates a reference to the collection 'users' in the database 'firestore
+	// const aDoc = doc(aCollection); //? Creates a reference to a document in a collection
+	// setDoc(aDoc, this.user.toJSON()); //? setDoc() sets the data to the document
+	// }
 
 	/**
 	 * Gets all users from the database

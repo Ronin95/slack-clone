@@ -1,5 +1,8 @@
 import { environment } from 'src/environments/environment.prod';
 
+// Services
+import { OpenAiService } from './services/open-ai.service';
+
 /* FireBase */
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
@@ -50,6 +53,7 @@ import { DirectMessagesComponent } from './side-menu/channel-column/direct-messa
 import { DialogNewChannelComponent } from './side-menu/channel-column/channels/dialog-new-channel/dialog-new-channel.component';
 import { FurtherServicesComponent } from './side-menu/channel-column/further-services/further-services.component';
 import { AuthService } from './services/auth.service';
+import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
 
 @NgModule({
 	declarations: [
@@ -68,6 +72,7 @@ import { AuthService } from './services/auth.service';
 		DirectMessagesComponent,
 		DialogNewChannelComponent,
 		FurtherServicesComponent,
+  ChatgptComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -103,7 +108,7 @@ import { AuthService } from './services/auth.service';
 		AngularFirestoreModule,
 		AngularFireStorageModule,
 	],
-	providers: [AuthService],
+	providers: [AuthService, OpenAiService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

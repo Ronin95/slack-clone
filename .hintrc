@@ -14,7 +14,8 @@
       "default",
       {
         "ignore": [
-          "aspect-ratio"
+          "aspect-ratio",
+          "width: fit-content"
         ]
       }
     ],

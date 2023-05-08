@@ -32,3 +32,12 @@ export const environment = {
 		appId: '1:878899644746:web:399c1e7ee05ce6fc1259b3',
 	},
 };
+
+// const firebaseConfig = {
+// 	apiKey: "AIzaSyDqdOauEP72jzBlIehzTWfbbQYAxaKWkg0",
+// 	authDomain: "slack-clone-9a73f.firebaseapp.com",
+// 	projectId: "slack-clone-9a73f",
+// 	storageBucket: "slack-clone-9a73f.appspot.com",
+// 	messagingSenderId: "88584794093",
+// 	appId: "1:88584794093:web:850243c15d4616575581e4"
+//   };

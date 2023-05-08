@@ -53,6 +53,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { UsersComponent } from './users/users.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
 	declarations: [

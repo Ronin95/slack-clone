@@ -5,6 +5,7 @@ import { LoginComponent } from '../login/login.component';
 import { User } from 'src/models/user.class';
 import { Firestore, collection, doc, setDoc, getDocs } from '@angular/fire/firestore';
 import { AuthService } from '../services/auth.service';
+import { VerifyEmailComponent } from '../verify-email/verify-email.component';
 
 // import { AuthService } from '../services/auth.service';
 
@@ -42,7 +43,7 @@ export class RegisterComponent implements OnInit {
 
 	closeDialog() {
 		this.dialogRef.close();
-		this.dialog.open(LoginComponent);
+		this.dialog.open(VerifyEmailComponent);
 	}
 
 	/**

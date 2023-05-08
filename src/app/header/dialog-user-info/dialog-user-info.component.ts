@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,5 +9,5 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class DialogUserInfoComponent {
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, public dialogRef: MatDialogRef<DialogUserInfoComponent>) {}
 }

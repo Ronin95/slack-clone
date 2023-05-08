@@ -62,27 +62,33 @@ export class AuthService {
   }
 
   // Sign up with email/password
-  SignUp(email: string, password: string) {
+  SignUp(email: string, password: string, displayName: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
-        // this.SendVerificationMail();
-        this.SetUserData(result.user);
+        this.SendVerificationMail();
+        // Überprüfen, ob result.user nicht null ist
+        if (result.user) {
+          // Setzen Sie den displayName des Benutzers
+          result.user.updateProfile({ displayName: displayName });
+          // Speichern Sie den Benutzer in der Firestore-Datenbank
+          this.SetUserData(result.user);
+        }
       })
       .catch((error) => {
         window.alert(error.message);
       });
   }
+  
 
   // Send email verfificaiton when new user sign up
   SendVerificationMail() {
-    return this.afAuth.currentUser
-      .then((u: any) => u.sendEmailVerification())
-      .then(() => {
-        this.router.navigate(['verify-email-address']);
-      });
+    return this.afAuth.currentUser.then((u: any) => u.sendEmailVerification());
+    // .then(() => {
+    //   this.router.navigate(['verify-email-address']);
+    // });
   }
 
   // Reset Forggot password

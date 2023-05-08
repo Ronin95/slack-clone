@@ -30,6 +30,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 // Components
 import { LoginComponent } from './login/login.component';
@@ -50,6 +51,7 @@ import { DirectMessagesComponent } from './side-menu/channel-column/direct-messa
 import { DialogNewChannelComponent } from './side-menu/channel-column/channels/dialog-new-channel/dialog-new-channel.component';
 import { FurtherServicesComponent } from './side-menu/channel-column/further-services/further-services.component';
 import { AuthService } from './services/auth.service';
+import { DialogUserInfoComponent } from './header/dialog-user-info/dialog-user-info.component';
 
 @NgModule({
 	declarations: [
@@ -68,8 +70,10 @@ import { AuthService } from './services/auth.service';
 		DirectMessagesComponent,
 		DialogNewChannelComponent,
 		FurtherServicesComponent,
+		DialogUserInfoComponent
 	],
 	imports: [
+		CommonModule,
 		BrowserModule,
 		AppRoutingModule,
 		/* 	AngularFireModule.initializeApp(environment.firebase), */

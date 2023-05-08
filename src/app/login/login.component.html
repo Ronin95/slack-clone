@@ -62,7 +62,7 @@
     >
       <div class="sub-option">
         <span>Login as Guest</span>
-        <button mat-raised-button mat-dialog-close>
+        <button mat-raised-button mat-dialog-close (click)="authService.guestLogin()">
           <!-- (click)="authService.login('guest@web.de', '000000')" -->
           Guest Login
         </button>

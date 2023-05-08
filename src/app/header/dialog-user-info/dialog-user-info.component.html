@@ -12,6 +12,6 @@
     </div>
   </div>
   <div class="logout-container" mat-dialog-actions>
-    <button class="mr-12 mb-12" mat-button cdkFocusInitial>Logout</button>
+    <button class="mr-12 mb-12" mat-button cdkFocusInitial (click)="authService.SignOut();this.dialogRef.close();">Logout</button>
   </div>
 </div>

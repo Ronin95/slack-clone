@@ -33,6 +33,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 // Components
 import { LoginComponent } from './login/login.component';
@@ -54,6 +55,9 @@ import { DialogNewChannelComponent } from './side-menu/channel-column/channels/d
 import { FurtherServicesComponent } from './side-menu/channel-column/further-services/further-services.component';
 import { AuthService } from './services/auth.service';
 import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
+import { DialogUserInfoComponent } from './header/dialog-user-info/dialog-user-info.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 @NgModule({
 	declarations: [
@@ -72,9 +76,13 @@ import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
 		DirectMessagesComponent,
 		DialogNewChannelComponent,
 		FurtherServicesComponent,
-  ChatgptComponent,
+    ChatgptComponent,
+		DialogUserInfoComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent
 	],
 	imports: [
+		CommonModule,
 		BrowserModule,
 		AppRoutingModule,
 		/* 	AngularFireModule.initializeApp(environment.firebase), */

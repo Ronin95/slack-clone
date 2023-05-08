@@ -1,0 +1,23 @@
+<div class="flex-column align-center">
+  <h1 mat-dialog-title>Thank you for registering</h1>
+  <div
+    *ngIf="authService.userData as user"
+    class="text-center"
+    mat-dialog-content
+  >
+    <span class="mb-12"
+      >We have sent a confirmation email to <strong>{{ user.email }}</strong
+      >.</span
+    >
+    <span
+      >Please check your email and click on the link to verfiy your email
+      address.</span
+    >
+  </div>
+  <div class="flex-column" mat-dialog-actions>
+    <button class="mb-12" (click)="authService.SendVerificationMail()" mat-button>
+      Resend Verification Email
+    </button>
+    <span class="mb-12 align-center">Go back to login?<button (click)="openLogin()" mat-button>Login</button></span>
+  </div>
+</div>

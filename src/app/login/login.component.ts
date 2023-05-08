@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 // import { AuthService } from '../services/auth.service'; Kommt noch
 
 @Component({
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   // , public authService: AuthService
   constructor(
+    public dialog: MatDialog,
     private formBuilder: FormBuilder,
     public authService: AuthService
   ) {
@@ -21,6 +23,10 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email], []],
       password: ['', [Validators.required], []],
     });
+  }
+
+  openDialogForgotPassword() {
+    this.dialog.open(ForgotPasswordComponent)
   }
 
   ngOnInit(): void {}

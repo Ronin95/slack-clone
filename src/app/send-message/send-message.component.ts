@@ -11,10 +11,12 @@ import { UsersService } from '../services/users.service';
 export class SendMessageComponent implements OnInit {
 	allUsers: User[] = [];
 
-	constructor(private service: UsersService) {}
-
-	async ngOnInit(): Promise<void> {
-		this.allUsers = this.service.allUsers;
-		console.log(this.allUsers);
+	constructor(private service: UsersService) {
+		this.service.getUsers().subscribe((users) => {
+			this.allUsers = users;
+			console.log(this.allUsers);
+		});
 	}
+
+	async ngOnInit(): Promise<void> {}
 }

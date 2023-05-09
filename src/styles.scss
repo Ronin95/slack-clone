@@ -1,69 +1,78 @@
-@import "src/fixedCSS/fixedVar.scss";
+@import 'src/fixedCSS/fixedVar.scss';
 
 html,
 body {
-  height: 100%;
+	height: 100%;
 }
 body {
-  margin: 0;
-  font-family: "Roboto", "Helvetica Neue";
+	margin: 0;
+	font-family: 'Roboto', 'Helvetica Neue';
 }
 
 .bstyle {
-  border-style: dotted;
+	border-style: dotted;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Roboto", "Helvetica Neue";
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', 'Helvetica Neue';
+	box-sizing: border-box !important;
 }
 
 .d-none {
-  display: none !important;
+	display: none !important;
 }
 
 .d-flex {
-  display: flex;
+	display: flex;
 }
 
 .align-center {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .flex-column {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .ml-12 {
-  margin-left: 12px;
+	margin-left: 12px;
 }
 
 .mr-12 {
-  margin-right: 12px;
+	margin-right: 12px;
 }
 
 .mb-12 {
-  margin-bottom: 12px;
+	margin-bottom: 12px;
 }
 
 button {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .text-center {
-  text-align: center;
+	text-align: center;
 }
 
+.header-height {
+	height: 65px !important;
+}
+
+.border {
+	border: 1px solid $border-clr-texteditor;
+}
 
 html,
 body {
-  height: 100%;
+	height: 100%;
 }
 body {
-  margin: 0;
-  font-family: "Roboto", "Helvetica Neue";
+	margin: 0;
+	font-family: 'Roboto', 'Helvetica Neue';
+	overflow-x: hidden;
 }

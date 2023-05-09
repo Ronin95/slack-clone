@@ -59,6 +59,8 @@ import { UsersComponent } from './users/users.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
 import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-display.component';
+import { SingleMessageComponent } from './single-message/single-message.component';
 import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-login.component';
 
 @NgModule({
@@ -82,7 +84,6 @@ import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-log
 		DialogUserInfoComponent,
 		ForgotPasswordComponent,
 		VerifyEmailComponent,
-  DialogErrorLoginComponent,
 	],
 	imports: [
 		CommonModule,

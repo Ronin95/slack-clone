@@ -5,13 +5,14 @@ import { initializeApp } from 'firebase/app';
 
 // Your web app's Firebase configuration
 export const environment = {
-	production: false,
 	firebase: {
-		apiKey: 'AIzaSyDI2YOSnhk2ZCsEH9DEmjKoGzMqS249k8U',
-		authDomain: 'slack-clone-2566e.firebaseapp.com',
-		projectId: 'slack-clone-2566e',
-		storageBucket: 'slack-clone-2566e.appspot.com',
-		messagingSenderId: '878899644746',
-		appId: '1:878899644746:web:399c1e7ee05ce6fc1259b3',
-	},
+    projectId: 'slack-clone-da',
+    appId: '1:135875603663:web:9e5addc58e4248cbd21bba',
+    storageBucket: 'slack-clone-da.appspot.com',
+    apiKey: 'AIzaSyCRgSI4GSvVWDTFsob_Q0juWjE5aTpbn1k',
+    authDomain: 'slack-clone-da.firebaseapp.com',
+    messagingSenderId: '135875603663',
+  },
+  production: false,
+  openAIToken: '' // inside the '' add your personal api key from openAI
 };

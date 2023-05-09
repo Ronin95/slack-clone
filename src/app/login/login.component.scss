@@ -76,23 +76,22 @@
 }
 
 @media (max-width: 450px) {
-    .form-container {
-        width: 250px;
-        
-        .form-box {
-            padding: unset;
-        }
+  .form-container {
+    width: 250px;
+
+    .form-box {
+      padding: unset;
     }
+  }
 }
 
 @media (max-width: 320px) {
-    .form-container {
-        height: 400px;
-        width: 200px;
+  .form-container {
+    height: 400px;
+    width: 200px;
+  }
 
-    }
-
-    .other-options {
-        margin-top: unset !important;
-    }
+  .other-options {
+    margin-top: unset !important;
+  }
 }

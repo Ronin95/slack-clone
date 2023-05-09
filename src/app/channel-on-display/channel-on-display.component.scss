@@ -3,9 +3,10 @@
 .outer-channel-container {
 	height: 100%;
 	background-color: $bgClr-start;
+	width: calc(100vw - 302px);
 
 	.header {
-		width: calc(100vw - 300px);
+		width: calc(100vw - 302px);
 		background-color: $bgClr-start;
 		border-right: unset;
 		border-left: unset;

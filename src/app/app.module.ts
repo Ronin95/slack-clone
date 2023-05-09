@@ -60,6 +60,7 @@ import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.componen
 import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-display.component';
+import { SingleMessageComponent } from './single-message/single-message.component';
 
 @NgModule({
 	declarations: [
@@ -83,6 +84,7 @@ import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-displ
 		ForgotPasswordComponent,
 		VerifyEmailComponent,
   ChannelOnDisplayComponent,
+  SingleMessageComponent,
 	],
 	imports: [
 		CommonModule,

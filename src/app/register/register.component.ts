@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
   }
 
   closeDialog() {
-    if ((this.authService.userExist = false)) {
+    if (this.authService.errorMsgRegister) {
       this.dialogRef.close();
       this.dialog.open(VerifyEmailComponent);
     }

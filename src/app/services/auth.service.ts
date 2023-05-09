@@ -8,19 +8,22 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { signInAnonymously } from 'firebase/auth';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogErrorLoginComponent } from '../dialog-error-login/dialog-error-login.component';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   userData: any; // Save logged in user data
-  userExist = true;
   errorMsgRegister!: string;
+  errorLogin = false;
 
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    public dialog: MatDialog
   ) {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
@@ -49,7 +52,10 @@ export class AuthService {
         });
       })
       .catch((error) => {
-        window.alert(error.message);
+        if (error) {
+          this.errorLogin = true;
+          this.loginErrorMsg('500ms', '500ms');
+        }
       });
   }
 
@@ -73,7 +79,6 @@ export class AuthService {
         up and returns promise */
         this.SendVerificationMail();
         if (result.user) {
-          this.userExist = false;
           // set display name of user
           result.user.updateProfile({ displayName: displayName }).then(() => {
             this.SetUserData(result.user);
@@ -149,6 +154,17 @@ export class AuthService {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['']);
+    });
+  }
+
+  //error msg if email or password is invalid
+  loginErrorMsg(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
+    this.dialog.open(DialogErrorLoginComponent, {
+      enterAnimationDuration,
+      exitAnimationDuration,
     });
   }
 }

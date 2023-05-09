@@ -84,6 +84,8 @@ import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-log
 		DialogUserInfoComponent,
 		ForgotPasswordComponent,
 		VerifyEmailComponent,
+		SingleMessageComponent,
+		ChannelOnDisplayComponent,
 	],
 	imports: [
 		CommonModule,

@@ -6,11 +6,6 @@
 /out-tsc
 /bazel-out
 
-.environments/*
-!.environments/environments.prod.ts
-!.environments/environments.ts
-.history/*
-
 # Node
 /node_modules
 npm-debug.log
@@ -53,3 +48,5 @@ Thumbs.db
 
 # Formatter
 /.prettierrc
+src/environments/environment.ts
+*.ts

@@ -79,11 +79,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 		FurtherServicesComponent,
 		ChatgptComponent,
 		DialogUserInfoComponent,
-
-		ForgotPasswordComponent,
-		ForgotPasswordComponent,
-		VerifyEmailComponent,
-
 		ForgotPasswordComponent,
 		VerifyEmailComponent,
 	],

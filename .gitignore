@@ -48,9 +48,4 @@ Thumbs.db
 
 # Formatter
 /.prettierrc
-environments/*.ts
-
-
-
-src/environments/environment.prod.ts
-src/environments/environment.ts
+environments/

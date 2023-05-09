@@ -13,6 +13,9 @@ import { signInAnonymously } from 'firebase/auth';
 })
 export class AuthService {
   userData: any; // Save logged in user data
+  userExist = true;
+  errorMsgRegister!: string;
+
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -69,25 +72,26 @@ export class AuthService {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
         this.SendVerificationMail();
-        // Überprüfen, ob result.user nicht null ist
         if (result.user) {
-          // Setzen Sie den displayName des Benutzers
-          result.user.updateProfile({ displayName: displayName })
-          .then(() => {
+          this.userExist = false;
+          // set display name of user
+          result.user.updateProfile({ displayName: displayName }).then(() => {
             this.SetUserData(result.user);
-          })
-          // Speichern Sie den Benutzer in der Firestore-Datenbank
+          });
         }
       })
       .catch((error) => {
-        window.alert(error.message);
+        if (error) {
+          this.errorMsgRegister = 'This email address is already in use';
+        } else {
+          window.alert(error.message);
+        }
       });
   }
 
   // Send email verfificaiton when new user sign up
   SendVerificationMail() {
-    return this.afAuth.currentUser
-      .then((u: any) => u.sendEmailVerification())
+    return this.afAuth.currentUser.then((u: any) => u.sendEmailVerification());
   }
 
   // Reset password

@@ -55,6 +55,11 @@
   padding: 10px;
 }
 
+.errorMsg {
+  color: red;
+  padding-left: 10px;
+}
+
 @media (max-width: 580px) {
   .form-container {
     width: 350px;

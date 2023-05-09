@@ -72,9 +72,11 @@ export class AuthService {
         // Überprüfen, ob result.user nicht null ist
         if (result.user) {
           // Setzen Sie den displayName des Benutzers
-          result.user.updateProfile({ displayName: displayName });
+          result.user.updateProfile({ displayName: displayName })
+          .then(() => {
+            this.SetUserData(result.user);
+          })
           // Speichern Sie den Benutzer in der Firestore-Datenbank
-          this.SetUserData(result.user);
         }
       })
       .catch((error) => {

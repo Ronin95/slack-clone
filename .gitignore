@@ -49,3 +49,5 @@ Thumbs.db
 # Formatter
 /.prettierrc
 environments/
+environments/*.ts
+

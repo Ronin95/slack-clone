@@ -1,6 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogNewChannelComponent } from './dialog-new-channel/dialog-new-channel.component';
+import { Firestore, collection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { collectionData } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-channels',
@@ -8,9 +11,20 @@ import { DialogNewChannelComponent } from './dialog-new-channel/dialog-new-chann
   styleUrls: ['./channels.component.scss'],
 })
 export class ChannelsComponent implements OnInit {
+
+  firestore: Firestore = inject(Firestore);
+  channels$!: Observable<any>;
+  channel!: Array<any>;
+
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const channelColl = collection(this.firestore, 'channels');
+    this.channels$ = collectionData(channelColl);
+    this.channels$.subscribe((changes: any) => {
+      this.channel = changes;
+    })
+  }
 
   openMenu: boolean = false;
 

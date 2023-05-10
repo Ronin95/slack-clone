@@ -69,6 +69,11 @@ button {
 	border: 1px solid $border-clr-texteditor;
 }
 
+.flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
 html,
 body {
 	height: 100%;

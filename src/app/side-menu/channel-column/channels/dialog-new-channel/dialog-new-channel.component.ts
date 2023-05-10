@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-dialog-new-channel',
@@ -7,9 +8,24 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./dialog-new-channel.component.scss'],
 })
 export class DialogNewChannelComponent {
+  firestore: Firestore = inject(Firestore);
+
+  channelName: string = '';
+
   constructor(public dialogRef: MatDialogRef<DialogNewChannelComponent>) {}
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  addChannel() {
+    const channelCollection = collection(this.firestore, 'channels');
+    setDoc(doc(channelCollection), { channelName: this.channelName })
+    .then(() => {
+      console.log('New channel added:', this.channelName);
+      
+        this.dialogRef.close();
+      }
+    );
   }
 }

@@ -36,7 +36,7 @@ export class RegisterComponent {
   }
 
   closeDialog() {
-    if (this.authService.errorMsgRegister) {
+    if (!this.authService.errorMsgRegister) {
       this.dialogRef.close();
       this.dialog.open(VerifyEmailComponent);
     }

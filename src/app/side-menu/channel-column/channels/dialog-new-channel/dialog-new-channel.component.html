@@ -2,10 +2,10 @@
 <div mat-dialog-content>
   <mat-form-field appearance="fill">
     <mat-label>Channel name</mat-label>
-    <input matInput />
+    <input [(ngModel)]="channelName" matInput />
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button cdkFocusInitial>Ok</button>
+  <button mat-button cdkFocusInitial (click)="addChannel()">Ok</button>
 </div>

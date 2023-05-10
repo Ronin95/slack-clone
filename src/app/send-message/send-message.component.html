@@ -5,15 +5,15 @@
   <mat-toolbar-row>
     <span>To: </span>
     <div class="selectedUser-container">
-      <div class="selectedUser">
-        <div class="img-container sidenav-shrink">
+      <div *ngFor="let user of allUsers; let i = index" class="selectedUser">
+        <div  class="img-container sidenav-shrink">
           <img
             class="profile-img"
             src="../../assets/img/slack-icon.svg"
             alt="profile-img"
           />
         </div>
-        <span #user[i]> Name of user </span>
+        <span >{{ user.displayName }}" </span>
         <mat-icon>close</mat-icon>
       </div>
     </div>

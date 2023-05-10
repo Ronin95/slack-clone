@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from 'src/models/user.class';
 import { UsersService } from '../services/users.service';
 
 @Component({
@@ -9,7 +8,7 @@ import { UsersService } from '../services/users.service';
 	styleUrls: ['./send-message.component.scss'],
 })
 export class SendMessageComponent implements OnInit {
-	allUsers: User[] = [];
+	allUsers!: Array<any>;
 
 	constructor(private service: UsersService) {
 		this.service.getUsers().subscribe((users) => {

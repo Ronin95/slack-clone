@@ -3,6 +3,9 @@ import { environment } from 'src/environments/environment.prod';
 // Services
 import { OpenAiService } from './services/open-ai.service';
 
+/* Text Editor */
+import { QuillModule } from 'ngx-quill';
+
 /* FireBase */
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -62,6 +65,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-display.component';
 import { SingleMessageComponent } from './single-message/single-message.component';
 import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-login.component';
+import { TextEditorComponent } from './text-editor/text-editor.component';
 
 @NgModule({
 	declarations: [
@@ -86,11 +90,13 @@ import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-log
 		VerifyEmailComponent,
 		SingleMessageComponent,
 		ChannelOnDisplayComponent,
+		TextEditorComponent,
 	],
 	imports: [
 		CommonModule,
 		BrowserModule,
 		AppRoutingModule,
+		QuillModule.forRoot(),
 		/* 	AngularFireModule.initializeApp(environment.firebase), */
 		// provideFirebaseApp(() => initializeApp(environment.firebase)),
 		// provideAuth(() => getAuth()),

@@ -1,0 +1,12 @@
+<form [formGroup]="templateForm">
+	<quill-editor
+		[styles]="{ height: '400px', backgroundColor: '#faf8f8' }"
+		formControlName="textEditor"
+		[modules]="quillEditorModules"
+	></quill-editor>
+	<div class="example-button-row">
+		<button mat-raised-button color="accent" (click)="testEditorContent()">
+			Test
+		</button>
+	</div>
+</form>

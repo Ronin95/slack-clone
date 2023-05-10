@@ -1,6 +1,7 @@
 @import 'src/fixedCSS/fixedVar.scss';
 
 .outer-channel-container {
+	position: relative;
 	height: 100%;
 	background-color: $bgClr-start;
 	width: calc(100vw - 301px);
@@ -15,5 +16,12 @@
 			margin: 0;
 			color: white;
 		}
+	}
+
+	.editor {
+		position: absolute;
+		bottom: 30px;
+		right: 30px;
+		left: 30px;
 	}
 }

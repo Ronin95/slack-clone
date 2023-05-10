@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-error-login',
@@ -7,5 +7,5 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./dialog-error-login.component.scss']
 })
 export class DialogErrorLoginComponent {
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialogRef<DialogErrorLoginComponent>) {}
 }

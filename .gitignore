@@ -50,4 +50,5 @@ Thumbs.db
 /.prettierrc
 environments/
 environments/*.ts
+environments/environment.ts
 

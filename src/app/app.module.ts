@@ -91,6 +91,7 @@ import { TextEditorComponent } from './text-editor/text-editor.component';
 		SingleMessageComponent,
 		ChannelOnDisplayComponent,
 		TextEditorComponent,
+		DialogErrorLoginComponent,
 	],
 	imports: [
 		CommonModule,

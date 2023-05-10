@@ -7,19 +7,28 @@
     <div class="selectedUser-container">
       <div class="selectedUser">
         <div class="img-container sidenav-shrink">
-          <img class="profile-img" src="../../assets/img/slack-icon.svg" alt="profile-img" />
+          <img
+            class="profile-img"
+            src="../../assets/img/slack-icon.svg"
+            alt="profile-img"
+          />
         </div>
         <span #user[i]> Name of user </span>
         <mat-icon>close</mat-icon>
       </div>
     </div>
-    <input type="text" [matAutocomplete]="searchedUsers" #usersField placeholder="Type a name..." />
+    <input
+      type="text"
+      [matAutocomplete]="searchedUsers"
+      #usersField
+      placeholder="Type a name..."
+    />
     <mat-autocomplete #searchedUsers="matAutocomplete">
-      <div >
-        <div >
-          <mat-option >
+      <div>
+        <div>
+          <mat-option *ngFor="let user of allUsers" value="{{ user.email }}">
             <span>
-
+              {{ user.email }}
             </span>
           </mat-option>
         </div>
@@ -28,7 +37,5 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="texteditor-container">
-  <div class="message-box">
-   
-  </div>
+  <div class="message-box"></div>
 </div>

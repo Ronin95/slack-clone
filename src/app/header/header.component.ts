@@ -11,9 +11,12 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent {
   dataRef: Observable<any>;
+  uid!: string;
 
   constructor(public dialog: MatDialog, private firestore: AngularFirestore) {
-    this.dataRef = this.firestore.doc('users/6Z02CMKUf1S9u2gcaVrx0VM0kUt1').valueChanges();
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.uid = user.uid;
+    this.dataRef = this.firestore.doc('users/' + this.uid).valueChanges();
   }
 
   openUserDialog(): void {

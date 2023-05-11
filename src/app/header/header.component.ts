@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogUserInfoComponent } from './dialog-user-info/dialog-user-info.component';
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 @Component({
   selector: 'app-header',

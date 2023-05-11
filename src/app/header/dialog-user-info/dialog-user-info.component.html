@@ -8,7 +8,7 @@
           <span>Active</span>
         </div>
         <div id="uploadImgRemove" [class.d-none]="!onDisplay" >
-          <input type="file" (change)="uploadFile($event)" name="uploadfile" id="img" style="display:none;"/>
+          <input type="file" (change)="uploadFile($event, uid)" name="uploadfile" id="img" style="display:none;"/>
           <label for="img">Choose image</label>
         </div>
       </div>

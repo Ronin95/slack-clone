@@ -31,7 +31,7 @@ export class DialogUserInfoComponent {
     const file = element.files ? element.files[0] : null;
 
     if (file) {
-      const filePath = `images/${new Date().getTime()}_${file.name}`;
+      const filePath = `profileImages/${new Date().getTime()}_${file.name}`;
       const fileRef = this.storage.ref(filePath);
       const task = this.storage.upload(filePath, file);
 

@@ -1,4 +1,8 @@
 <mat-toolbar class="header-toolbar">
-    <input class="search-input" placeholder="Search messages ...">
-    <img (click)="openUserDialog()" src="assets/img/blank-profile-img.png">
+  <input class="search-input" placeholder="Search messages ...">
+  <img (click)="openUserDialog()" src="assets/img/blank-profile-img.png">
 </mat-toolbar>
+<div>
+  <img src="{{ (dataRef | async)?.photoURL }}" alt="profile-img">
+</div>
+

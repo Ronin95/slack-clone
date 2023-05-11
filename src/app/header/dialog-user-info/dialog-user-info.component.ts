@@ -12,6 +12,7 @@ import { finalize } from 'rxjs/operators';
 export class DialogUserInfoComponent {
   public file: any = [];
   uploadProgress!: number;
+  onDisplay = true;
 
   constructor(
     public authService: AuthService,
@@ -38,5 +39,9 @@ export class DialogUserInfoComponent {
         )
         .subscribe();
     }
+
+    // Delete capability to upload a new image
+    this.onDisplay = false;
+    
   }
 }

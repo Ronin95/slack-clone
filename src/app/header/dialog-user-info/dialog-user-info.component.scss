@@ -1,6 +1,6 @@
 .dialog-user-info {
   background-color: #4e154e;
-  
+
   span {
     color: #ffff;
   }
@@ -9,6 +9,17 @@
     height: 30px;
     margin-right: 12px;
   }
+}
+
+label{
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.gap {
+  gap: 10px;
 }
 
 .logout-container {

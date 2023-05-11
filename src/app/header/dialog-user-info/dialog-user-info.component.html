@@ -1,14 +1,15 @@
 <div class="dialog-user-info">
   <div class="display-flex" mat-dialog-content>
     <div class="align-center">
-      <!-- <img class="ml-12" src="./assets/img/blank-profile-img.png" /> -->
-      <input type="file" (change)="uploadFile($event)" />
-
-      <div *ngIf="authService.userData as user" class="flex-column">
+      <div *ngIf="authService.userData as user" class="flex-column gap">
         <span class="font-500">{{(user.displayName) ? user.displayName : 'User'}}</span>
         <div class="align-center">
           <div class="online-dot"></div>
           <span>Active</span>
+        </div>
+        <div id="uploadImgRemove" [class.d-none]="!onDisplay" >
+          <input type="file" (change)="uploadFile($event)" name="uploadfile" id="img" style="display:none;"/>
+          <label for="img">Choose image</label>
         </div>
       </div>
     </div>

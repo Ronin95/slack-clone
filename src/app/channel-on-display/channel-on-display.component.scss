@@ -18,6 +18,14 @@
 		}
 	}
 
+	.message-container {
+		overflow-y: scroll;
+		height: calc(100vh - 110px);
+		background-color: $bgClr-start;
+		border-right: unset;
+		border-left: unset;
+	}
+
 	.editor {
 		position: absolute;
 		bottom: 30px;

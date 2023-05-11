@@ -1,7 +1,7 @@
 @import 'src/fixedCSS/fixedVar.scss';
 
 mat-toolbar-row {
-  width: 100vw;
+  width: calc(100vw - 301px);
 }
 
 
@@ -25,7 +25,7 @@ mat-toolbar {
             color: #ffff;
             outline: none;
             border: none;
-            width: 100%;
+            width: 250px;
         }
     }
 }

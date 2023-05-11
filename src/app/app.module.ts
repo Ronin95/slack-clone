@@ -14,6 +14,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 // Material Design
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -67,6 +68,7 @@ import { SingleMessageComponent } from './single-message/single-message.componen
 import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-login.component';
 import { TextEditorComponent } from './text-editor/text-editor.component';
 
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -98,11 +100,6 @@ import { TextEditorComponent } from './text-editor/text-editor.component';
 		BrowserModule,
 		AppRoutingModule,
 		QuillModule.forRoot(),
-		/* 	AngularFireModule.initializeApp(environment.firebase), */
-		// provideFirebaseApp(() => initializeApp(environment.firebase)),
-		// provideAuth(() => getAuth()),
-		// provideDatabase(() => getDatabase()),
-		// provideFirestore(() => getFirestore()),
 		BrowserAnimationsModule,
 		MatToolbarModule,
 		MatSidenavModule,
@@ -128,6 +125,7 @@ import { TextEditorComponent } from './text-editor/text-editor.component';
 		AngularFireDatabaseModule,
 		AngularFirestoreModule,
 		AngularFireStorageModule,
+		provideStorage(() => getStorage()),
 	],
 	providers: [AuthService, OpenAiService],
 	bootstrap: [AppComponent],

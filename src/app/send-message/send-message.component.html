@@ -4,20 +4,14 @@
   </mat-toolbar-row>
   <mat-toolbar-row>
     <span>To: </span>
-    <div class="selectedUser-container">
-      <div *ngFor="let user of allUsers; let i = index" class="selectedUser">
-        <div  class="img-container sidenav-shrink">
-          <img
-            class="profile-img"
-            src="../../assets/img/slack-icon.svg"
-            alt="profile-img"
-          />
-        </div>
-        <span >{{ user.displayName }}" </span>
-        <mat-icon>close</mat-icon>
+    <div  class="selectedUser-container">
+      <div  class="selectedUser">
+
+        <span> </span>
+        <!-- <mat-icon>close</mat-icon> -->
       </div>
     </div>
-    <input
+    <input class="ml-12"
       type="text"
       [matAutocomplete]="searchedUsers"
       #usersField
@@ -26,14 +20,21 @@
     <mat-autocomplete #searchedUsers="matAutocomplete">
       <div>
         <div>
-          <mat-option *ngFor="let user of allUsers" value="{{ user.email }}">
+          <mat-option *ngFor="let user of allUsers" value="{{ user.displayName }}">
             <span>
-              {{ user.email }}
+              {{ user.displayName }}
             </span>
           </mat-option>
         </div>
       </div>
     </mat-autocomplete>
+    <!-- <div  class="img-container sidenav-shrink">
+      <img
+        class="profile-img"
+        src="../../assets/img/slack-icon.svg"
+        alt="profile-img"
+      /> 
+    </div> -->
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="texteditor-container">

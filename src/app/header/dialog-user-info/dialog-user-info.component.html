@@ -1,7 +1,9 @@
 <div class="dialog-user-info">
   <div class="display-flex" mat-dialog-content>
     <div class="align-center">
-      <img class="ml-12" src="./assets/img/blank-profile-img.png" />
+      <!-- <img class="ml-12" src="./assets/img/blank-profile-img.png" /> -->
+      <input type="file" (change)="uploadFile($event)" />
+
       <div *ngIf="authService.userData as user" class="flex-column">
         <span class="font-500">{{(user.displayName) ? user.displayName : 'User'}}</span>
         <div class="align-center">

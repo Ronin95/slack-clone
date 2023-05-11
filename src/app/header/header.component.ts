@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogUserInfoComponent } from './dialog-user-info/dialog-user-info.component';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,13 +11,18 @@ import { Observable } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  dataRef: Observable<any>;
+  dataRef!: Observable<any>;
   uid!: string;
 
-  constructor(public dialog: MatDialog, private firestore: AngularFirestore) {
+  constructor(private router: Router, public dialog: MatDialog, private firestore: AngularFirestore) {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.uid = user.uid;
-    this.dataRef = this.firestore.doc('users/' + this.uid).valueChanges();
+    if (!this.uid) {
+      this.router.navigate(['/'])
+    } else {
+      this.dataRef = this.firestore.doc('users/' + this.uid).valueChanges();
+    }
+    // this.uid = user.uid;
+
   }
 
   openUserDialog(): void {

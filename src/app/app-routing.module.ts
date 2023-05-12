@@ -21,7 +21,7 @@ const routes: Routes = [
 	{ path: 'home/sendMessage', component: SendMessageComponent },
 	{ path: '', component: WelcomeScreenComponent },
 	{ path: 'sideMenu', component: SideMenuComponent },
-	{ path: 'home/channel', component: ChannelOnDisplayComponent },
+	{ path: 'channel/:id', component: ChannelOnDisplayComponent },
 	{ path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 

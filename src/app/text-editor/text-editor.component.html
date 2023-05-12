@@ -1,9 +1,16 @@
 <form [formGroup]="templateForm">
 	<quill-editor
-		[styles]="{ height: '130px', backgroundColor: '#faf8f8' }"
-		formControlName="textEditor"
+		class="editor"
+		[styles]="{
+			height: '130px',
+			backgroundColor: '#faf8f8',
+			borderRadius: '0 0 10px 10px'
+		}"
 		[modules]="quillEditorModules"
+		formControlName="textEditor"
 	></quill-editor>
 
-	<button mat-raised-button color="accent" (click)="testEditorContent()">Test</button>
+	<button title="send message" class="btn-send-message" (click)="testEditorContent()">
+		<mat-icon>send</mat-icon>
+	</button>
 </form>

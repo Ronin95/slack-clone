@@ -5,7 +5,7 @@ import {
   AngularFirestore,
   AngularFirestoreModule,
 } from '@angular/fire/compat/firestore';
-import { Observable, Subscription  } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,28 +16,22 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   dataRef!: Observable<any>;
   uid!: string;
-  private dataSubscription: Subscription
+  // private dataSubscription: Subscription;
 
   constructor(
     private router: Router,
     public dialog: MatDialog,
-    private firestore: AngularFirestore,
+    private firestore: AngularFirestore
   ) {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     this.uid = user.uid;
-    // this.dataRef = this.firestore.doc('users/' + this.uid).valueChanges()
+    this.dataRef = this.firestore.doc('users/' + this.uid).valueChanges();
     // console.log(this.dataRef);
-    this.dataSubscription = this.firestore.doc('users/' + this.uid).valueChanges().subscribe(data => {
-      // Hier kannst du den erhaltenen Datenwert (data) verwenden
-      console.log(data); // Beispiel: Ausgabe der Daten in der Konsole
-      
-      // Weitere Verarbeitung der Daten ...
-      
-      // Am Ende solltest du das Abonnement beenden
-      this.dataSubscription.unsubscribe();
-    });
-    
-    
+    // this.dataSubscription = this.firestore.doc('users/' + this.uid).valueChanges().subscribe(data => {
+
+    //   console.log(data);
+    //   this.dataSubscription.unsubscribe();
+    // });
   }
 
   openUserDialog(): void {

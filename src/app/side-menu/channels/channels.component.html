@@ -11,11 +11,13 @@
 		<div
 			(click)="openChannel()"
 			class="tag-channel-name-pos"
-			*ngFor="let channel of channel"
-		>
-			<mat-icon class="mat-icon-style">tag</mat-icon>
-			<h2>{{ channel.channelName }}</h2>
+      *ngIf="loadedChannels.length >= 1">
+        <div *ngFor="let channel of loadedChannels">
+          <mat-icon class="mat-icon-style">tag</mat-icon>
+          <h2>{{ channel.channelName }}</h2>
+        </div>
 		</div>
+
 
 		<div class="tag-channel-name-pos" (click)="openDialogNewChannel()">
 			<mat-icon class="mat-icon-style">add</mat-icon>

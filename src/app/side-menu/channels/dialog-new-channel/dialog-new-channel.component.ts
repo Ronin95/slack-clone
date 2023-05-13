@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
 	selector: 'app-dialog-new-channel',
@@ -8,26 +8,23 @@ import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
 	styleUrls: ['./dialog-new-channel.component.scss'],
 })
 export class DialogNewChannelComponent {
-	firestore: Firestore = inject(Firestore);
+	constructor(
+    public dialogRef: MatDialogRef<DialogNewChannelComponent>,
+    private http: HttpClient)
+    {}
 
-	channelName: string = '';
-	channelChat: object[] = [];
-
-	constructor(public dialogRef: MatDialogRef<DialogNewChannelComponent>) {}
-
-	onNoClick(): void {
+	onNoClick() {
 		this.dialogRef.close();
 	}
 
-	addChannel() {
-		const channelCollection = collection(this.firestore, 'channels');
-		setDoc(doc(channelCollection), {
-			channelName: this.channelName,
-			channelChat: this.channelChat,
-		}).then(() => {
-			console.log('New channel added:', this.channelName);
-
-			this.dialogRef.close();
-		});
+	addChannel(postData: { channelName: string }) {
+    this.http
+    .post(
+      'https://slack-clone-da-default-rtdb.europe-west1.firebasedatabase.app/channels.json', // replace this link with yours from realtime database
+      postData)
+    .subscribe(responseData => {
+      console.log(responseData);
+    });
+    this.dialogRef.close();
 	}
 }

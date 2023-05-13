@@ -35,6 +35,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Angular
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -124,6 +125,7 @@ import { TextEditorComponent } from './text-editor/text-editor.component';
 		AngularFirestoreModule,
 		AngularFireStorageModule,
 		provideStorage(() => getStorage()),
+    HttpClientModule
 	],
 	providers: [AuthService, OpenAiService],
 	bootstrap: [AppComponent],

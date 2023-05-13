@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogNewChannelComponent } from './dialog-new-channel/dialog-new-channel.component';
-import { Firestore, collection } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { collectionData } from '@angular/fire/firestore';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Channel } from './channels.model';
 
 @Component({
 	selector: 'app-channels',
@@ -12,21 +14,18 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 	styleUrls: ['./channels.component.scss'],
 })
 export class ChannelsComponent implements OnInit {
-	firestore: Firestore = inject(Firestore);
-	channels$!: Observable<any>;
+  loadedChannels: Channel[] = [];
 	channel!: Array<any>;
+  openMenu: boolean = false;
 
-	constructor(public dialog: MatDialog, private router: Router) {}
+	constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private http: HttpClient) {}
 
-	ngOnInit(): void {
-		const channelColl = collection(this.firestore, 'channels');
-		this.channels$ = collectionData(channelColl);
-		this.channels$.subscribe((changes: any) => {
-			this.channel = changes;
-		});
+	ngOnInit() {
+		this.getAllChannels();
 	}
-
-	openMenu: boolean = false;
 
 	toggleChannels() {
 		this.openMenu = !this.openMenu;
@@ -37,6 +36,26 @@ export class ChannelsComponent implements OnInit {
 	}
 
 	openChannel() {
-		this.router.navigateByUrl('channel/' + 'zNE6IVa1wqp4I76WgdSr');
+    // the 'zNE6IVa1wqp4I76WgdSr' has to be replaced with the id of the channel
+    // this.router.navigateByUrl('channel/' + 'zNE6IVa1wqp4I76WgdSr');
+    console.log('Open');
 	}
+
+  getAllChannels() {
+    this.http
+    .get(
+      'https://slack-clone-da-default-rtdb.europe-west1.firebasedatabase.app/channels.json')
+    .pipe(map((responseData: Record<string, any>) => {
+      const channelsArray: Channel[] = [];
+      for (const key in responseData) {
+        if (responseData.hasOwnProperty(key)) {
+          channelsArray.push({ ...responseData[key], id: key });
+        }
+      }
+      return channelsArray;
+    }))
+    .subscribe(channels => {
+      this.loadedChannels = channels;
+    });
+  }
 }

@@ -51,11 +51,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SendMessageComponent } from './send-message/send-message.component';
 import { AuthService } from './services/auth.service';
-import { ChannelColumnComponent } from './side-menu/channel-column/channel-column.component';
-import { ChannelsComponent } from './side-menu/channel-column/channels/channels.component';
-import { DialogNewChannelComponent } from './side-menu/channel-column/channels/dialog-new-channel/dialog-new-channel.component';
-import { DirectMessagesComponent } from './side-menu/channel-column/direct-messages/direct-messages.component';
-import { FurtherServicesComponent } from './side-menu/channel-column/further-services/further-services.component';
+import { ChannelsComponent } from './side-menu/channels/channels.component';
+import { DialogNewChannelComponent } from './side-menu/channels/dialog-new-channel/dialog-new-channel.component';
+import { DirectMessagesComponent } from './side-menu/direct-messages/direct-messages.component';
+import { FurtherServicesComponent } from './side-menu/further-services/further-services.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { ThreadsComponent } from './threads/threads.component';
@@ -77,7 +76,6 @@ import { TextEditorComponent } from './text-editor/text-editor.component';
 		RegisterComponent,
 		HeaderComponent,
 		SideMenuComponent,
-		ChannelColumnComponent,
 		HomeComponent,
 		ThreadsComponent,
 		UsersComponent,

@@ -7,15 +7,14 @@
 		<div class="tag-channel-name-pos">
 			<mat-icon class="mat-icon-style">tag</mat-icon>
 			<h2>General</h2>
+
 		</div>
-		<div
-			(click)="openChannel()"
-			class="tag-channel-name-pos"
-      *ngIf="loadedChannels.length >= 1">
-        <div *ngFor="let channel of loadedChannels">
-          <mat-icon class="mat-icon-style">tag</mat-icon>
-          <h2>{{ channel.channelName }}</h2>
-        </div>
+		<div> <!-- (click)="openChannel()" (click)="deleteChannel()" -->
+      <div class="tag-channel-name-pos" *ngFor="let channel of loadedChannels">
+        <mat-icon class="mat-icon-style">tag</mat-icon>
+        <h2>{{ channel.channelName }}</h2>
+        <mat-icon class="mat-icon-style" (click)="deleteChannel(channel.id)">delete</mat-icon>
+      </div>
 		</div>
 
 

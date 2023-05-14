@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Channel } from './channels.model';
+import { Channel } from '../../../models/channels.model';
 
 @Component({
 	selector: 'app-channels',
@@ -55,7 +55,17 @@ export class ChannelsComponent implements OnInit {
       return channelsArray;
     }))
     .subscribe(channels => {
+      console.log(channels);
       this.loadedChannels = channels;
+    });
+  }
+
+  deleteChannel(id: string) {
+    this.http
+    .delete(
+      'https://slack-clone-da-default-rtdb.europe-west1.firebasedatabase.app/channels/' + id + '.json')
+    .subscribe(() => {
+      this.getAllChannels();
     });
   }
 }

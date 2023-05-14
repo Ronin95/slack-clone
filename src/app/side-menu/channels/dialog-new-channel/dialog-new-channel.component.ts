@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-dialog-new-channel',
@@ -20,7 +21,7 @@ export class DialogNewChannelComponent {
 	addChannel(postData: { channelName: string }) {
     this.http
     .post(
-      'https://slack-clone-da-default-rtdb.europe-west1.firebasedatabase.app/channels.json', // replace this link with yours from realtime database
+      environment.firebase.databaseURL + '/channels.json',
       postData)
     .subscribe(responseData => {
       console.log(responseData);

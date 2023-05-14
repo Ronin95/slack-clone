@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Channel } from '../../../models/channels.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-channels',
@@ -44,7 +45,7 @@ export class ChannelsComponent implements OnInit {
   getAllChannels() {
     this.http
     .get(
-      'https://slack-clone-da-default-rtdb.europe-west1.firebasedatabase.app/channels.json')
+      environment.firebase.databaseURL + '/channels.json')
     .pipe(map((responseData: Record<string, any>) => {
       const channelsArray: Channel[] = [];
       for (const key in responseData) {
@@ -63,7 +64,7 @@ export class ChannelsComponent implements OnInit {
   deleteChannel(id: string) {
     this.http
     .delete(
-      'https://slack-clone-da-default-rtdb.europe-west1.firebasedatabase.app/channels/' + id + '.json')
+      environment.firebase.databaseURL + '/channels/' + id + '.json')
     .subscribe(() => {
       this.getAllChannels();
     });

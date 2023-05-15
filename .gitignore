@@ -51,9 +51,3 @@ Thumbs.db
 environments/
 environments/*.ts
 environments/environment.ts
-
-*.ts
-*.ts
-*.ts
-*.ts
-*.html

@@ -13,7 +13,7 @@ export class SendMessageComponent implements OnInit {
 	constructor(private service: UsersService) {
 		this.service.getUsers().subscribe((users) => {
 			this.allUsers = users;
-			console.log(this.allUsers);
+			// console.log(this.allUsers);
 		});
 	}
 

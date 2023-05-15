@@ -25,9 +25,9 @@ export class DialogNewChannelComponent {
 			channelName: this.channelName,
 			channelChat: this.channelChat,
 		}).then(() => {
-			console.log('New channel added:', this.channelName);
+			// console.log('New channel added:', this.channelName);
 
-			this.dialogRef.close();
 		});
+    this.dialogRef.close();
 	}
 }

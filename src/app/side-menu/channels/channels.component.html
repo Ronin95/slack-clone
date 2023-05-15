@@ -5,13 +5,12 @@
 	</div>
 	<div class="dropdown-menu" [class.d-none]="!openMenu">
 		<div
-			routerLink="channel/{{ channel.channelId }}"
 			class="tag-channel-name-pos"
-			*ngFor="let channel of channel"
+			*ngFor="let chann of channel"
 		>
 			<mat-icon class="mat-icon-style">tag</mat-icon>
-			<h2>{{ channel.channelName }}</h2>
-			<mat-icon class="mat-icon-style" (click)="onDeleteChannel(channel.channelId)"
+			<h2 routerLink="channel/{{ chann.channelId }}">{{ chann.channelName }}</h2>
+			<mat-icon class="mat-icon-style" (click)="onDeleteChannel(chann.channelId)"
 				>delete</mat-icon
 			>
 		</div>

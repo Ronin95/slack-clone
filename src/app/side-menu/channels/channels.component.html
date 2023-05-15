@@ -1,23 +1,24 @@
 <div class="dropdown">
 	<div class="dropdown-channels" (click)="toggleChannels()">
-	  <mat-icon class="arrow-right" [class.turn]="openMenu">arrow_right</mat-icon>
-	  <h1>Channels</h1>
+		<mat-icon class="arrow-right" [class.turn]="openMenu">arrow_right</mat-icon>
+		<h1>Channels</h1>
 	</div>
 	<div class="dropdown-menu" [class.d-none]="!openMenu">
-	  <div class="tag-channel-name-pos">
-		<mat-icon class="mat-icon-style">tag</mat-icon>
-		<h2>General</h2>
-	  </div>
-	  <div class="tag-channel-name-pos" *ngFor="let channel of channel">
-		<mat-icon class="mat-icon-style">tag</mat-icon>
-		<h2>{{ channel.channelName }}</h2>
-		<mat-icon class="mat-icon-style" (click)="deleteChannel(channel.channelId)">delete</mat-icon>
-	  </div>
-  
-	  <div class="tag-channel-name-pos" (click)="openDialogNewChannel()">
-		<mat-icon class="mat-icon-style">add</mat-icon>
-		<h2>Add channel</h2>
-	  </div>
+		<div
+			routerLink="channel/{{ channel.channelId }}"
+			class="tag-channel-name-pos"
+			*ngFor="let channel of channel"
+		>
+			<mat-icon class="mat-icon-style">tag</mat-icon>
+			<h2>{{ channel.channelName }}</h2>
+			<mat-icon class="mat-icon-style" (click)="deleteChannel(channel.channelId)"
+				>delete</mat-icon
+			>
+		</div>
+
+		<div class="tag-channel-name-pos" (click)="openDialogNewChannel()">
+			<mat-icon class="mat-icon-style">add</mat-icon>
+			<h2>Add channel</h2>
+		</div>
 	</div>
-  </div>
-  
+</div>

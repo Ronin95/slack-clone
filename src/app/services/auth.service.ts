@@ -27,14 +27,27 @@ export class AuthService {
   ) {
     /* Saving user data in localstorage when
     logged in and setting up null when logged out */
-    this.afAuth.authState.subscribe((user) => {
+    this.afAuth.onAuthStateChanged((user) => {
       if (user) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user')!);
+        this.afs.collection('users').doc(user.uid).get().toPromise()
+          .then((doc) => {
+            if (doc && doc.exists) {
+              const userData = doc.data() as { [key: string]: any };
+              this.userData = { uid: user.uid };
+              Object.keys(userData).forEach(key => {
+                this.userData[key] = userData[key];
+              });
+              console.log('User data:', this.userData);
+            } else {
+              console.log('User data not found in Firestore');
+            }
+          })
+          .catch((error) => {
+            console.log('Error getting user data from Firestore:', error);
+          });
       } else {
-        localStorage.setItem('user', 'null');
-        JSON.parse(localStorage.getItem('user')!);
+        console.log('User logged out');
+        this.userData = null;
       }
     });
   }
@@ -45,7 +58,7 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.SetUserData(result.user);
-        this.afAuth.authState.subscribe((user) => {
+        this.afAuth.onAuthStateChanged((user) => {
           if (user) {
             this.router.navigate(['home']);
           }

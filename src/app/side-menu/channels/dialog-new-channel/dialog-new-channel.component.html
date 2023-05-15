@@ -1,11 +1,11 @@
 <h1 class="color-white" mat-dialog-title>Create new channel</h1>
-<form #postForm="ngForm" (ngSubmit)="addChannel(postForm['value'])">
-  <mat-label>Channel name</mat-label>
-  <input
-    id="channelName"
-    required
-    ngModel
-    name="channelName"
-    matInput />
-  <button mat-button type="submit">Create Channel</button>
-</form>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Channel name</mat-label>
+    <input [(ngModel)]="channelName" matInput />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button cdkFocusInitial (click)="addChannel()">Ok</button>
+</div>

@@ -1,36 +1,36 @@
 .header-toolbar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 45px;
-    background-color: #2d082d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  background-color: #2d082d;
 
-    img {
-        height: 30px;
-        width: 30px;
-        object-fit: cover;
-        border-radius: 8px;
-        position: absolute;
-        right: 15px;
-        cursor: pointer;
-    }
+  img {
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid white;
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+  }
 }
 
 .search-input {
-    height: 30px;
-    width: 500px;
-    border-radius: 8px;
-    border: unset;
-    background-color: #1b002d;
+  height: 30px;
+  width: 500px;
+  border-radius: 8px;
+  border: unset;
+  background-color: #1b002d;
+  color: #ffff;
+  padding-left: 10px;
+
+  &::placeholder {
     color: #ffff;
-    padding-left: 10px;
+  }
 
-    &::placeholder {
-        color: #ffff;
-    }
-
-    &:focus {
-        outline: none;
-    }
+  &:focus {
+    outline: none;
+  }
 }
-

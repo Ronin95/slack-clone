@@ -5,7 +5,7 @@
   </div>
   <div [class.d-none]="!openMenu">
     <div class="user-img-span " *ngFor="let item of items | async">
-      <img src="{{ item.photoURL }}" alt="user-img">
+      <img [src]="item.photoURL || 'assets/img/blank-profile-img.png'" alt="user-img">
       <span>{{item.displayName}}</span>
     </div>
     <div routerLink="home/sendMessage" class="tag-channel-name-pos">

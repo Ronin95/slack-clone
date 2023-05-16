@@ -66,7 +66,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-display.component';
 import { SingleMessageComponent } from './channel-on-display/single-message/single-message.component';
 import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-login.component';
-import { TextEditorComponent } from './channel-on-display/text-editor/text-editor.component';
+import { TextEditorComponent } from './text-editor/text-editor.component';
 
 
 @NgModule({

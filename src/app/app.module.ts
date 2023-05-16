@@ -5,6 +5,7 @@ import { OpenAiService } from './services/open-ai.service';
 
 /* Text Editor */
 import { QuillModule } from 'ngx-quill';
+import { NgxEditorModule } from 'ngx-editor';
 
 /* FireBase */
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -44,7 +45,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { DialogUserInfoComponent } from './header/dialog-user-info/dialog-user-info.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -64,9 +64,9 @@ import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.componen
 import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-display.component';
-import { SingleMessageComponent } from './single-message/single-message.component';
+import { SingleMessageComponent } from './channel-on-display/single-message/single-message.component';
 import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-login.component';
-import { TextEditorComponent } from './text-editor/text-editor.component';
+import { TextEditorComponent } from './channel-on-display/text-editor/text-editor.component';
 
 
 @NgModule({

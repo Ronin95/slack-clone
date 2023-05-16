@@ -19,7 +19,7 @@ export class ChannelsComponent implements OnInit {
 	firestore: Firestore = inject(Firestore);
 	channels$!: Observable<any>;
 	channelId!: any;
-	openMenu: boolean = false;
+	openMenu: boolean = true;
 
 	constructor(public dialog: MatDialog, private channelService: ChannelService) {
 	}

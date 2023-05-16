@@ -19,27 +19,13 @@ export class ChannelOnDisplayComponent implements OnInit {
     private route: ActivatedRoute,
     private firestore: AngularFirestore
   ) {
-    this.getAllChannelsAsArray();
   }
 
-  getAllChannelsAsArray(): Promise<any[]> {
-    return new Promise((resolve, reject) => {
-      this.channelService.getAllChannels().subscribe(
-        (channel) => {
-          this.channelArray.push(channel); // On each emission, push the emitted item into the array
-        },
-        (error) => {
-          reject(error); // On error, reject the Promise
-        },
-        () => {
-          resolve(this.channelArray); // On completion, resolve the Promise
-        }
-      );
-      console.log(this.channelArray);
-    });
+  ngOnInit() {
+    this.displayChannelName();
   }
 
-  ngOnInit(): void {
+  displayChannelName() {
     this.route.paramMap
       .pipe(
         switchMap((params) => {
@@ -57,5 +43,4 @@ export class ChannelOnDisplayComponent implements OnInit {
         }
       });
   }
-
 }

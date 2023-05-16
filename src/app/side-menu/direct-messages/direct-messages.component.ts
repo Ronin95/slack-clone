@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class DirectMessagesComponent implements OnInit {
   items: Observable<any[]>;
+  openMenu: boolean = true;
 
   ngOnInit() {
   }
@@ -26,7 +27,6 @@ export class DirectMessagesComponent implements OnInit {
     );
   }
 
-  openMenu: boolean = false;
 
   toggleDirectMessages() {
     this.openMenu = !this.openMenu;

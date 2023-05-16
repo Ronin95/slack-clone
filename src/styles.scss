@@ -1,6 +1,7 @@
 @import 'src/fixedCSS/fixedVar.scss';
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
 @import '~quill/dist/quill.snow.css';
-/* @import '~quill/dist/quill.bubble.css'; */
 
 html,
 body {
@@ -86,5 +87,8 @@ body {
 
 /* Text Editor */
 .ql-toolbar {
-	background-color: red; // test
+  border-radius: 10px;
+	background-color: rgb(211, 174, 174);
 }
+
+

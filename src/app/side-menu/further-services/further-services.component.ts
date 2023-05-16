@@ -6,12 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./further-services.component.scss']
 })
 export class FurtherServicesComponent implements OnInit {
-  openMenu: boolean = false;
+  openMenu: boolean = true;
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {}
 
   toggleChannels() {
     this.openMenu = !this.openMenu;

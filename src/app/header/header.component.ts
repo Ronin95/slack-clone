@@ -1,37 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogUserInfoComponent } from './dialog-user-info/dialog-user-info.component';
 import {
   AngularFirestore,
-  AngularFirestoreModule,
+  AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
-import { Observable, Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
-  dataRef!: Observable<any>;
+export class HeaderComponent implements OnInit {
   uid!: string;
-  // private dataSubscription: Subscription;
+  photoURL!: string;
+  userData$!: Observable<any>;
 
   constructor(
-    private router: Router,
     public dialog: MatDialog,
-    private firestore: AngularFirestore
-  ) {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.uid = user.uid;
-    this.dataRef = this.firestore.doc('users/' + this.uid).valueChanges();
-    // console.log(this.dataRef);
-    // this.dataSubscription = this.firestore.doc('users/' + this.uid).valueChanges().subscribe(data => {
+    private afs: AngularFirestore,
+    public authService: AuthService,
+    private afAuth: AngularFireAuth
+  ) {}
 
-    //   console.log(data);
-    //   this.dataSubscription.unsubscribe();
-    // });
+  ngOnInit() {
+    this.afAuth.user.subscribe((user) => {
+      if (user) {
+        const userDoc: AngularFirestoreDocument<any> = this.afs
+          .collection('users')
+          .doc(user.uid);
+        this.userData$ = userDoc.valueChanges();
+
+        this.userData$.subscribe((userData) => {
+          if (userData) {
+            this.uid = user.uid;
+            this.photoURL = userData['photoURL'];
+          } else {
+            console.log('User data not found in Firestore');
+          }
+        });
+      }
+    });
   }
 
   openUserDialog(): void {
@@ -40,8 +52,4 @@ export class HeaderComponent {
       position: { right: '10px', top: '45px' },
     });
   }
-}
-
-export interface userImg {
-  photoURL: string;
 }

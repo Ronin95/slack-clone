@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { signInAnonymously } from 'firebase/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogErrorLoginComponent } from '../dialog-error-login/dialog-error-login.component';
+import { first } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -29,22 +30,27 @@ export class AuthService {
     logged in and setting up null when logged out */
     this.afAuth.onAuthStateChanged((user) => {
       if (user) {
-        this.afs.collection('users').doc(user.uid).get().toPromise()
-          .then((doc) => {
-            if (doc && doc.exists) {
-              const userData = doc.data() as { [key: string]: any };
-              this.userData = { uid: user.uid };
-              Object.keys(userData).forEach(key => {
-                this.userData[key] = userData[key];
-              });
-              console.log('User data:', this.userData);
-            } else {
-              console.log('User data not found in Firestore');
+        this.afs
+          .collection('users')
+          .doc(user.uid)
+          .get()
+          .subscribe(
+            (doc) => {
+              if (doc && doc.exists) {
+                const userData = doc.data() as { [key: string]: any };
+                this.userData = { uid: user.uid };
+                Object.keys(userData).forEach((key) => {
+                  this.userData[key] = userData[key];
+                });
+                console.log('User data:', this.userData);
+              } else {
+                console.log('User data not found in Firestore');
+              }
+            },
+            (error) => {
+              console.log('Error getting user data from Firestore:', error);
             }
-          })
-          .catch((error) => {
-            console.log('Error getting user data from Firestore:', error);
-          });
+          );
       } else {
         console.log('User logged out');
         this.userData = null;

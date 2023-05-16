@@ -1,4 +1,4 @@
 <mat-toolbar class="header-toolbar">
   <input class="search-input" placeholder="Search messages ...">
-  <img (click)="openUserDialog()" [src]="(dataRef | async)?.photoURL || 'assets/img/blank-profile-img.png'"alt="profile-img">
+  <img *ngIf="photoURL" (click)="openUserDialog()" [src]="photoURL || 'assets/img/blank-profile-img.png'"alt="profile-img">
 </mat-toolbar>

@@ -12,7 +12,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class ChannelOnDisplayComponent implements OnInit {
   channelArray: any[] = [];
   channelName: string = '';
-  snapshotParam!: any;
   subscribedParam!: any;
 
   constructor(

@@ -14,16 +14,15 @@ export class DialogUserInfoComponent {
   public file: any = [];
   uploadProgress!: number;
   onDisplay = true;
-  uid!: string;
+  uid = this.authService.userData.uid;
 
   constructor(
     public authService: AuthService,
     public dialogRef: MatDialogRef<DialogUserInfoComponent>,
     private storage: AngularFireStorage,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
   ) {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.uid = user.uid;
+
   }
 
   uploadFile(event: Event, uid: string) {

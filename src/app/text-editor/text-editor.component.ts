@@ -4,33 +4,70 @@ import Quill from 'quill';
 import BlotFormatter from 'quill-blot-formatter';
 Quill.register('modules/blotFormatter', BlotFormatter);
 import 'quill-emoji/dist/quill-emoji.js';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from '@angular/fire/compat/firestore';
 import { QuillConfiguration } from './quill-configuration';
+import { ActivatedRoute } from '@angular/router';
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
+import { switchMap } from 'rxjs';
 
 @Component({
-	selector: 'app-text-editor',
-	templateUrl: './text-editor.component.html',
-	styleUrls: ['./text-editor.component.scss'],
+  selector: 'app-text-editor',
+  templateUrl: './text-editor.component.html',
+  styleUrls: ['./text-editor.component.scss'],
 })
 export class TextEditorComponent implements OnInit {
-	templateForm: FormGroup;
-	quillEditorModules = {};
-	modules = {};
+  templateForm: FormGroup;
+  quillEditorModules = {};
+  modules = {};
+  subscribedParam!: any;
 
-	quillConfiguration = QuillConfiguration;
-	@Input() control!: FormControl;
+  quillConfiguration = QuillConfiguration;
+  @Input() control!: FormControl;
 
-	ngOnInit() {
-		this.control = this.control ?? new FormControl();
-	}
+  ngOnInit() {
+    this.control = this.control ?? new FormControl();
+  }
 
-	constructor(private db: AngularFirestore) {
-		this.templateForm = new FormGroup({ textEditor: new FormControl('') });
-		this.quillEditorModules = { blotFormatter: {} };
-	}
+  constructor(
+    private firestore: AngularFirestore,
+    private route: ActivatedRoute
+  ) {
+    this.templateForm = new FormGroup({ textEditor: new FormControl('') });
+    this.quillEditorModules = { blotFormatter: {} };
+  }
 
-	sendMessage() {
-		const textInput = this.control.value as string;
-		console.log(textInput);
-	}
+  sendMessage() {
+    this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          this.subscribedParam = params.get('id');
+          return this.firestore
+            .collection('channels')
+            .doc(this.subscribedParam)
+            .valueChanges();
+        })
+      )
+      .subscribe((channel: any) => {
+        const message = {
+          text: this.control.value as string,
+          timestamp: new Date(),
+        };
+        const channelRef: AngularFirestoreDocument<any> = this.firestore
+          .collection('channels')
+          .doc(this.subscribedParam);
+
+        updateDoc(channelRef.ref, {
+          channelChat: [...channel.channelChat, message],
+        })
+          .then(() => {
+            console.log('Nachricht gesendet und gespeichert.');
+          })
+          .catch((error) => {
+            console.error('Fehler beim Speichern der Nachricht:', error);
+          });
+      });
+  }
 }

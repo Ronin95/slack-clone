@@ -87,8 +87,10 @@ body {
 
 /* Text Editor */
 .ql-toolbar {
-  border-radius: 10px;
+	border-radius: 10px;
 	background-color: rgb(211, 174, 174);
 }
 
-
+*::-webkit-scrollbar {
+	width: 0;
+}

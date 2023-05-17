@@ -1,3 +1,10 @@
+.msg-card-style {
+	margin: 5px;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
 .message-card {
 	display: flex !important;
 	flex-direction: row !important;
@@ -16,7 +23,8 @@
 	}
 
 	&-main {
-		width: 600px;
+		min-width: 280px;
+		max-width: 1000px;
 
 		&-header {
 			padding-top: unset;
@@ -43,8 +51,8 @@
 		.post-container {
 			width: 100% !important;
 			.post {
-				width: 100%;
-				max-width: 900px;
+				min-width: 280px;
+				max-width: 1000px;
 			}
 		}
 	}

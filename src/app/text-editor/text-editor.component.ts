@@ -5,7 +5,6 @@ import BlotFormatter from 'quill-blot-formatter';
 Quill.register('modules/blotFormatter', BlotFormatter);
 import 'quill-emoji/dist/quill-emoji.js';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { QuillConfiguration } from './quill-configuration';
 
 @Component({
 	selector: 'app-text-editor',
@@ -17,7 +16,6 @@ export class TextEditorComponent implements OnInit {
 	quillEditorModules = {};
 	modules = {};
 
-	quillConfiguration = QuillConfiguration;
 	@Input() control!: FormControl;
 
 	ngOnInit() {

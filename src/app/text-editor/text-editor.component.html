@@ -1,10 +1,17 @@
 <form [formGroup]="templateForm" class="editor-style">
-  <quill-editor
-    [placeholder]="'Type your message here...'"
-    [modules]="quillConfiguration"
-	  [styles]="{'min-height': '120px', borderRadius: '0 0 10px 10px', }"
-    [formControl]="control">
-  </quill-editor>
+	<quill-editor
+		[placeholder]="'Type your message here...'"
+		[modules]="quillConfiguration"
+		[modules]="quillEditorModules"
+		[styles]="{
+			'min-height': '150px',
+			'max-height': '150px',
+			borderRadius: '0 0 10px 10px',
+			overflow: 'auto'
+		}"
+		[formControl]="control"
+	>
+	</quill-editor>
 
 	<button title="send message" class="btn-send-message" (click)="sendMessage()">
 		<mat-icon>send</mat-icon>

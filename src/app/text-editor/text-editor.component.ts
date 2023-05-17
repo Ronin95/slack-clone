@@ -8,7 +8,6 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
-import { QuillConfiguration } from './quill-configuration';
 import { ActivatedRoute } from '@angular/router';
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { switchMap } from 'rxjs';
@@ -23,8 +22,6 @@ export class TextEditorComponent implements OnInit {
   quillEditorModules = {};
   modules = {};
   subscribedParam!: any;
-
-  quillConfiguration = QuillConfiguration;
   @Input() control!: FormControl;
 
   ngOnInit() {

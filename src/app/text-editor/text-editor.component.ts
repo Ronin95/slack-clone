@@ -10,7 +10,7 @@ import {
 } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
-import { switchMap } from 'rxjs';
+import { switchMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-text-editor',
@@ -37,34 +37,35 @@ export class TextEditorComponent implements OnInit {
   }
 
   sendMessage() {
-    this.route.paramMap
-      .pipe(
-        switchMap((params) => {
-          this.subscribedParam = params.get('id');
-          return this.firestore
-            .collection('channels')
-            .doc(this.subscribedParam)
-            .valueChanges();
-        })
-      )
-      .subscribe((channel: any) => {
-        const message = {
-          text: this.control.value as string,
-          timestamp: new Date(),
-        };
-        const channelRef: AngularFirestoreDocument<any> = this.firestore
-          .collection('channels')
-          .doc(this.subscribedParam);
-
-        updateDoc(channelRef.ref, {
-          channelChat: [...channel.channelChat, message],
-        })
-          .then(() => {
-            console.log('Nachricht gesendet und gespeichert.');
-          })
-          .catch((error) => {
-            console.error('Fehler beim Speichern der Nachricht:', error);
-          });
-      });
+	this.route.paramMap
+	  .pipe(
+		switchMap((params) => {
+		  this.subscribedParam = params.get('id');
+		  return this.firestore
+			.collection('channels')
+			.doc(this.subscribedParam)
+			.valueChanges()
+			.pipe(take(1));
+		})
+	  )
+	  .subscribe((channel: any) => {
+		const message = {
+		  text: this.control.value as string,
+		  timestamp: new Date(),
+		};
+		const channelRef: AngularFirestoreDocument<any> = this.firestore
+		  .collection('channels')
+		  .doc(this.subscribedParam);
+  
+		updateDoc(channelRef.ref, {
+		  channelChat: [...channel.channelChat, message],
+		})
+		  .then(() => {
+			console.log('Nachricht gesendet und gespeichert.');
+		  })
+		  .catch((error) => {
+			console.error('Fehler beim Speichern der Nachricht:', error);
+		  });
+	  });
   }
 }

@@ -19,7 +19,7 @@ export class OpenAiService {
 
   getDataFromOpenAI(text: string): Observable<string> {
     return from(this.openai.createCompletion({
-      model: "text-davinci-003",
+      model: "gpt-3.5-turbo",
       prompt: text,
       max_tokens: 256
     })).pipe(

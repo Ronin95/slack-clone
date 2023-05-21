@@ -7,8 +7,10 @@ import {
 	deleteDoc,
 	doc,
 } from '@angular/fire/firestore';
-import { getFirestore } from 'firebase/firestore';
-import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, switchMap, take } from 'rxjs';
+import { AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { updateDoc } from 'firebase/firestore';
 
 @Injectable({
 	providedIn: 'root',
@@ -19,8 +21,10 @@ export class ChannelService implements OnInit {
   channels!: any;
   channel!: Array<any>;
   channelId!: any;
+  subscribedParam!: any;
+  control: any;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, private route: ActivatedRoute,) {
   }
 
   ngOnInit() {
@@ -40,6 +44,41 @@ export class ChannelService implements OnInit {
     const channelColl = collection(this.firestore, 'channels');
     const docRef = doc(channelColl, channelId);
     deleteDoc(docRef);
+  }
+
+  postInChannel() {
+    console.log('postInChannel');
+    debugger;
+    this.route.paramMap
+      .pipe(
+      switchMap((params) => {
+        this.subscribedParam = params.get('id');
+        debugger;
+        return this.afs
+          .collection('channels')
+          .doc(this.subscribedParam)
+          .valueChanges()
+          .pipe(take(1));
+      })
+      ).subscribe((channel: any) => {
+      const message = {
+        text: this.control.value as string,
+        timestamp: new Date(),
+      };
+      const channelRef: AngularFirestoreDocument<any> = this.afs
+        .collection('channels')
+        .doc(this.subscribedParam);
+
+      updateDoc(channelRef.ref, {
+        channelChat: [...channel.channelChat, message],
+      })
+        .then(() => {
+        console.log('Nachricht gesendet und gespeichert.');
+        })
+        .catch((error) => {
+        console.error('Fehler beim Speichern der Nachricht:', error);
+        });
+      });
   }
 }
 

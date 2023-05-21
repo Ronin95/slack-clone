@@ -8,6 +8,10 @@
       <input type="text" [(ngModel)]="inputText" placeholder="Place your concerns..." />
       <mat-icon (click)="callOpenAiApi(inputText)">send</mat-icon>
     </div>
-    <p class="bstyle response-style" *ngIf="openAiResponse">AI: {{ openAiResponse }}</p>
+    <p class="response-style" *ngIf="openAiResponse">AI: {{ openAiResponse }}</p>
   </div>
+  <form>
+    <app-text-editor></app-text-editor>
+    <mat-icon>send</mat-icon>
+  </form>
 </div>

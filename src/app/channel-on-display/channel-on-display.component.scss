@@ -56,3 +56,15 @@
 		left: 0px;
 	}
 }
+
+.btn-send-message {
+  position: absolute;
+  right: 5px;
+  bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  padding: 6px;
+}

@@ -8,5 +8,10 @@
 		<app-single-message></app-single-message>
 	</div>
 
-	<app-text-editor class="editor"></app-text-editor>
+	<form>
+    <app-text-editor class="editor"></app-text-editor>
+    <button class="btn-send-message" (click)="onPostInChannel()">
+      <mat-icon>send</mat-icon>
+    </button>
+  </form>
 </div>

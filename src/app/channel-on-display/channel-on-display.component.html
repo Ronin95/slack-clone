@@ -8,9 +8,9 @@
 		<app-single-message></app-single-message>
 	</div>
 
-	<form>
+	<form [formGroup]="templateForm">
     <app-text-editor class="editor"></app-text-editor>
-    <button id="postTextImg" class="btn-send-message" (click)="onPostInChannel()">
+    <button class="btn-send-message" (click)="onPostInChannel()">
       <mat-icon>send</mat-icon>
     </button>
   </form>

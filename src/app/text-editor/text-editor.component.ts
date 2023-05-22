@@ -12,20 +12,17 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./text-editor.component.scss'],
 })
 export class TextEditorComponent implements OnInit {
-  templateForm: FormGroup;
+  // templateForm: FormGroup;
   quillEditorModules = {};
   modules = {};
   subscribedParam!: any;
   @Input() control!: FormControl;
 
   ngOnInit() {
-    this.control = this.control ?? new FormControl();
   }
 
   constructor(
-    private route: ActivatedRoute
   ) {
-    this.templateForm = new FormGroup({ textEditor: new FormControl('') });
     this.quillEditorModules = {
       blotFormatter: {}, // keeps the image scalable
       toolbar: [

@@ -1,4 +1,4 @@
-import { Injectable, OnInit, inject } from '@angular/core';
+import { Injectable, Input, OnInit, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {
 	Firestore,
@@ -12,6 +12,7 @@ import { Observable, Subscription, switchMap, take } from 'rxjs';
 import { AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { getDocs, getFirestore, updateDoc } from 'firebase/firestore';
 import { AuthService } from './auth.service';
+import { FormControl } from '@angular/forms';
 
 @Injectable({
 	providedIn: 'root',
@@ -23,12 +24,13 @@ export class ChannelService implements OnInit {
   channel!: Array<any>;
   channelId!: any;
   subscribedParam!: any;
-  control: any;
+  @Input() control!: FormControl;
   name!: string;
   uid!: string;
   photoURL!: string;
   userData!: Subscription;
   foundUser!: any; // in getUserNameAndImgFromFirebase()
+  textInput!: string;
 
   constructor (
     private afs: AngularFirestore,
@@ -59,7 +61,6 @@ export class ChannelService implements OnInit {
     this.getUserNameAndImgFromFirebase();
     this.getFormatedDate(new Date());
     this.saveTextInLocalStorage();
-    // debugger;
     // this.route.paramMap
     //   .pipe(
     //   switchMap((params) => {
@@ -123,16 +124,7 @@ export class ChannelService implements OnInit {
   }
 
   saveTextInLocalStorage() {
-    // Get the textarea element
-    const textarea = document.getElementById('postTextImg') as HTMLInputElement;
-
-    // Get the text content of the textarea and check if it's not empty
-    if (textarea) {
-      // Get the text content of the textarea
-      const text = textarea.value;
-
-      // Save the text content in localStorage
-      localStorage.setItem('savedText', text);
-    }
+    const message = localStorage.setItem('ChannelMessageText', this.control.value);
+    console.log(message);
   }
 }

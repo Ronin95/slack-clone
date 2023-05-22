@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -20,12 +20,14 @@ export class ChannelOnDisplayComponent implements OnInit {
   channelName: string = '';
   subscribedParam!: any;
   @Input() control!: FormControl;
+  templateForm: FormGroup;
 
   constructor(
     public channelService: ChannelService,
     private route: ActivatedRoute,
     private firestore: AngularFirestore
   ) {
+    this.templateForm = new FormGroup({ textEditor: new FormControl('') });
   }
 
   ngOnInit() {
@@ -59,11 +61,7 @@ export class ChannelOnDisplayComponent implements OnInit {
   //     .pipe(
   //     switchMap((params) => {
   //       this.subscribedParam = params.get('id');
-  //       return this.firestore
-  //       .collection('channels')
-  //       .doc(this.subscribedParam)
-  //       .valueChanges()
-  //       .pipe(take(1));
+  //       return this.firestore.collection('channels').doc(this.subscribedParam).valueChanges().pipe(take(1));
   //     })
   //     )
   //     .subscribe((channel: any) => {

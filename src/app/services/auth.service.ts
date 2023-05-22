@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { signInAnonymously } from 'firebase/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogErrorLoginComponent } from '../dialog-error-login/dialog-error-login.component';
-import { first } from 'rxjs';
+import { Observable, first } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,6 +18,9 @@ export class AuthService {
   userData: any; // Save logged in user data
   errorMsgRegister!: string;
   errorLogin = false;
+  uid!: string;
+  photoURL!: string;
+  userData$!: Observable<any>;
 
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
@@ -185,7 +188,26 @@ export class AuthService {
       exitAnimationDuration,
     });
   }
+
+  authenticateUserGetImg() {
+    this.afAuth.user.subscribe((user) => {
+      if (user) {
+        const userDoc: AngularFirestoreDocument<any> = this.afs
+          .collection('users')
+          .doc(user.uid);
+        this.userData$ = userDoc.valueChanges();
+
+        this.userData$.subscribe((userData) => {
+          if (userData) {
+            this.uid = user.uid;
+            this.photoURL = userData['photoURL'];
+          } else {
+            console.log('User data not found in Firestore');
+          }
+        });
+      }
+    });
+  }
 }
-function then(arg0: () => void) {
-  throw new Error('Function not implemented.');
-}
+
+

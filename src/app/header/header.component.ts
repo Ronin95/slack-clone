@@ -15,9 +15,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  uid!: string;
-  photoURL!: string;
-  userData$!: Observable<any>;
 
   constructor(
     public dialog: MatDialog,
@@ -27,23 +24,7 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.afAuth.user.subscribe((user) => {
-      if (user) {
-        const userDoc: AngularFirestoreDocument<any> = this.afs
-          .collection('users')
-          .doc(user.uid);
-        this.userData$ = userDoc.valueChanges();
-
-        this.userData$.subscribe((userData) => {
-          if (userData) {
-            this.uid = user.uid;
-            this.photoURL = userData['photoURL'];
-          } else {
-            console.log('User data not found in Firestore');
-          }
-        });
-      }
-    });
+    this.authService.authenticateUserGetImg();
   }
 
   openUserDialog(): void {

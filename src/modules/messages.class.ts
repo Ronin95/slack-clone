@@ -1,19 +1,25 @@
 export class Message {
-  messageText: string;
-  timestamp: number;
   userId: string;
+  userImg: string;
+  userName: string;
+  timestamp: number;
+  messageText: string;
 
   constructor(obj?: any){
-      this.messageText = obj ? obj.messageText : '';
-      this.timestamp = obj ? obj.timestamp : new Date().getTime();
-      this.userId = obj ? obj.userId : '';
+    this.userId = obj ? obj.userId : '';
+    this.userImg = obj ? obj.userImg : '';
+    this.userName = obj ? obj.userName : '';
+    this.timestamp = obj ? obj.timestamp : new Date().getTime();
+    this.messageText = obj ? obj.messageText : '';
   }
 
-  public toJson(): any{
+  public toJSON(): any{
       return {
-          timestamp: this.timestamp,
-          userId: this.userId,
-          messageText:this.messageText,
+        userId: this.userId,
+        userImg: this.userImg,
+        userName: this.userName,
+        timestamp: this.timestamp,
+        messageText:this.messageText,
       }
   }
 

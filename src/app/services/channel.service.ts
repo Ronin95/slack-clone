@@ -8,24 +8,32 @@ import {
 	doc,
 } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, switchMap, take } from 'rxjs';
+import { Observable, Subscription, switchMap, take } from 'rxjs';
 import { AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { updateDoc } from 'firebase/firestore';
+import { getDocs, getFirestore, updateDoc } from 'firebase/firestore';
 import { AuthService } from './auth.service';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ChannelService implements OnInit {
-  // db: any = getFirestore();
+  db: any = getFirestore();
   firestore: Firestore = inject(Firestore);
   channels!: any;
   channel!: Array<any>;
   channelId!: any;
   subscribedParam!: any;
   control: any;
+  name!: string;
+  uid!: string;
+  photoURL!: string;
+  userData!: Subscription;
+  foundUser!: any; // in getUserNameAndImgFromFirebase()
 
-  constructor(private afs: AngularFirestore, private route: ActivatedRoute,) {
+  constructor (
+    private afs: AngularFirestore,
+    private route: ActivatedRoute
+  ) {
   }
 
   ngOnInit() {
@@ -48,10 +56,9 @@ export class ChannelService implements OnInit {
   }
 
   postInChannel() {
-    let uid = this.getUserID(); // get user id from local storage
-    console.log(uid);
-    let date = this.getDate(); // get date
-    console.log(date);
+    this.getUserNameAndImgFromFirebase();
+    this.getFormatedDate(new Date());
+    this.saveTextInLocalStorage();
     // debugger;
     // this.route.paramMap
     //   .pipe(
@@ -85,13 +92,47 @@ export class ChannelService implements OnInit {
     //   });
   }
 
-  getUserID() {
-    let uidFromLocalStorage = JSON.parse(window.localStorage.getItem('user') || '{}');
-    return uidFromLocalStorage.uid;
+  getFormatedDate(date: Date) {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const dayName = days[date.getDay()];
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = months[date.getMonth()];
+    const year = String(date.getFullYear()).slice(-2);
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const formattedDate = `${dayName}, ${day}. ${month} ${year} | ${hours}:${minutes}`;
+    localStorage.setItem('ChannelMessageDate', formattedDate);
   }
 
-  getDate() {
-    return new Date()
+  async getUserNameAndImgFromFirebase() {
+    const userData = collection(this.db, 'users');
+    const docsSnap = await getDocs(userData);
+    const getUIDFromLocalStorage = localStorage.getItem('loggedInUser');
+    const getArrayForm = docsSnap.docs.map((doc) => doc.data());
+    for(let i = 0; i < getArrayForm.length; i++){
+        if(getArrayForm[i]['uid'] === getUIDFromLocalStorage?.slice(1, -1)){
+            this.foundUser = getArrayForm[i];
+            break;
+        }
+    }
+    if(this.foundUser !== null) {
+        this.name = this.foundUser['displayName'];
+        this.photoURL = this.foundUser['photoURL'];
+    }
+  }
+
+  saveTextInLocalStorage() {
+    // Get the textarea element
+    const textarea = document.getElementById('postTextImg') as HTMLInputElement;
+
+    // Get the text content of the textarea and check if it's not empty
+    if (textarea) {
+      // Get the text content of the textarea
+      const text = textarea.value;
+
+      // Save the text content in localStorage
+      localStorage.setItem('savedText', text);
+    }
   }
 }
-

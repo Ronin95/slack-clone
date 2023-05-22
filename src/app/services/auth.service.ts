@@ -15,6 +15,9 @@ import { Observable, first } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
+  static authenticateUserGetImg() {
+    throw new Error('Method not implemented.');
+  }
   userData: any; // Save logged in user data
   errorMsgRegister!: string;
   errorLogin = false;
@@ -46,6 +49,7 @@ export class AuthService {
                   this.userData[key] = userData[key];
                 });
                 console.log('User data:', this.userData);
+                localStorage.setItem('loggedInUser', JSON.stringify(this.userData.uid)); // saving uid from user in localstorage
               } else {
                 console.log('User data not found in Firestore');
               }

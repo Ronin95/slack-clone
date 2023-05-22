@@ -3,15 +3,15 @@
 		<img class="message-card-image"
 			mat-card-image
 			alt="Photo"
-			src="./../../assets/img/profilePictures/christian.png"/>
-
+      [src]="channelService.photoURL || 'assets/img/blank-profile-img.png'"
+      />
 		<div class="message-card-main">
 			<mat-card-header class="message-card-main-header">
 				<mat-card-title class="message-card-main-header-title">
-					<span class="author">Christian</span>
-					<span class="time-stamp">Tue, 09. May | 14.44</span>
+					<span class="author">{{ channelService.name }}</span>
+					<span class="time-stamp"></span>
 				</mat-card-title>
-				<mat-icon class="chat-icon">chat</mat-icon>
+				<!-- <mat-icon class="chat-icon">chat</mat-icon> -->
 			</mat-card-header>
 			<mat-card-content class="post-container">
 				<p class="post">

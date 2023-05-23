@@ -8,12 +8,14 @@ import {
   doc,
 } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription, finalize, switchMap, take } from 'rxjs';
+import { Observable, Subscription, finalize, switchMap, take, firstValueFrom  } from 'rxjs';
 import { AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { getDocs, getFirestore, updateDoc } from 'firebase/firestore';
 import { AuthService } from './auth.service';
 import { FormControl } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
+
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +36,11 @@ export class ChannelService implements OnInit {
   textInput!: string;
   public file: any = [];
 
-  constructor(private afs: AngularFirestore, private route: ActivatedRoute, private storage: AngularFireStorage,) {}
+  constructor(
+    private afs: AngularFirestore, 
+    private route: ActivatedRoute, 
+    private storage: AngularFireStorage
+  ) {}
 
   ngOnInit() {}
 
@@ -55,44 +61,52 @@ export class ChannelService implements OnInit {
     deleteDoc(docRef);
   }
 
-  imgUpload(event: Event) {
-    const element = event.target as HTMLInputElement;
-    const file = element.files ? element.files[0] : null;
-    if (file) {
-      const filePath = `channelImages/${this.channelId}/${file.name}`;
-      const fileRef = this.storage.ref(filePath);
-      const task = this.storage.upload(filePath, file);
+  async onFileChange(event: any) {
+    const file = event.target.files[0];
+    const documentId = await this.getDocumentId('channels');
+    const filePath = `/channelImages/${documentId}/${file.name}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
 
-      // get notified when the download URL is available
-      task
-        .snapshotChanges()
-        .pipe(
-          finalize(() =>
-            fileRef.getDownloadURL().subscribe((url) => {
-              // Update the user's photoURL in Firestore
-              this.afs
-                .collection('channels')
-                .doc(this.channelId)
-                .update({
-                  photoURL: url,
-                })
-                .then(() => {
-                  console.log(`URL ${url} saved to Firestore for user ${this.channelId}`);
-                })
-                .catch((error: any) => {
-                  console.error(`Error saving URL to Firestore: ${error}`);
-                });
-            })
-          )
-        )
-        .subscribe();
+    // observe percentage changes
+    task.percentageChanges().subscribe((percentage) => {
+      console.log(percentage);
+    });
+
+    // get notified when the download URL is available
+    task.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe(downloadURL => {
+            console.log('File available at', downloadURL);
+          });
+        })
+     )
+    .subscribe();
+  }
+
+  async getDocumentId(collection: string): Promise<string> {
+    const snapshot$ = this.afs.collection(collection).snapshotChanges().pipe(take(1));
+    const snapshot = await firstValueFrom(snapshot$);
+    
+    if (!snapshot || snapshot.length === 0) {
+      throw new Error(`No documents found in collection: ${collection}`);
+    }
+  
+    const documentId = snapshot[0].payload.doc.id;
+    return documentId;
+  }
+  
+  
+
+  onButtonClick() {
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput) {
+      fileInput.click();
+    } else {
+      console.error('Could not find element with ID "fileInput"');
     }
   }
-
-  accessChannelId() {
-    console.log('Test 2');
-    
-  }
+  
 
   postInChannel() {
     this.getUserNameAndImgFromFirebase();
@@ -132,20 +146,7 @@ export class ChannelService implements OnInit {
 
   getFormatedDate(date: Date) {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
+    const months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const dayName = days[date.getDay()];
     const day = String(date.getDate()).padStart(2, '0');
     const month = months[date.getMonth()];

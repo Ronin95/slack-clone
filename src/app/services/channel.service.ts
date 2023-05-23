@@ -15,6 +15,7 @@ import { AuthService } from './auth.service';
 import { FormControl } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
+import * as firebase from 'firebase/compat';
 
 
 @Injectable({
@@ -112,7 +113,7 @@ export class ChannelService implements OnInit {
 
   postInChannel() {
     this.getUserNameAndImgFromFirebase();
-    this.getFormatedDate(new Date());
+    // this.getFormatedDate(new Date());
     // this.route.paramMap
     //   .pipe(
     //   switchMap((params) => {
@@ -145,7 +146,7 @@ export class ChannelService implements OnInit {
     //   });
   }
 
-  getFormatedDate(date: Date) {
+  getFormattedDate(date: Date): string {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const dayName = days[date.getDay()];
@@ -155,7 +156,7 @@ export class ChannelService implements OnInit {
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const formattedDate = `${dayName}, ${day}. ${month} ${year} | ${hours}:${minutes}`;
-    localStorage.setItem('ChannelMessageDate', formattedDate);
+    return formattedDate;
   }
 
   async getUserNameAndImgFromFirebase() {
@@ -177,11 +178,16 @@ export class ChannelService implements OnInit {
 
   async saveMessageToFirebase(message: string): Promise<void> {
     const documentId = await this.getDocumentId('channels');
-
+  
     const channelChatRef = this.afs.collection('channels').doc(documentId).collection('ChannelChat');
-
+  
+    const date = new Date();
+    const formattedDate = this.getFormattedDate(date);
+  
+    // Add the message and the formatted date to the collection
     channelChatRef.add({
-      message: message
+      message: message,
+      date: formattedDate,
     });
   }
 }

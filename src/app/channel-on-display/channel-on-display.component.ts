@@ -41,20 +41,20 @@ export class ChannelOnDisplayComponent implements OnInit {
   ngOnInit() {
     this.displayChannelName();
     this.channelService.getUserNameAndImgFromFirebase();
-    this.setTimeStampInHTML();
+    // this.setTimeStampInHTML();
   }
 
-  setTimeStampInHTML() {
-    // Get the formatted date from localStorage
-    const formattedDate = localStorage.getItem('ChannelMessageDate');
-    // Select the span element by its class name
-    const spanElement = document.querySelector('.time-stamp');
-    // Check if the span element exists and the formattedDate is not null
-    if (spanElement && formattedDate) {
-      // Set the span element's text content to the formatted date
-      spanElement.textContent = formattedDate;
-    }
-  }
+  // setTimeStampInHTML() {
+  //   // Get the formatted date from localStorage
+  //   const formattedDate = localStorage.getItem('ChannelMessageDate');
+  //   // Select the span element by its class name
+  //   const spanElement = document.querySelector('.time-stamp');
+  //   // Check if the span element exists and the formattedDate is not null
+  //   if (spanElement && formattedDate) {
+  //     // Set the span element's text content to the formatted date
+  //     spanElement.textContent = formattedDate;
+  //   }
+  // }
 
   displayChannelName() {
     this.route.paramMap

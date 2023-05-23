@@ -84,6 +84,8 @@ export class ChannelService implements OnInit {
     .subscribe();
   }
 
+  
+
   async getDocumentId(collection: string): Promise<string> {
     const snapshot$ = this.afs.collection(collection).snapshotChanges().pipe(take(1));
     const snapshot = await firstValueFrom(snapshot$);
@@ -111,7 +113,6 @@ export class ChannelService implements OnInit {
   postInChannel() {
     this.getUserNameAndImgFromFirebase();
     this.getFormatedDate(new Date());
-    this.saveTextInLocalStorage();
     // this.route.paramMap
     //   .pipe(
     //   switchMap((params) => {
@@ -174,11 +175,13 @@ export class ChannelService implements OnInit {
     }
   }
 
-  saveTextInLocalStorage() {
-    const message = localStorage.setItem(
-      'ChannelMessageText',
-      this.control.value
-    );
-    console.log(message);
+  async saveMessageToFirebase(message: string): Promise<void> {
+    const documentId = await this.getDocumentId('channels');
+
+    const channelChatRef = this.afs.collection('channels').doc(documentId).collection('ChannelChat');
+
+    channelChatRef.add({
+      message: message
+    });
   }
 }

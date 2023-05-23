@@ -42,9 +42,9 @@
 				<mat-icon>add_a_photo</mat-icon>
 			</button>
 			<mat-form-field class="input-field">
-				<textarea matInput placeholder="Insert your message..."></textarea>
+				<textarea matInput [(ngModel)]="messageText" placeholder="Insert your message..."></textarea>
 			</mat-form-field>
-			<button  mat-icon-button>
+			<button mat-icon-button (click)="sendMessage()">
 				<mat-icon>send</mat-icon>
 			</button>
 		</div>

@@ -19,15 +19,23 @@ export class ChannelOnDisplayComponent implements OnInit {
   channelArray: any[] = [];
   channelName: string = '';
   subscribedParam!: any;
-  @Input() control!: FormControl;
-  messageForm: FormGroup;
+  // @Input() control!: FormControl;
+  // messageForm: FormGroup;
+  messageText!: string;
 
   constructor(
     public channelService: ChannelService,
     private route: ActivatedRoute,
     private firestore: AngularFirestore
   ) {
-    this.messageForm = new FormGroup({ textEditor: new FormControl('') });
+    // this.messageForm = new FormGroup({ textEditor: new FormControl('') });
+  }
+
+  async sendMessage(): Promise<void> {
+    if (this.messageText) {
+      await this.channelService.saveMessageToFirebase(this.messageText);
+      this.messageText = '';
+    }
   }
 
   ngOnInit() {

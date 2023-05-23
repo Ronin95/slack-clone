@@ -36,14 +36,14 @@
 	<div>
 		<!-- Create a formfield with the help of angular material that has a button where you can upload a image a textarea and another send button -->
 		<div class="input-container">
-			<input type="file" accept="image/*" #file style="display:none;">
-			<button mat-icon-button  (click)="file.click()">
+			<input type="file" accept="image/*" #img style="display:none;">
+			<button mat-icon-button  (click)="img.click(); channelService.imgUpload($event)">
 				<mat-icon>add_a_photo</mat-icon>
 			</button>
 			<mat-form-field class="input-field">
 				<textarea matInput placeholder="Insert your message..."></textarea>
 			</mat-form-field>
-			<button mat-icon-button>
+			<button  mat-icon-button>
 				<mat-icon>send</mat-icon>
 			</button>
 		</div>

@@ -43,8 +43,8 @@ export class ChannelOnDisplayComponent implements OnInit {
     const spanElement = document.querySelector('.time-stamp');
     // Check if the span element exists and the formattedDate is not null
     if (spanElement && formattedDate) {
-        // Set the span element's text content to the formatted date
-        spanElement.textContent = formattedDate;
+      // Set the span element's text content to the formatted date
+      spanElement.textContent = formattedDate;
     }
   }
 

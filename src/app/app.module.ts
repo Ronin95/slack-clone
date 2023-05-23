@@ -4,8 +4,8 @@ import { environment } from 'src/environments/environment.prod';
 import { OpenAiService } from './services/open-ai.service';
 
 /* Text Editor */
-import { QuillModule } from 'ngx-quill';
-import { NgxEditorModule } from 'ngx-editor';
+// import { QuillModule } from 'ngx-quill';
+// import { NgxEditorModule } from 'ngx-editor';
 
 /* FireBase */
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -64,9 +64,7 @@ import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.componen
 import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-display.component';
-import { SingleMessageComponent } from './channel-on-display/single-message/single-message.component';
 import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-login.component';
-import { TextEditorComponent } from './text-editor/text-editor.component';
 
 
 @NgModule({
@@ -89,16 +87,14 @@ import { TextEditorComponent } from './text-editor/text-editor.component';
 		DialogUserInfoComponent,
 		ForgotPasswordComponent,
 		VerifyEmailComponent,
-		SingleMessageComponent,
 		ChannelOnDisplayComponent,
-		TextEditorComponent,
 		DialogErrorLoginComponent,
 	],
 	imports: [
 		CommonModule,
 		BrowserModule,
 		AppRoutingModule,
-		QuillModule.forRoot(),
+		// QuillModule.forRoot(),
 		BrowserAnimationsModule,
 		MatToolbarModule,
 		MatSidenavModule,

@@ -11,15 +11,23 @@ import { SendMessageComponent } from './send-message/send-message.component';
 import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-display.component';
+import {
+	canActivate,
+	redirectUnauthorizedTo,
+	redirectLoggedInTo,
+} from '@angular/fire/auth-guard';
+
+const redirectToLogin = () => redirectUnauthorizedTo(['']);
+const redirectToHome = () => redirectLoggedInTo(['home']);
 
 const routes: Routes = [
 	{ path: 'headerMenu', component: HeaderComponent },
-	{ path: 'home', component: HomeComponent },
+	{ path: 'home', component: HomeComponent, ...canActivate(redirectToLogin) },
 	{ path: 'home/threads', component: ThreadsComponent },
 	{ path: 'home/users', component: UsersComponent },
 	{ path: 'home/chatgpt', component: ChatgptComponent },
 	{ path: 'home/sendMessage', component: SendMessageComponent },
-	{ path: '', component: WelcomeScreenComponent },
+	{ path: '', component: WelcomeScreenComponent, ...canActivate(redirectToHome) },
 	{ path: 'sideMenu', component: SideMenuComponent },
 	{ path: 'channel/:id', component: ChannelOnDisplayComponent },
 	{ path: '**', redirectTo: 'home', pathMatch: 'full' },

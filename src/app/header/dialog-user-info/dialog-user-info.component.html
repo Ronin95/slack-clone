@@ -1,20 +1,36 @@
 <div class="dialog-user-info">
   <div class="display-flex" mat-dialog-content>
     <div class="align-center">
-      <div *ngIf="authService.userData as user" class="flex-column gap">
-        <span class="font-500">{{(user.displayName) ? user.displayName : 'User'}}</span>
+      <div
+        *ngIf="authService.userData$ | async as user"
+        class="flex-column gap"
+      >
+        <span class="font-500">{{ user.displayName || "Guest" }}</span>
         <div class="align-center">
           <div class="online-dot"></div>
           <span>Active</span>
         </div>
-        <div id="uploadImgRemove" [class.d-none]="!onDisplay" >
-          <input type="file" (change)="uploadFile($event, uid)" name="uploadfile" id="img" style="display:none;"/>
+        <div id="uploadImgRemove" [class.d-none]="!onDisplay">
+          <input
+            type="file"
+            (change)="uploadFile($event, uid)"
+            name="uploadfile"
+            id="img"
+            style="display: none"
+          />
           <label for="img">Choose image</label>
         </div>
       </div>
     </div>
   </div>
   <div class="logout-container" mat-dialog-actions>
-    <button class="mr-12 mb-12" mat-button cdkFocusInitial (click)="authService.SignOut();this.dialogRef.close();">Logout</button>
+    <button
+      class="mr-12 mb-12"
+      mat-button
+      cdkFocusInitial
+      (click)="authService.SignOut(); this.dialogRef.close()"
+    >
+      Logout
+    </button>
   </div>
 </div>

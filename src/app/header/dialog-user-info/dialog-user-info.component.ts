@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -10,19 +10,23 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   templateUrl: './dialog-user-info.component.html',
   styleUrls: ['./dialog-user-info.component.scss'],
 })
-export class DialogUserInfoComponent {
+export class DialogUserInfoComponent implements OnInit{
   public file: any = [];
   uploadProgress!: number;
   onDisplay = true;
-  uid = this.authService.userData.uid;
+  uid!: string;
 
   constructor(
     public authService: AuthService,
     public dialogRef: MatDialogRef<DialogUserInfoComponent>,
     private storage: AngularFireStorage,
     private firestore: AngularFirestore,
-  ) {
+  ) { }
 
+  ngOnInit() {
+    if (this.authService.userData) {
+      this.uid = this.authService.userData.uid;
+    }
   }
 
   uploadFile(event: Event, uid: string) {

@@ -49,7 +49,10 @@ export class AuthService {
                   this.userData[key] = userData[key];
                 });
                 console.log('User data:', this.userData);
-                localStorage.setItem('loggedInUser', JSON.stringify(this.userData.uid)); // saving uid from user in localstorage
+                localStorage.setItem(
+                  'loggedInUser',
+                  JSON.stringify(this.userData.uid)
+                ); // saving uid from user in localstorage
               } else {
                 console.log('User data not found in Firestore');
               }
@@ -88,8 +91,13 @@ export class AuthService {
   guestLogin() {
     return this.afAuth
       .signInAnonymously()
-      .then(() => {
-        this.router.navigate(['home']);
+      .then((result) => {
+        this.SetUserData(result.user);
+        this.afAuth.onAuthStateChanged((user) => {
+          if (user) {
+            this.router.navigate(['home']);
+          }
+        });
       })
       .catch((error) => {
         window.alert(error.message);
@@ -108,6 +116,7 @@ export class AuthService {
           // set display name of user
           result.user.updateProfile({ displayName: displayName }).then(() => {
             this.SetUserData(result.user);
+            this.router.navigate(['/']);
           });
         }
       })
@@ -213,5 +222,3 @@ export class AuthService {
     });
   }
 }
-
-

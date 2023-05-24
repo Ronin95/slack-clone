@@ -19,12 +19,26 @@
 	}
 
 	.message-container {
+		position: relative;
 		overflow-y: scroll;
 		height: calc(100vh - 340px);
 		background-color: $bgClr-start;
 		border-right: unset;
 		border-left: unset;
 		background-color: white;
+
+		p {
+			position: absolute !important;
+			margin: auto;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			height: fit-content;
+			text-align: center;
+			font-size: 1rem;
+			font-weight: 600;
+		}
 	}
 
 	.editor {

@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs';
 export class PrivateChatComponent {
 	subscribedParam!: any;
 	userName: string = '';
-	messages: any[] = [];
+	messages!: any[];
 
 	constructor(private route: ActivatedRoute, private firestore: AngularFirestore) {
 		this.displayUserName();

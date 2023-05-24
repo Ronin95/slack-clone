@@ -6,11 +6,12 @@
 	<div [class.d-none]="!openMenu">
 		<div class="user-img-span" *ngFor="let item of items | async">
 			<img
-				routerLink="chat/{{ item.uid }}"
 				[src]="item.photoURL || 'assets/img/blank-profile-img.png'"
 				alt="user-img"
 			/>
-			<span>{{(item.displayName)?  item.displayName: 'Guest' }}</span>
+			<span routerLink="chat/{{ item.uid }}">{{
+				item.displayName ? item.displayName : 'Guest'
+			}}</span>
 		</div>
 		<div routerLink="home/sendMessage" class="tag-channel-name-pos">
 			<mat-icon class="mat-icon-style">add</mat-icon>

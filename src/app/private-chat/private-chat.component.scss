@@ -4,7 +4,7 @@
 	position: relative;
 	height: 100%;
 	background-color: $bgClr-thirdary;
-	width: calc(100vw - 252.547px);
+	width: calc(100vw - $side-menu-width);
 
 	.header {
 		width: 100%;
@@ -19,12 +19,26 @@
 	}
 
 	.message-container {
+		position: relative;
 		overflow-y: scroll;
 		height: calc(100vh - 340px);
 		background-color: $bgClr-start;
 		border-right: unset;
 		border-left: unset;
 		background-color: white;
+
+		p {
+			position: absolute !important;
+			margin: auto;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			height: fit-content;
+			text-align: center;
+			font-size: 1rem;
+			font-weight: 600;
+		}
 	}
 
 	.editor {
@@ -113,7 +127,7 @@
 	align-items: center;
 	background-color: $bgClr-start;
 	padding: 10px;
-	width: calc(100vw - 252.547px);
+	width: calc(100vw - $side-menu-width);
 	height: 200px;
 	position: absolute;
 	bottom: 0;

@@ -26,7 +26,7 @@
 	position: relative;
 	height: 100%;
 	background-color: $bgClr-thirdary;
-	width: calc(100vw - 252.547px);
+	width: calc(100vw - $side-menu-width);
 
 	.header {
 		width: 100%;
@@ -91,6 +91,8 @@
 		height: 50px;
 		border-radius: 10px !important;
 		background-color: white;
+		object-fit: cover;
+		position: center;
 	}
 
 	&-main {
@@ -135,7 +137,7 @@
 	align-items: center;
 	background-color: $bgClr-start;
 	padding: 10px;
-	width: calc(100vw - 252.547px);
+	width: calc(100vw - $side-menu-width);
 	height: 200px;
 	position: absolute;
 	bottom: 0;

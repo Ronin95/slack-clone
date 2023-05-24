@@ -6,10 +6,26 @@
         class="flex-column gap"
       >
         <span class="font-500">{{ user.displayName || "Guest" }}</span>
-        <div class="align-center">
-          <div class="online-dot"></div>
-          <span>Active</span>
+        <div class="status-selector" (click)="toggleDropdown()">
+          <div class="status-dot" [ngClass]="selectedStatus"></div>
+          <span>{{ selectedStatus }}</span>
+          <div class="dropdown" [class.open]="dropdownOpen">
+            <div class="option" (click)="selectStatus('Online')">
+              <div class="status-dot Online"></div>
+              <span>Online</span>
+            </div>
+            <div class="option" (click)="selectStatus('Busy')">
+              <div class="status-dot Busy"></div>
+              <span>Busy</span>
+            </div>
+            <div class="option" (click)="selectStatus('Invisible')">
+              <div class="status-dot Invisible"></div>
+              <span>Invisible</span>
+            </div>
+          </div>
         </div>
+        
+        
         <div id="uploadImgRemove" [class.d-none]="!onDisplay">
           <input
             type="file"

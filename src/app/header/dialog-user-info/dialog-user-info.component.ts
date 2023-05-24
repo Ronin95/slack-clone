@@ -15,6 +15,8 @@ export class DialogUserInfoComponent implements OnInit{
   uploadProgress!: number;
   onDisplay = true;
   uid!: string;
+  selectedStatus: string = 'Online';
+  dropdownOpen: boolean = false;
 
   constructor(
     public authService: AuthService,
@@ -27,7 +29,30 @@ export class DialogUserInfoComponent implements OnInit{
     if (this.authService.userData) {
       this.uid = this.authService.userData.uid;
     }
+    this.getOnlineStatus();
   }
+
+  getOnlineStatus() {
+    this.firestore
+      .doc(`users/${this.uid}`)
+      .valueChanges()
+      .subscribe((user: any) => {
+        if (user && user.status) {
+          this.selectedStatus = user.status;
+        }
+      });
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  selectStatus(status: string) {
+    this.selectedStatus = status;
+    this.dropdownOpen = false;
+    this.firestore.doc(`users/${this.uid}`).update({ status });
+  }
+
 
   uploadFile(event: Event, uid: string) {
     const element = event.target as HTMLInputElement;

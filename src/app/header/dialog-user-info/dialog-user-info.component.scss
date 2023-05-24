@@ -11,7 +11,7 @@
   }
 }
 
-label{
+label {
   color: white;
   padding: 0.5rem;
   border-radius: 0.3rem;
@@ -49,10 +49,50 @@ label{
   font-weight: 500;
 }
 
-.online-dot {
-  background-color: #39e500;
-  height: 10px;
+.status-selector {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.status-dot {
   width: 10px;
-  border-radius: 100%;
-  margin-right: 5px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.Online {
+  background-color: green;
+}
+
+.Busy {
+  background-color: red;
+}
+
+.Invisible {
+  background-color: gray;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #4e154e;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+.dropdown.open {
+  display: block;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
 }

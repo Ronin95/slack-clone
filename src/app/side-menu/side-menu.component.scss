@@ -15,9 +15,11 @@
 
 .side-menu {
 	display: flex;
-  flex-direction: column;
+	flex-direction: column;
 	background-color: #4a154b;
-	width: fit-content;
+	width: 100%;
+	min-width: 255px;
+	max-width: 255px;
 	height: calc(100vh - 45px);
 	border-left: unset !important;
 	border-bottom: unset !important;

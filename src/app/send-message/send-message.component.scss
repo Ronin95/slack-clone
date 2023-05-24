@@ -1,66 +1,64 @@
 @import 'src/fixedCSS/fixedVar.scss';
 
 mat-toolbar-row {
-  width: calc(100vw - 301px);
+	width: calc(100vw - 301px);
 }
 
-
 :host {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: calc(100vh - 46px);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: calc(100vh - 46px);
+	width: calc(100vw - $side-menu-width);
 }
 
 mat-toolbar {
-    display: flex;
-    justify-content: space-between;
-    background-color: $bgClr-primary;
-    color: $txt-clr-primary;
+	display: flex;
+	justify-content: space-between;
+	background-color: $bgClr-primary;
+	color: $txt-clr-primary;
 
-    mat-toolbar-row {
-
-        input {
-            background-color: inherit;
-            color: #ffff;
-            outline: none;
-            border: none;
-            width: 250px;
-        }
-    }
+	mat-toolbar-row {
+		input {
+			background-color: inherit;
+			color: #ffff;
+			outline: none;
+			border: none;
+			width: 250px;
+		}
+	}
 }
 
 .last-messages {
-    height: 100%;
-    padding: 16px;
-    background-color: $bgClr-newChat;
+	height: 100%;
+	padding: 16px;
+	background-color: $bgClr-newChat;
 
+	mat-card {
+		cursor: pointer;
 
-    mat-card {
-        cursor: pointer;
+		&:hover {
+		}
 
-        &:hover {
-        }
-
-        mat-card-content {
-            display: flex;
-            flex-direction: column;
-        }
-    }
+		mat-card-content {
+			display: flex;
+			flex-direction: column;
+		}
+	}
 }
 
 .selectedUser-container {
-    display: flex;
+	display: flex;
 
-    .selectedUser {
-        display: flex;
-        align-items: center;
-        gap: 5px;
+	.selectedUser {
+		display: flex;
+		align-items: center;
+		gap: 5px;
 
-        mat-icon {
-            cursor: pointer;
-        }
-    }
+		mat-icon {
+			cursor: pointer;
+		}
+	}
 }
 
 // .new-chat-info {
@@ -68,9 +66,9 @@ mat-toolbar {
 // }
 
 .img-container {
-  padding-left: 15px;
-  
-  img {
-    width: 40px;
-  }
+	padding-left: 15px;
+
+	img {
+		width: 40px;
+	}
 }

@@ -16,11 +16,13 @@ import {
 	redirectUnauthorizedTo,
 	redirectLoggedInTo,
 } from '@angular/fire/auth-guard';
+import { PrivateChatComponent } from './private-chat/private-chat.component';
 
 const redirectToLogin = () => redirectUnauthorizedTo(['']);
 const redirectToHome = () => redirectLoggedInTo(['home']);
 
 const routes: Routes = [
+	{ path: 'chat/:id', component: PrivateChatComponent },
 	{ path: 'headerMenu', component: HeaderComponent },
 	{ path: 'home', component: HomeComponent, ...canActivate(redirectToLogin) },
 	{ path: 'home/threads', component: ThreadsComponent },

@@ -65,6 +65,7 @@ import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-display.component';
 import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-login.component';
+import { PrivateChatComponent } from './private-chat/private-chat.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-log
     VerifyEmailComponent,
     ChannelOnDisplayComponent,
     DialogErrorLoginComponent,
+    PrivateChatComponent,
   ],
   imports: [
     CommonModule,

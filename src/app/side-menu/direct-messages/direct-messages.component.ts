@@ -5,30 +5,33 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-direct-messages',
-  templateUrl: './direct-messages.component.html',
-  styleUrls: ['./direct-messages.component.scss']
+	selector: 'app-direct-messages',
+	templateUrl: './direct-messages.component.html',
+	styleUrls: ['./direct-messages.component.scss'],
 })
 export class DirectMessagesComponent implements OnInit {
-  items: Observable<any[]>;
-  openMenu: boolean = true;
+	items: Observable<any[]>;
+	openMenu: boolean = true;
 
-  ngOnInit() {
-  }
+	ngOnInit() {}
 
-  constructor(firestore: AngularFirestore) {
-    // access the users collection in firestore
-    this.items = firestore.collection('users').snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data();
-        const id = a.payload.doc.id;
-        return { id, ...data as object};
-      }))
-    );
-  }
+	constructor(firestore: AngularFirestore) {
+		// access the users collection in firestore
+		this.items = firestore
+			.collection('users')
+			.snapshotChanges()
+			.pipe(
+				map((actions) =>
+					actions.map((a) => {
+						const data = a.payload.doc.data();
+						const id = a.payload.doc.id;
+						return { id, ...(data as object) };
+					})
+				)
+			);
+	}
 
-
-  toggleDirectMessages() {
-    this.openMenu = !this.openMenu;
-  }
+	toggleDirectMessages() {
+		this.openMenu = !this.openMenu;
+	}
 }

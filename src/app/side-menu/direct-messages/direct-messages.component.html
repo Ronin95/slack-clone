@@ -1,16 +1,20 @@
-<div class="dropdown ">
-  <div class="dropdown-channels " (click)="toggleDirectMessages()">
-    <mat-icon class="arrow-right" [class.turn]="openMenu">arrow_right</mat-icon>
-    <h1>Direct Messages</h1>
-  </div>
-  <div [class.d-none]="!openMenu">
-    <div class="user-img-span " *ngFor="let item of items | async">
-      <img [src]="item.photoURL || 'assets/img/blank-profile-img.png'" alt="user-img">
-      <span>{{item.displayName}}</span>
-    </div>
-    <div routerLink="home/sendMessage" class="tag-channel-name-pos">
-      <mat-icon class="mat-icon-style">add</mat-icon>
-      <h2>New Chat</h2>
-    </div>
-  </div>
+<div class="dropdown">
+	<div class="dropdown-channels" (click)="toggleDirectMessages()">
+		<mat-icon class="arrow-right" [class.turn]="openMenu">arrow_right</mat-icon>
+		<h1>Direct Messages</h1>
+	</div>
+	<div [class.d-none]="!openMenu">
+		<div class="user-img-span" *ngFor="let item of items | async">
+			<img
+				routerLink="chat/{{ item.uid }}"
+				[src]="item.photoURL || 'assets/img/blank-profile-img.png'"
+				alt="user-img"
+			/>
+			<span>{{ item.displayName }}</span>
+		</div>
+		<div routerLink="home/sendMessage" class="tag-channel-name-pos">
+			<mat-icon class="mat-icon-style">add</mat-icon>
+			<h2>New Chat</h2>
+		</div>
+	</div>
 </div>

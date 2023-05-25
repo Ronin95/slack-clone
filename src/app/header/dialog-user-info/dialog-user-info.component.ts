@@ -49,7 +49,7 @@ export class DialogUserInfoComponent implements OnInit{
 
   selectStatus(status: string) {
     this.selectedStatus = status;
-    this.dropdownOpen = false;
+    this.dropdownOpen = true;
     this.firestore.doc(`users/${this.uid}`).update({ status });
   }
 

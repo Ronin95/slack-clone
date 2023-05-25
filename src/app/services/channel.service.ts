@@ -8,9 +8,9 @@ import {
   doc,
 } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription, finalize, switchMap, take, firstValueFrom  } from 'rxjs';
+import { Observable, Subscription, finalize, switchMap, take, firstValueFrom, map  } from 'rxjs';
 import { AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { getDocs, getFirestore, updateDoc } from 'firebase/firestore';
+import { getDocs, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { AuthService } from './auth.service';
 import { FormControl } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -26,20 +26,20 @@ export class ChannelService implements OnInit {
   firestore: Firestore = inject(Firestore);
   channels!: any;
   channel!: Array<any>;
-  channelId!: any;
-  subscribedParam!: any;
-  @Input() control!: FormControl;
+  // channelId!: any;
+  // subscribedParam!: any;
+  // @Input() control!: FormControl;
   name!: string;
   uid!: string;
   photoURL!: string;
   userData!: Subscription;
   foundUser!: any; // in getUserNameAndImgFromFirebase()
-  textInput!: string;
-  public file: any = [];
+  // textInput!: string;
+  // public file: any = [];
+  uploadedImgURL: string = '';
 
   constructor(
-    private afs: AngularFirestore, 
-    private route: ActivatedRoute, 
+    private afs: AngularFirestore,
     private storage: AngularFireStorage
   ) {}
 
@@ -79,27 +79,26 @@ export class ChannelService implements OnInit {
         finalize(() => {
           fileRef.getDownloadURL().subscribe(downloadURL => {
             console.log('File available at', downloadURL);
+            this.uploadedImgURL = downloadURL; // Store the download URL
           });
         })
      )
     .subscribe();
   }
 
-  
+
 
   async getDocumentId(collection: string): Promise<string> {
     const snapshot$ = this.afs.collection(collection).snapshotChanges().pipe(take(1));
     const snapshot = await firstValueFrom(snapshot$);
-    
     if (!snapshot || snapshot.length === 0) {
       throw new Error(`No documents found in collection: ${collection}`);
     }
-  
     const documentId = snapshot[0].payload.doc.id;
     return documentId;
   }
-  
-  
+
+
 
   onButtonClick() {
     const fileInput = document.getElementById('fileInput');
@@ -108,42 +107,6 @@ export class ChannelService implements OnInit {
     } else {
       console.error('Could not find element with ID "fileInput"');
     }
-  }
-  
-
-  postInChannel() {
-    this.getUserNameAndImgFromFirebase();
-    // this.getFormatedDate(new Date());
-    // this.route.paramMap
-    //   .pipe(
-    //   switchMap((params) => {
-    //     this.subscribedParam = params.get('id');
-    //     debugger;
-    //     return this.afs
-    //       .collection('channels')
-    //       .doc(this.subscribedParam)
-    //       .valueChanges()
-    //       .pipe(take(1));
-    //   })
-    //   ).subscribe((channel: any) => {
-    //   const message = {
-    //     text: this.control.value as string,
-    //     timestamp: new Date(),
-    //   };
-    //   const channelRef: AngularFirestoreDocument<any> = this.afs
-    //     .collection('channels')
-    //     .doc(this.subscribedParam);
-
-    //   updateDoc(channelRef.ref, {
-    //     channelChat: [...channel.channelChat, message],
-    //   })
-    //     .then(() => {
-    //     console.log('Nachricht gesendet und gespeichert.');
-    //     })
-    //     .catch((error) => {
-    //     console.error('Fehler beim Speichern der Nachricht:', error);
-    //     });
-    //   });
   }
 
   getFormattedDate(date: Date): string {
@@ -177,17 +140,38 @@ export class ChannelService implements OnInit {
   }
 
   async saveMessageToFirebase(message: string): Promise<void> {
+    // Call the function to get the username and photoURL
+    await this.getUserNameAndImgFromFirebase();
+    // Now this.name and this.photoURL should have the username and photoURL
     const documentId = await this.getDocumentId('channels');
-  
     const channelChatRef = this.afs.collection('channels').doc(documentId).collection('ChannelChat');
-  
     const date = new Date();
     const formattedDate = this.getFormattedDate(date);
-  
-    // Add the message and the formatted date to the collection
+    // Add the message, the formatted date, username, photoURL, and uploadedImgURL to the collection
     channelChatRef.add({
       message: message,
       date: formattedDate,
+      userName: this.name,  // Adding username to the document
+      userPhotoURL: this.photoURL,  // Adding photoURL to the document
+      uploadedImgURL: this.uploadedImgURL,  // Adding uploaded image URL to the document
     });
+
+    // Reset the uploadedImgURL for the next upload
+    this.uploadedImgURL = '';
   }
+
+  async fetchMessagesFromFirebase(): Promise<Observable<any[]>> {
+    const documentId = await this.getDocumentId('channels');
+    // Replace 'channels' and 'ChannelChat' with the actual path to your Firestore collection
+    return this.afs.collection('channels').doc(documentId).collection('ChannelChat')
+      .snapshotChanges()
+      .pipe(
+        map(actions => actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }))
+      );
+  }
+
 }

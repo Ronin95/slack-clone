@@ -7,7 +7,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { updateDoc } from 'firebase/firestore';
-import { switchMap, take } from 'rxjs';
+import { Observable, switchMap, take } from 'rxjs';
 import { Channel } from 'src/models/channels.model';
 
 @Component({
@@ -22,39 +22,28 @@ export class ChannelOnDisplayComponent implements OnInit {
   // @Input() control!: FormControl;
   // messageForm: FormGroup;
   messageText!: string;
+  messages!: Observable<any[]>;
 
   constructor(
     public channelService: ChannelService,
     private route: ActivatedRoute,
     private firestore: AngularFirestore
   ) {
-    // this.messageForm = new FormGroup({ textEditor: new FormControl('') });
   }
 
-  // async sendMessage(): Promise<void> {
-  //   if (this.messageText) {
-  //     await this.channelService.saveMessageToFirebase(this.messageText);
-  //     this.messageText = '';
-  //   }
-  // }
+  async sendMessage(): Promise<void> {
+    if (this.messageText) {
+      await this.channelService.saveMessageToFirebase(this.messageText);
+      this.messageText = '';
+    }
+  }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.displayChannelName();
-    this.channelService.getUserNameAndImgFromFirebase();
-    // this.setTimeStampInHTML();
+    this.messages = await this.channelService.fetchMessagesFromFirebase();
+
   }
 
-  // setTimeStampInHTML() {
-  //   // Get the formatted date from localStorage
-  //   const formattedDate = localStorage.getItem('ChannelMessageDate');
-  //   // Select the span element by its class name
-  //   const spanElement = document.querySelector('.time-stamp');
-  //   // Check if the span element exists and the formattedDate is not null
-  //   if (spanElement && formattedDate) {
-  //     // Set the span element's text content to the formatted date
-  //     spanElement.textContent = formattedDate;
-  //   }
-  // }
 
   displayChannelName() {
     this.route.paramMap
@@ -74,40 +63,37 @@ export class ChannelOnDisplayComponent implements OnInit {
         }
       });
   }
-  onPostInChannel() {
-    this.channelService.postInChannel();
-  }
 
-  sendMessage() {
-    this.route.paramMap
-      .pipe(
-        switchMap((params) => {
-          this.subscribedParam = params.get('id');
-          return this.firestore
-            .collection('channels')
-            .doc(this.subscribedParam)
-            .valueChanges()
-            .pipe(take(1));
-        })
-      )
-      .subscribe((channel: any) => {
-        const message = {
-          text: this.messageText, // Use "messageText" instead of "this.control.value"
-          timestamp: new Date(),
-        };
-        const channelRef: AngularFirestoreDocument<any> = this.firestore
-          .collection('channels')
-          .doc(this.subscribedParam);
-        channelRef
-          .update({
-            channelChat: [...channel.channelChat, message],
-          })
-          .then(() => {
-            console.log('Message sent and saved.');
-          })
-          .catch((error) => {
-            console.error('Error saving the message:', error);
-          });
-      });
-  }
+  // sendMessage() {
+  //   this.route.paramMap
+  //     .pipe(
+  //       switchMap((params) => {
+  //         this.subscribedParam = params.get('id');
+  //         return this.firestore
+  //           .collection('channels')
+  //           .doc(this.subscribedParam)
+  //           .valueChanges()
+  //           .pipe(take(1));
+  //       })
+  //     )
+  //     .subscribe((channel: any) => {
+  //       const message = {
+  //         text: this.messageText, // Use "messageText" instead of "this.control.value"
+  //         timestamp: new Date(),
+  //       };
+  //       const channelRef: AngularFirestoreDocument<any> = this.firestore
+  //         .collection('channels')
+  //         .doc(this.subscribedParam);
+  //       channelRef
+  //         .update({
+  //           channelChat: [...channel.channelChat, message],
+  //         })
+  //         .then(() => {
+  //           console.log('Message sent and saved.');
+  //         })
+  //         .catch((error) => {
+  //           console.error('Error saving the message:', error);
+  //         });
+  //     });
+  // }
 }

@@ -31,12 +31,12 @@ export class ChannelOnDisplayComponent implements OnInit {
     // this.messageForm = new FormGroup({ textEditor: new FormControl('') });
   }
 
-  async sendMessage(): Promise<void> {
-    if (this.messageText) {
-      await this.channelService.saveMessageToFirebase(this.messageText);
-      this.messageText = '';
-    }
-  }
+  // async sendMessage(): Promise<void> {
+  //   if (this.messageText) {
+  //     await this.channelService.saveMessageToFirebase(this.messageText);
+  //     this.messageText = '';
+  //   }
+  // }
 
   ngOnInit() {
     this.displayChannelName();
@@ -78,32 +78,36 @@ export class ChannelOnDisplayComponent implements OnInit {
     this.channelService.postInChannel();
   }
 
-  // sendMessage() {
-  //   this.route.paramMap
-  //     .pipe(
-  //     switchMap((params) => {
-  //       this.subscribedParam = params.get('id');
-  //       return this.firestore.collection('channels').doc(this.subscribedParam).valueChanges().pipe(take(1));
-  //     })
-  //     )
-  //     .subscribe((channel: any) => {
-  //     const message = {
-  //       text: this.control.value as string,
-  //       timestamp: new Date(),
-  //     };
-  //     const channelRef: AngularFirestoreDocument<any> = this.firestore
-  //       .collection('channels')
-  //       .doc(this.subscribedParam);
-
-  //     updateDoc(channelRef.ref, {
-  //       channelChat: [...channel.channelChat, message],
-  //     })
-  //       .then(() => {
-  //       console.log('Nachricht gesendet und gespeichert.');
-  //       })
-  //       .catch((error) => {
-  //       console.error('Fehler beim Speichern der Nachricht:', error);
-  //       });
-  //     });
-  // }
+  sendMessage() {
+    this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          this.subscribedParam = params.get('id');
+          return this.firestore
+            .collection('channels')
+            .doc(this.subscribedParam)
+            .valueChanges()
+            .pipe(take(1));
+        })
+      )
+      .subscribe((channel: any) => {
+        const message = {
+          text: this.messageText, // Use "messageText" instead of "this.control.value"
+          timestamp: new Date(),
+        };
+        const channelRef: AngularFirestoreDocument<any> = this.firestore
+          .collection('channels')
+          .doc(this.subscribedParam);
+        channelRef
+          .update({
+            channelChat: [...channel.channelChat, message],
+          })
+          .then(() => {
+            console.log('Message sent and saved.');
+          })
+          .catch((error) => {
+            console.error('Error saving the message:', error);
+          });
+      });
+  }
 }

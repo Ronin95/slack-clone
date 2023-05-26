@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import {
   AngularFirestore,
@@ -15,7 +15,7 @@ import { Channel } from 'src/models/channels.model';
   templateUrl: './channel-on-display.component.html',
   styleUrls: ['./channel-on-display.component.scss'],
 })
-export class ChannelOnDisplayComponent implements OnInit {
+export class ChannelOnDisplayComponent implements OnInit, OnChanges {
   channelArray: any[] = [];
   channelName: string = '';
   subscribedParam!: any;
@@ -27,8 +27,13 @@ export class ChannelOnDisplayComponent implements OnInit {
   constructor(
     public channelService: ChannelService,
     private route: ActivatedRoute,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private router: Router
   ) {
+  }
+
+  ngOnChanges() {
+    console.log('Test - 2');
   }
 
   async sendMessage(): Promise<void> {
@@ -41,7 +46,16 @@ export class ChannelOnDisplayComponent implements OnInit {
   async ngOnInit() {
     this.displayChannelName();
     this.messages = await this.channelService.fetchMessagesFromFirebase();
+    console.log('Test - 1');
 
+    this.router.events.subscribe(async (event) => {
+      console.log(event);
+      if (event instanceof NavigationEnd) {
+        this.displayChannelName();
+        debugger;
+        this.messages = await this.channelService.fetchMessagesFromFirebase();
+      }
+    })
   }
 
 

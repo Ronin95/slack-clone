@@ -1,6 +1,12 @@
 import { Injectable, inject } from '@angular/core';
 /* import { User } from 'src/models/user.class'; */
-import { Firestore, collection, getDocs } from '@angular/fire/firestore';
+import {
+	Firestore,
+	collection,
+	collectionData,
+	getDocs,
+	query,
+} from '@angular/fire/firestore';
 import { Observable, from, map } from 'rxjs';
 
 @Injectable({
@@ -12,10 +18,7 @@ export class UsersService {
 
 	get getUsers(): Observable<any[]> {
 		const userCollection = collection(this.firestore, 'users'); // ´collection to obtain the reference to the collection 'users'
-		const query = getDocs(userCollection); // query to obtain the documents of the collection
-		return from(query).pipe(
-			// from to convert the promise to an observable, pipe to apply the map operator, map to transform the data
-			map((querySnapshot) => querySnapshot.docs.map((doc) => doc.data()))
-		);
+		const queryAll = query(userCollection); // query to obtain all the documents in the collection
+		return collectionData(queryAll) as Observable<any[]>; // return the observable with the data
 	}
 }

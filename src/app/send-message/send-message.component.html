@@ -1,8 +1,10 @@
 <mat-toolbar>
 	<mat-toolbar-row>
+		<span></span>
 		<span>Direct message</span>
 	</mat-toolbar-row>
 	<mat-toolbar-row>
+		<span></span>
 		<span>To: </span>
 		<div class="selectedUser-container">
 			<div class="selectedUser">
@@ -22,10 +24,10 @@
 				<div>
 					<mat-option
 						*ngFor="let user of allUsers$ | async"
-						value="{{ user.displayName }}"
+						value="{{ user?.displayName }}"
 					>
 						<span>
-							{{ user.displayName }}
+							{{ user?.displayName }}
 						</span>
 					</mat-option>
 				</div>

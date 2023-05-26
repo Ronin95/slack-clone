@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { UsersService } from '../services/users.service';
 
 @Component({
@@ -10,13 +10,17 @@ import { UsersService } from '../services/users.service';
 export class SendMessageComponent implements OnInit {
 	// allUsers!: Array<any>;
 	allUsers$ = this.usersService.getUsers;
+	user!: any;
 
 	constructor(private usersService: UsersService) {
-		/* 	this.service.getUsers.subscribe((users) => {
-			this.allUsers = users;
-
-		}); */
+		// Assign the resolved value to the property
 	}
 
-	async ngOnInit(): Promise<void> {}
+	// console.log(this.user$);
+
+	async ngOnInit(): Promise<void> {
+		this.usersService.currentUserProfile$.subscribe((user) => {
+			this.user = user;
+		});
+	}
 }

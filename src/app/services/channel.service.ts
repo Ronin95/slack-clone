@@ -7,7 +7,7 @@ import {
   deleteDoc,
   doc,
 } from '@angular/fire/firestore';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, finalize, switchMap, take, firstValueFrom, map  } from 'rxjs';
 import { AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { getDocs, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
@@ -40,10 +40,15 @@ export class ChannelService implements OnInit {
 
   constructor(
     private afs: AngularFirestore,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private router: Router,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this.router.events.subscribe((event) => {
+    //   console.log(event);
+    // })
+  }
 
   getAllChannels(): Observable<any> {
     // Return type is now Observable<any>

@@ -8,13 +8,14 @@ import { UsersService } from '../services/users.service';
 	styleUrls: ['./send-message.component.scss'],
 })
 export class SendMessageComponent implements OnInit {
-	allUsers!: Array<any>;
+	// allUsers!: Array<any>;
+	allUsers$ = this.usersService.getUsers;
 
-	constructor(private service: UsersService) {
-		this.service.getUsers.subscribe((users) => {
+	constructor(private usersService: UsersService) {
+		/* 	this.service.getUsers.subscribe((users) => {
 			this.allUsers = users;
-			// console.log(this.allUsers);
-		});
+
+		}); */
 	}
 
 	async ngOnInit(): Promise<void> {}

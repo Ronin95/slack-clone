@@ -1,42 +1,45 @@
 <mat-toolbar>
-  <mat-toolbar-row>
-    <span>Direct message</span>
-  </mat-toolbar-row>
-  <mat-toolbar-row>
-    <span>To: </span>
-    <div  class="selectedUser-container">
-      <div  class="selectedUser">
-
-        <span> </span>
-        <!-- <mat-icon>close</mat-icon> -->
-      </div>
-    </div>
-    <input class="ml-12"
-      type="text"
-      [matAutocomplete]="searchedUsers"
-      #usersField
-      placeholder="Type a name..."
-    />
-    <mat-autocomplete #searchedUsers="matAutocomplete">
-      <div>
-        <div>
-          <mat-option *ngFor="let user of allUsers" value="{{ user.displayName }}">
-            <span>
-              {{ user.displayName }}
-            </span>
-          </mat-option>
-        </div>
-      </div>
-    </mat-autocomplete>
-    <!-- <div  class="img-container sidenav-shrink">
+	<mat-toolbar-row>
+		<span>Direct message</span>
+	</mat-toolbar-row>
+	<mat-toolbar-row>
+		<span>To: </span>
+		<div class="selectedUser-container">
+			<div class="selectedUser">
+				<span> </span>
+				<!-- <mat-icon>close</mat-icon> -->
+			</div>
+		</div>
+		<input
+			class="ml-12"
+			type="text"
+			[matAutocomplete]="searchedUsers"
+			#usersField
+			placeholder="Type a name..."
+		/>
+		<mat-autocomplete #searchedUsers="matAutocomplete">
+			<div>
+				<div>
+					<mat-option
+						*ngFor="let user of allUsers$ | async"
+						value="{{ user.displayName }}"
+					>
+						<span>
+							{{ user.displayName }}
+						</span>
+					</mat-option>
+				</div>
+			</div>
+		</mat-autocomplete>
+		<!-- <div  class="img-container sidenav-shrink">
       <img
         class="profile-img"
         src="../../assets/img/slack-icon.svg"
         alt="profile-img"
-      /> 
+      />
     </div> -->
-  </mat-toolbar-row>
+	</mat-toolbar-row>
 </mat-toolbar>
 <div class="texteditor-container">
-  <div class="message-box"></div>
+	<div class="message-box"></div>
 </div>

@@ -11,7 +11,7 @@ export class SendMessageComponent implements OnInit {
 	allUsers!: Array<any>;
 
 	constructor(private service: UsersService) {
-		this.service.getUsers().subscribe((users) => {
+		this.service.getUsers.subscribe((users) => {
 			this.allUsers = users;
 			// console.log(this.allUsers);
 		});

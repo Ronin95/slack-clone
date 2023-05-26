@@ -8,11 +8,9 @@ import { Observable, from, map } from 'rxjs';
 })
 export class UsersService {
 	firestore: Firestore = inject(Firestore);
-	constructor() {
-		this.getUsers();
-	}
+	constructor() {}
 
-	getUsers(): Observable<any[]> {
+	get getUsers(): Observable<any[]> {
 		const userCollection = collection(this.firestore, 'users'); // ´collection to obtain the reference to the collection 'users'
 		const query = getDocs(userCollection); // query to obtain the documents of the collection
 		return from(query).pipe(

@@ -10,14 +10,14 @@ import { map } from 'rxjs/operators';
 	styleUrls: ['./direct-messages.component.scss'],
 })
 export class DirectMessagesComponent implements OnInit {
-	items: Observable<any[]>;
+	users$!: Observable<any[]>;
 	openMenu: boolean = true;
 
 	ngOnInit() {}
 
 	constructor(firestore: AngularFirestore) {
 		// access the users collection in firestore
-		this.items = firestore
+		this.users$ = firestore
 			.collection('users')
 			.snapshotChanges()
 			.pipe(

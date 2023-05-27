@@ -181,10 +181,10 @@ export class ChannelService implements OnInit {
 
   // this function deletes the message from the firestore database
   async deleteMessageFromFirebase(messageId: string): Promise<void> {
-    const documentId = await this.getDocumentId('channels');
-    const channelChatRef = this.afs.collection('channels').doc(documentId).collection('ChannelChat');
-    const docRef = doc(channelChatRef, messageId);
-    deleteDoc(docRef);
+    // const documentId = await this.getDocumentId('channels');
+    // const channelChatRef = this.afs.collection('channels').doc(documentId).collection('ChannelChat');
+    // const docRef = doc(channelChatRef, messageId);
+    // deleteDoc(docRef);
   }
 
 }

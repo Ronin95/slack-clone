@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogNewChannelComponent } from './dialog-new-channel/dialog-new-channel.component';
 import { Firestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { ChannelService } from 'src/app/services/channel.service';
+import { ChannelService } from '../../services/channel.service';
 
 @Component({
 	selector: 'app-channels',

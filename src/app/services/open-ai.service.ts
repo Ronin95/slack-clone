@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Configuration, OpenAIApi } from 'openai';
 import { from, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

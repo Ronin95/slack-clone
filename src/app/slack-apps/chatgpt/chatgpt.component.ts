@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OpenAiService } from 'src/app/services/open-ai.service';
+import { OpenAiService } from '../../services/open-ai.service';
 
 @Component({
   selector: 'app-chatgpt',

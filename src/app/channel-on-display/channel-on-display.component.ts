@@ -8,7 +8,7 @@ import {
 } from '@angular/fire/compat/firestore';
 import { updateDoc } from 'firebase/firestore';
 import { Observable, switchMap, take } from 'rxjs';
-import { Channel } from 'src/models/channels.model';
+
 
 @Component({
   selector: 'app-channel-on-display',
@@ -16,6 +16,8 @@ import { Channel } from 'src/models/channels.model';
   styleUrls: ['./channel-on-display.component.scss'],
 })
 export class ChannelOnDisplayComponent implements OnInit, OnChanges {
+  // public Editor = ClassicEditor;
+  // public editorData = '<p>Hello, world!</p>';
   channelArray: any[] = [];
   channelName: string = '';
   subscribedParam!: any;
@@ -23,6 +25,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges {
   // messageForm: FormGroup;
   messageText!: string;
   messages!: Observable<any[]>;
+  data = '';
 
   constructor(
     public channelService: ChannelService,
@@ -34,6 +37,11 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     console.log('Test - 2');
+  }
+
+  logData(data: string) {
+    this.data = data;
+    console.log(this.data);
   }
 
   async sendMessage(): Promise<void> {

@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 import { DialogErrorLoginComponent } from '../dialog-error-login/dialog-error-login.component';
-// import { AuthService } from '../services/auth.service'; Kommt noch
 
 @Component({
   selector: 'app-login',

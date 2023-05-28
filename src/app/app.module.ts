@@ -1,4 +1,4 @@
-import { environment } from 'src/environments/environment.prod';
+import { environment } from '../environments/environment';
 
 // Services
 import { OpenAiService } from './services/open-ai.service';
@@ -6,6 +6,7 @@ import { OpenAiService } from './services/open-ai.service';
 /* Text Editor */
 // import { QuillModule } from 'ngx-quill';
 // import { NgxEditorModule } from 'ngx-editor';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 /* FireBase */
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -66,6 +67,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-display.component';
 import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-login.component';
 import { PrivateChatComponent } from './private-chat/private-chat.component';
+import { TextEditorComponent } from './text-editor/text-editor.component';
 
 @NgModule({
   declarations: [
@@ -90,12 +92,14 @@ import { PrivateChatComponent } from './private-chat/private-chat.component';
     ChannelOnDisplayComponent,
     DialogErrorLoginComponent,
     PrivateChatComponent,
+    TextEditorComponent,
   ],
   imports: [
     CommonModule,
     BrowserModule,
     AppRoutingModule,
     // QuillModule.forRoot(),
+    CKEditorModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSidenavModule,

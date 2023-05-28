@@ -1,0 +1,6 @@
+<div class="input-container">
+  <ckeditor class="my-editor" [editor]="Editor" [config]="config" [(ngModel)]="data"></ckeditor>
+  <button mat-icon-button (click)="onEditorChange()">
+    <mat-icon>send</mat-icon>
+  </button>
+</div>

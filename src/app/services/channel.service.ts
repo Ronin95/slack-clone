@@ -91,7 +91,14 @@ export class ChannelService implements OnInit {
     .subscribe();
   }
 
-
+  onButtonClick() {
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput) {
+      fileInput.click();
+    } else {
+      console.error('Could not find element with ID "fileInput"');
+    }
+  }
 
   async getDocumentId(collection: string): Promise<string> {
     const snapshot$ = this.afs.collection(collection).snapshotChanges().pipe(take(1));
@@ -101,17 +108,6 @@ export class ChannelService implements OnInit {
     }
     const documentId = snapshot[0].payload.doc.id;
     return documentId;
-  }
-
-
-
-  onButtonClick() {
-    const fileInput = document.getElementById('fileInput');
-    if (fileInput) {
-      fileInput.click();
-    } else {
-      console.error('Could not find element with ID "fileInput"');
-    }
   }
 
   getFormattedDate(date: Date): string {

@@ -1,13 +1,8 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
-import { updateDoc } from 'firebase/firestore';
-import { Observable, switchMap, take } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable, switchMap } from 'rxjs';
 
 
 @Component({
@@ -16,13 +11,9 @@ import { Observable, switchMap, take } from 'rxjs';
   styleUrls: ['./channel-on-display.component.scss'],
 })
 export class ChannelOnDisplayComponent implements OnInit, OnChanges {
-  // public Editor = ClassicEditor;
-  // public editorData = '<p>Hello, world!</p>';
   channelArray: any[] = [];
   channelName: string = '';
   subscribedParam!: any;
-  // @Input() control!: FormControl;
-  // messageForm: FormGroup;
   messageText!: string;
   messages!: Observable<any[]>;
   data = '';

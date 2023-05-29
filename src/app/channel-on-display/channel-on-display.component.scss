@@ -55,6 +55,14 @@
 	// gap: 5px;
 }
 
+mat-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-style: dotted;
+  width: 500px;
+}
+
 .message-card {
 	display: flex !important;
 	flex-direction: row !important;

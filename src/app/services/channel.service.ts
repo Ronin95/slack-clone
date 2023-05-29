@@ -26,16 +26,11 @@ export class ChannelService implements OnInit {
   firestore: Firestore = inject(Firestore);
   channels!: any;
   channel!: Array<any>;
-  // channelId!: any;
-  // subscribedParam!: any;
-  // @Input() control!: FormControl;
   name!: string;
   uid!: string;
   photoURL!: string;
   userData!: Subscription;
   foundUser!: any; // in getUserNameAndImgFromFirebase()
-  // textInput!: string;
-  // public file: any = [];
   uploadedImgURL: string = '';
 
   constructor(

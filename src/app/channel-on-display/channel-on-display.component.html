@@ -11,8 +11,13 @@
         <div class="message-card-main">
           <mat-card-header class="message-card-main-header">
             <mat-card-title class="message-card-main-header-title">
-              <span class="author">{{ message.userName }}</span>
-              <span class="time-stamp">{{ message.date }}</span>
+              <div>
+                <span class="author">{{ message.userName }}</span>
+                <span class="time-stamp">{{ message.date }}</span>
+              </div>
+              <div>
+                <mat-icon>delete</mat-icon>
+              </div>
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="post-container">
@@ -25,7 +30,7 @@
     </div>
   </div>
 
-	<!-- <div>
+	<div>
 		<div class="input-container">
 			<input type="file" hidden id="fileInput" (change)="channelService.onFileChange($event)" style="display: none"/>
 			<button mat-icon-button (click)="channelService.onButtonClick()">
@@ -42,9 +47,6 @@
 				<mat-icon>send</mat-icon>
 			</button>
 		</div>
-	</div> -->
-  <div>
-    <app-text-editor (dataChange)="logData($event)"></app-text-editor>
-  </div>
+	</div>
 
 </div>

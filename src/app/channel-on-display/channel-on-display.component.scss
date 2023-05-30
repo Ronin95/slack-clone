@@ -27,6 +27,7 @@
 	// height: 100%;
 	background-color: $bgClr-thirdary;
 	width: calc(100vw - $side-menu-width);
+	height: 100%;
 
 	.header {
 		width: 100%;
@@ -41,8 +42,8 @@
 	}
 
 	.message-container {
-		// overflow-y: scroll;
-		height: calc(100vh - 340px);
+		overflow-y: scroll;
+		height: calc(100vh - 315px);
 		background-color: $bgClr-start;
 		background-color: white;
 	}
@@ -56,11 +57,11 @@
 }
 
 mat-card-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-style: dotted;
-  width: 500px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-style: dotted;
+	width: 500px;
 }
 
 .message-card {

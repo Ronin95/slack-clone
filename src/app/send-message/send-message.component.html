@@ -23,7 +23,7 @@
 			<div>
 				<div>
 					<mat-option
-						*ngFor="let user of allUsers$ | async"
+						*ngFor="let user of otherUsers$ | async"
 						value="{{ user?.displayName }}"
 					>
 						<span>

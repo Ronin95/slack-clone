@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, map } from 'rxjs';
 import { UsersService } from '../services/users.service';
 
 @Component({
@@ -9,8 +9,10 @@ import { UsersService } from '../services/users.service';
 })
 export class SendMessageComponent implements OnInit {
 	// allUsers!: Array<any>;
-	allUsers$ = this.usersService.getUsers;
-	user!: any;
+	otherUsers$ = this.usersService.getUsers;
+	loggedInUser!: any;
+
+	currentUserProfile$!: any;
 
 	constructor(private usersService: UsersService) {
 		// Assign the resolved value to the property
@@ -20,7 +22,14 @@ export class SendMessageComponent implements OnInit {
 
 	async ngOnInit(): Promise<void> {
 		this.usersService.currentUserProfile$.subscribe((user) => {
-			this.user = user;
+			this.loggedInUser = user;
+			console.log('auth', this.loggedInUser.uid);
+
+			this.otherUsers$ = this.usersService.getUsers.pipe(
+				map((users) => {
+					return users.filter((user) => user.uid !== this.loggedInUser.uid);
+				})
+			);
 		});
 	}
 }

@@ -21,7 +21,7 @@
 								<span class="time-stamp">{{ message.date }}</span>
 							</div>
 							<div>
-								<mat-icon>delete</mat-icon>
+								<mat-icon (click)="deleteSelectedMessage()">delete</mat-icon>
 							</div>
 						</mat-card-title>
 					</mat-card-header>

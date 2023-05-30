@@ -60,8 +60,12 @@ mat-card-title {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border-style: dotted;
-	width: 500px;
+  min-width: 280px;
+	max-width: 900px;
+}
+
+mat-icon {
+  cursor: pointer;
 }
 
 .message-card {

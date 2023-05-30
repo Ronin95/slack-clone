@@ -40,6 +40,10 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges {
 		}
 	}
 
+  deleteSelectedMessage() {
+    console.log('Delete selected message');
+  }
+
 	async ngOnInit() {
 		this.displayChannelName();
 		this.messages = await this.channelService.fetchMessagesFromFirebase();

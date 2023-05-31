@@ -35,20 +35,17 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges {
 		}
 	}
 
-  deleteSelectedMessage() {
-    console.log('Delete selected message');
-  }
+	async onDeleteSelectedMessage() {
+    	await this.channelService.deleteMessageFromFirebase();
+  	}
 
 	async ngOnInit() {
 		this.displayChannelName();
 		this.messages = await this.channelService.fetchMessagesFromFirebase();
-		console.log('Test - 1');
 
 		this.router.events.subscribe(async (event) => {
-			console.log(event);
 			if (event instanceof NavigationEnd) {
 				this.displayChannelName();
-				// debugger;
 				this.messages = await this.channelService.fetchMessagesFromFirebase();
 			}
 		});

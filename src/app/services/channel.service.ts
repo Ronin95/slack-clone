@@ -1,4 +1,4 @@
-import { Injectable, Input, OnInit, inject } from '@angular/core';
+import { Injectable, OnInit, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {
 	Firestore,
@@ -7,28 +7,17 @@ import {
 	deleteDoc,
 	doc,
 } from '@angular/fire/firestore';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import {
 	Observable,
 	Subscription,
 	finalize,
-	switchMap,
 	take,
 	firstValueFrom,
 	map,
 } from 'rxjs';
-import { AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { getDocs, getFirestore, serverTimestamp, updateDoc } from 'firebase/firestore';
-import { AuthService } from './auth.service';
-import { FormControl } from '@angular/forms';
+import { getDocs, getFirestore } from 'firebase/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import {
-	Storage,
-	ref,
-	uploadBytesResumable,
-	getDownloadURL,
-} from '@angular/fire/storage';
-import * as firebase from 'firebase/compat';
 
 @Injectable({
 	providedIn: 'root',
@@ -51,11 +40,7 @@ export class ChannelService implements OnInit {
 		private router: Router
 	) {}
 
-	ngOnInit() {
-		// this.router.events.subscribe((event) => {
-		//   console.log(event);
-		// })
-	}
+	ngOnInit() {}
 
 	getAllChannels(): Observable<any> {
 		// Return type is now Observable<any>
@@ -76,8 +61,8 @@ export class ChannelService implements OnInit {
 
 	async onFileChange(event: any) {
 		const file = event.target.files[0];
-		const documentId = await this.getDocumentId('channels');
-		const filePath = `/channelImages/${documentId}/${file.name}`;
+		const channelID = await this.ChannelID('channels');
+		const filePath = `/channelImages/${channelID}/${file.name}`;
 		const fileRef = this.storage.ref(filePath);
 		const task = this.storage.upload(filePath, file);
 
@@ -108,7 +93,7 @@ export class ChannelService implements OnInit {
 		}
 	}
 
-	async getDocumentId(collection: string): Promise<string> {
+	async ChannelID(collection: string): Promise<string> {
 		const snapshot$ = this.afs.collection(collection).snapshotChanges().pipe(take(1));
 		const snapshot = await firstValueFrom(snapshot$);
 		if (!snapshot || snapshot.length === 0) {
@@ -165,39 +150,46 @@ export class ChannelService implements OnInit {
 		// Call the function to get the username and photoURL
 		await this.getUserNameAndImgFromFirebase();
 		// Now this.name and this.photoURL should have the username and photoURL
-		const documentId = await this.getDocumentId('channels');
+		const channelID = await this.ChannelID('channels');
 		const channelChatRef = this.afs
 			.collection('channels')
-			.doc(documentId)
+			.doc(channelID)
 			.collection('ChannelChat');
+		
+		// Generate a unique ID for the message
+		const messageId = this.afs.createId();
+		
 		const date = new Date();
 		const formattedDate = this.getFormattedDate(date);
 		// Add the message, the formatted date, username, photoURL, and uploadedImgURL to the collection
-		channelChatRef.add({
+		channelChatRef.doc(messageId).set({
+			messageId: messageId, // Adding the message ID to the document
 			message: message,
 			date: formattedDate,
 			userName: this.name, // Adding username to the document
 			userPhotoURL: this.photoURL, // Adding photoURL to the document
 			uploadedImgURL: this.uploadedImgURL, // Adding uploaded image URL to the document
 		});
-
+	
 		// Reset the uploadedImgURL for the next upload
 		this.uploadedImgURL = '';
 	}
+	
 
 	async fetchMessagesFromFirebase(): Promise<Observable<any[]>> {
-		const documentId = await this.getDocumentId('channels');
+		const channelID = await this.ChannelID('channels');
 		// Replace 'channels' and 'ChannelChat' with the actual path to your Firestore collection
 		return this.afs
 			.collection('channels')
-			.doc(documentId)
-			.collection('ChannelChat', (ref) => ref.orderBy('date')) // Add the sorting condition here
+			.doc(channelID)
+			.collection('ChannelChat', (ref) => ref.orderBy('date')) // sorting by date from oldest to newest post
 			.snapshotChanges()
 			.pipe(
 				map((actions) =>
 					actions.map((a) => {
 						const data = a.payload.doc.data();
 						const id = a.payload.doc.id;
+						// console.log(id);
 						console.log(data);
 						return { id, ...data };
 					})
@@ -206,10 +198,24 @@ export class ChannelService implements OnInit {
 	}
 
 	// this function deletes the message from the firestore database
-	async deleteMessageFromFirebase(messageId: string): Promise<void> {
-		// const documentId = await this.getDocumentId('channels');
-		// const channelChatRef = this.afs.collection('channels').doc(documentId).collection('ChannelChat');
-		// const docRef = doc(channelChatRef, messageId);
-		// deleteDoc(docRef);
+	async deleteMessageFromFirebase() {
+		console.log('Delete the Channel Chat Message');
+		const channelId = await this.ChannelID('channels');
+		const messageId = await this.getMessageId(channelId);
+		console.log(messageId);
+		// const sfRef = this.afs.collection('channels').doc(channelId).collection('ChannelChat').doc(messageId);
+		// await sfRef.delete();
 	}
+	
+
+	async getMessageId(channelId: string): Promise<string> {
+		const snapshot$ = this.afs.collection('channels').doc(channelId).collection('ChannelChat').snapshotChanges().pipe(take(1));
+		const snapshot = await firstValueFrom(snapshot$);
+		if (!snapshot || snapshot.length === 0) {
+			throw new Error(`No documents found in collection: ChannelChat`);
+		}
+		const messageId = snapshot[0].payload.doc.id;
+		return messageId;
+	}
+	
 }

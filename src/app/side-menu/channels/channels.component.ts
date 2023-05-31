@@ -21,8 +21,10 @@ export class ChannelsComponent implements OnInit {
 	channelId!: any;
 	openMenu: boolean = true;
 
-	constructor(public dialog: MatDialog, private channelService: ChannelService) {
-	}
+	constructor(
+		public dialog: MatDialog, 
+		public channelService: ChannelService
+	) {}
 
 	ngOnInit() {
 		this.channelService.getAllChannels().subscribe((channels: any) => {

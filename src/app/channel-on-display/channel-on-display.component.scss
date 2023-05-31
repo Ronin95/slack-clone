@@ -56,12 +56,16 @@
 	// gap: 5px;
 }
 
+.message-card-main {
+	width: 100%;
+}
+
 mat-card-title {
+	border-style: dotted;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-  min-width: 280px;
-	max-width: 900px;
+  	width: 100%;
 }
 
 mat-icon {

@@ -28,11 +28,6 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges {
 		console.log('Test - 2');
 	}
 
-	logData(data: string) {
-		this.data = data;
-		console.log(this.data);
-	}
-
 	async sendMessage(): Promise<void> {
 		if (this.messageText) {
 			await this.channelService.saveMessageToFirebase(this.messageText);

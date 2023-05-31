@@ -46,6 +46,7 @@
 		height: calc(100vh - 315px);
 		background-color: $bgClr-start;
 		background-color: white;
+		width: calc(100vw - $side-menu-width);
 	}
 }
 
@@ -65,11 +66,11 @@ mat-card-title {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-  	width: 100%;
+	width: 100%;
 }
 
 mat-icon {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .message-card {
@@ -83,7 +84,7 @@ mat-icon {
 	}
 
 	&-image {
-		width: 50px;
+		width: 50px !important;
 		height: 50px;
 		border-radius: 10px !important;
 		background-color: white;
@@ -121,7 +122,9 @@ mat-icon {
 			width: 100% !important;
 			.post {
 				min-width: 280px;
-				max-width: 1000px;
+				max-width: 100%;
+				overflow-wrap: break-word;
+				margin: 0 !important;
 			}
 		}
 	}

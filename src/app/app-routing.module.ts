@@ -9,7 +9,6 @@ import { ThreadsComponent } from './threads/threads.component';
 import { UsersComponent } from './users/users.component';
 import { SendMessageComponent } from './send-message/send-message.component';
 import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-display.component';
 import {
 	canActivate,

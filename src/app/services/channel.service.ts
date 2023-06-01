@@ -99,26 +99,13 @@ export class ChannelService implements OnInit {
 		if (!snapshot || snapshot.length === 0) {
 			throw new Error(`No documents found in collection: ${collection}`);
 		}
-		const documentId = snapshot[0].payload.doc.id;
-		return documentId;
+		const returnChannelId = snapshot[0].payload.doc.id;
+		return returnChannelId;
 	}
 
 	getFormattedDate(date: Date): string {
 		const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-		const months = [
-			'Jan',
-			'Feb',
-			'Mar',
-			'Apr',
-			'May',
-			'Jun',
-			'Jul',
-			'Aug',
-			'Sep',
-			'Oct',
-			'Nov',
-			'Dec',
-		];
+		const months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
 		const dayName = days[date.getDay()];
 		const day = String(date.getDate()).padStart(2, '0');
 		const month = months[date.getMonth()];
@@ -155,10 +142,10 @@ export class ChannelService implements OnInit {
 			.collection('channels')
 			.doc(channelID)
 			.collection('ChannelChat');
-		
+
 		// Generate a unique ID for the message
 		const messageId = this.afs.createId();
-		
+
 		const date = new Date();
 		const formattedDate = this.getFormattedDate(date);
 		// Add the message, the formatted date, username, photoURL, and uploadedImgURL to the collection
@@ -170,32 +157,29 @@ export class ChannelService implements OnInit {
 			userPhotoURL: this.photoURL, // Adding photoURL to the document
 			uploadedImgURL: this.uploadedImgURL, // Adding uploaded image URL to the document
 		});
-	
+
 		// Reset the uploadedImgURL for the next upload
 		this.uploadedImgURL = '';
 	}
-	
 
-	async fetchMessagesFromFirebase(): Promise<Observable<any[]>> {
-		const channelID = await this.ChannelID('channels');
-		// Replace 'channels' and 'ChannelChat' with the actual path to your Firestore collection
-		return this.afs
-			.collection('channels')
-			.doc(channelID)
-			.collection('ChannelChat', (ref) => ref.orderBy('date')) // sorting by date from oldest to newest post
-			.snapshotChanges()
-			.pipe(
-				map((actions) =>
-					actions.map((a) => {
-						const data = a.payload.doc.data();
-						const id = a.payload.doc.id;
-						// console.log(id);
-						console.log(data);
-						return { id, ...data };
-					})
-				)
-			);
-	}
+
+	fetchMessagesFromFirebase(channelId: string): Observable<any[]> {
+    return this.afs
+      .collection('channels')
+      .doc(channelId)
+      .collection('ChannelChat', (ref) => ref.orderBy('date')) // sorting by date from oldest to newest post
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
 
 	// this function deletes the message from the firestore database
 	async deleteMessageFromFirebase() {
@@ -206,7 +190,7 @@ export class ChannelService implements OnInit {
 		// const sfRef = this.afs.collection('channels').doc(channelId).collection('ChannelChat').doc(messageId);
 		// await sfRef.delete();
 	}
-	
+
 
 	async getMessageId(channelId: string): Promise<string> {
 		const snapshot$ = this.afs.collection('channels').doc(channelId).collection('ChannelChat').snapshotChanges().pipe(take(1));
@@ -217,5 +201,5 @@ export class ChannelService implements OnInit {
 		const messageId = snapshot[0].payload.doc.id;
 		return messageId;
 	}
-	
+
 }

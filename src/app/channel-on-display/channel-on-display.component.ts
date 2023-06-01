@@ -2,7 +2,7 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 
 @Component({
 	selector: 'app-channel-on-display',
@@ -11,6 +11,7 @@ import { Observable, switchMap } from 'rxjs';
 })
 export class ChannelOnDisplayComponent implements OnInit, OnChanges {
 	channelArray: any[] = [];
+  channelId: string | null = null;
 	channelName: string = '';
 	subscribedParam!: any;
 	messageText!: string;
@@ -21,7 +22,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges {
 		public channelService: ChannelService,
 		private route: ActivatedRoute,
 		private firestore: AngularFirestore,
-		private router: Router
+    private router: Router
 	) {}
 
 	ngOnChanges() {
@@ -40,66 +41,40 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges {
   	}
 
 	async ngOnInit() {
-		this.displayChannelName();
-		this.messages = await this.channelService.fetchMessagesFromFirebase();
-
+		let { channelName, channelId } = await this.displayChannelNameAndID();
+    console.log(channelName, channelId);
+    this.messages = await this.channelService.fetchMessagesFromFirebase(channelId);
 		this.router.events.subscribe(async (event) => {
 			if (event instanceof NavigationEnd) {
-				this.displayChannelName();
-				this.messages = await this.channelService.fetchMessagesFromFirebase();
+				let { channelName, channelId } = await this.displayChannelNameAndID();
+        console.log(channelName, channelId);
+        this.messages = await this.channelService.fetchMessagesFromFirebase(channelId);
 			}
 		});
 	}
 
-	displayChannelName() {
-		this.route.paramMap
-			.pipe(
-				switchMap((params) => {
-					this.subscribedParam = params.get('id');
-					return this.firestore
-						.collection('channels')
-						.doc(this.subscribedParam)
-						.valueChanges();
-				})
-			)
-			.subscribe((channel: any) => {
-				if (channel) {
-					this.channelName = channel.channelName; // Annahme: Das Feld mit dem Namen ist 'channelName'
-					console.log(this.channelName);
-				}
-			});
-	}
+	displayChannelNameAndID(): Promise<{ channelName: string, channelId: string }> {
+    return new Promise((resolve) => {
+      this.route.paramMap
+        .pipe(
+          switchMap((params) => {
+            this.subscribedParam = params.get('id');
+            return this.firestore
+              .collection('channels')
+              .doc(this.subscribedParam)
+              .valueChanges();
+          })
+        )
+        .subscribe((channel: any) => {
+          if (channel) {
+            const { channelName, channelId } = channel;
+            this.channelId = channelId;
+            this.channelName = channelName;
+            console.log(this.channelName, this.channelId);
+            resolve({ channelName, channelId });
+          }
+        });
+    });
+  }
 
-	// sendMessage() {
-	//   this.route.paramMap
-	//     .pipe(
-	//       switchMap((params) => {
-	//         this.subscribedParam = params.get('id');
-	//         return this.firestore
-	//           .collection('channels')
-	//           .doc(this.subscribedParam)
-	//           .valueChanges()
-	//           .pipe(take(1));
-	//       })
-	//     )
-	//     .subscribe((channel: any) => {
-	//       const message = {
-	//         text: this.messageText, // Use "messageText" instead of "this.control.value"
-	//         timestamp: new Date(),
-	//       };
-	//       const channelRef: AngularFirestoreDocument<any> = this.firestore
-	//         .collection('channels')
-	//         .doc(this.subscribedParam);
-	//       channelRef
-	//         .update({
-	//           channelChat: [...channel.channelChat, message],
-	//         })
-	//         .then(() => {
-	//           console.log('Message sent and saved.');
-	//         })
-	//         .catch((error) => {
-	//           console.error('Error saving the message:', error);
-	//         });
-	//     });
-	// }
 }

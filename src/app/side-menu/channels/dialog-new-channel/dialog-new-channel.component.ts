@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Firestore, collection, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, setDoc, updateDoc } from '@angular/fire/firestore';
 
 @Component({
 	selector: 'app-dialog-new-channel',
@@ -19,15 +19,26 @@ export class DialogNewChannelComponent {
 		this.dialogRef.close();
 	}
 
-	addChannel() {
-		const channelCollection = collection(this.firestore, 'channels');
-		setDoc(doc(channelCollection), {
-			channelName: this.channelName,
-			channelChat: this.channelChat,
-		}).then(() => {
-			// console.log('New channel added:', this.channelName);
+	async addChannel() {
+    const channelCollection = collection(this.firestore, 'channels');
 
-		});
-    this.dialogRef.close();
-	}
+    try {
+      // Add a new document and get a DocumentReference
+      const docRef = await addDoc(channelCollection, {
+        channelName: this.channelName,
+        // The ID is not known at the time the document is created, so it can't be included here
+      });
+
+      // The ID is now known, so you can update the document to include it
+      await updateDoc(docRef, {
+        channelId: docRef.id,
+      });
+
+      // console.log('New channel added:', this.channelName);
+
+      this.dialogRef.close();
+    } catch (error) {
+      console.error('Error adding document: ', error);
+    }
+  }
 }

@@ -72,6 +72,20 @@ button {
 	flex-direction: row;
 }
 
+.position-relative {
+	position: relative;
+  }
+
+  .editor-btn {
+	position: absolute !important;
+	bottom: 0;
+	right: 0;
+  }
+
+  .ngx-editor {
+	height: 150px !important;
+  }
+
 html,
 body {
 	height: 100%;

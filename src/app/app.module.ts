@@ -36,6 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgxEditorModule } from 'ngx-editor';
 
 // Components
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -62,6 +63,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-display.component';
 import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-login.component';
 import { PrivateChatComponent } from './private-chat/private-chat.component';
+import { CustomMenuComponent } from './custom-menu/custom-menu.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,7 @@ import { PrivateChatComponent } from './private-chat/private-chat.component';
     ChannelOnDisplayComponent,
     DialogErrorLoginComponent,
     PrivateChatComponent,
+    CustomMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -119,6 +122,7 @@ import { PrivateChatComponent } from './private-chat/private-chat.component';
     AngularFireStorageModule,
     provideStorage(() => getStorage()),
     HttpClientModule,
+    NgxEditorModule,
   ],
   providers: [AuthService, OpenAiService],
   bootstrap: [AppComponent],

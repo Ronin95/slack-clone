@@ -1,57 +1,99 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, map, switchMap } from 'rxjs';
+import { Editor, Toolbar, Validators } from 'ngx-editor';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-	selector: 'app-channel-on-display',
-	templateUrl: './channel-on-display.component.html',
-	styleUrls: ['./channel-on-display.component.scss'],
+  selector: 'app-channel-on-display',
+  templateUrl: './channel-on-display.component.html',
+  styleUrls: ['./channel-on-display.component.scss'],
 })
-export class ChannelOnDisplayComponent implements OnInit, OnChanges {
-	channelArray: any[] = [];
-  channelId: string | null = null;
-	channelName: string = '';
-	subscribedParam!: any;
-	messageText!: string;
-	messages!: Observable<any[]>;
-	data = '';
+export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
+  channelArray: any[] = [];
+  channelName: string = '';
+  subscribedParam!: any;
+  messageText: string = '';
+  messages!: Observable<any[]>;
+  messages$!: Observable<any[]>;
+  data = '';
+  editor!: Editor;
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    ['image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
+  channelId: string = '';
 
-	constructor(
-		public channelService: ChannelService,
-		private route: ActivatedRoute,
-		private firestore: AngularFirestore,
-    private router: Router
-	) {}
+  constructor(
+    public channelService: ChannelService,
+    private route: ActivatedRoute,
+    private firestore: AngularFirestore,
+    private router: Router,
+    private sanitizer: DomSanitizer
+  ) {}
 
-	ngOnChanges() {
-		console.log('Test - 2');
-	}
+  sanitizeHtml(html: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
 
-	async sendMessage(): Promise<void> {
-		if (this.messageText) {
-			await this.channelService.saveMessageToFirebase(this.messageText);
-			this.messageText = '';
-		}
-	}
+  ngOnChanges() {
+    console.log('Test - 2');
+  }
+
+  sendMessage() {
+    this.channelService.saveMessageToFirebase(this.messageText);
+  }
 
 	async onDeleteSelectedMessage(messageId: string) {
     	await this.channelService.deleteMessageFromFirebase(messageId);
   	}
 
-	async ngOnInit() {
-		let { channelName, channelId } = await this.displayChannelNameAndID();
-		this.messages = await this.channelService.fetchMessagesFromFirebase(channelId);
-		this.router.events.subscribe(async (event) => {
-			if (event instanceof NavigationEnd) {
-				let { channelName, channelId } = await this.displayChannelNameAndID();
-        		this.messages = await this.channelService.fetchMessagesFromFirebase(channelId);
+  // make sure to destory the editor
+  ngOnDestroy(): void {
+    this.editor.destroy();
+  }
+
+  async ngOnInit() {
+    this.editor = new Editor()
+    let { channelId } = await this.displayChannelNameAndID();
+    this.displayChannelName();
+    this.messages = this.channelService.fetchMessagesFromFirebase(channelId);
+
+    this.router.events.subscribe(async (event) => {
+      if (event instanceof NavigationEnd) {
+        this.displayChannelName();
+        this.messages = this.channelService.fetchMessagesFromFirebase(channelId);
 			}
 		});
-	}
+  }
 
-	displayChannelNameAndID(): Promise<{ channelName: string, channelId: string }> {
+  displayChannelName() {
+    this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          this.subscribedParam = params.get('id');
+          return this.firestore
+            .collection('channels')
+            .doc(this.subscribedParam)
+            .valueChanges();
+        })
+      )
+      .subscribe((channel: any) => {
+        if (channel) {
+          this.channelName = channel.channelName; // Annahme: Das Feld mit dem Namen ist 'channelName'
+          console.log(this.channelName);
+        }
+      });
+  }
+
+  displayChannelNameAndID(): Promise<{ channelName: string, channelId: string }> {
     return new Promise((resolve) => {
       this.route.paramMap
         .pipe(
@@ -74,5 +116,4 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges {
         });
     });
   }
-
 }

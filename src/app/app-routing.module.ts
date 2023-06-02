@@ -24,13 +24,17 @@ const routes: Routes = [
 	{ path: 'chat/:id', component: PrivateChatComponent },
 	{ path: 'headerMenu', component: HeaderComponent },
 	{ path: 'home', component: HomeComponent, ...canActivate(redirectToLogin) },
-	{ path: 'home/threads', component: ThreadsComponent },
+	// { path: 'home/threads', component: ThreadsComponent },
 	{ path: 'home/users', component: UsersComponent },
 	{ path: 'home/chatgpt', component: ChatgptComponent },
 	{ path: 'home/sendMessage', component: SendMessageComponent },
 	{ path: '', component: WelcomeScreenComponent, ...canActivate(redirectToHome) },
 	{ path: 'sideMenu', component: SideMenuComponent },
-	{ path: 'channel/:id', component: ChannelOnDisplayComponent },
+	{ path: 'channel/:id', component: ChannelOnDisplayComponent,
+		children: [
+			{ path: 'thread/:id', component: ThreadsComponent }
+		] },
+	// { path: 'thread/:id', component: ThreadsComponent },
 	{ path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 

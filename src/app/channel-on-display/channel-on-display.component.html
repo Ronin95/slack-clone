@@ -27,17 +27,20 @@
 					</mat-card-header>
 					<mat-card-content class="post-container">
 						<p class="post">{{ message.message }}</p>
+						<br/>
 						<img
 							*ngIf="message.uploadedImgURL"
 							src="{{ message.uploadedImgURL }}"
 							alt="uploadedImg_name"
 							style="width: 250px"
 						/>
-						<p>Antworten</p>
+						<br/>
+						<p class="thread-style" routerLink="thread/{{ message.messageId }}">Answer</p>
 					</mat-card-content>
 				</div>
 			</mat-card>
 		</div>
+		<app-threads></app-threads>
 	</div>
 
 	<div>

@@ -159,3 +159,17 @@ mat-icon {
 		}
 	}
 }
+
+
+.thread-style {
+	height: 34px;
+	padding: 5px;
+	&:hover {
+		cursor: pointer;
+		padding: 5px;
+		border-radius: 5px;
+		border: solid 1px grey;
+		background-color: rgb(248, 233, 233);
+	}
+
+}

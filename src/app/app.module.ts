@@ -44,7 +44,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DialogUserInfoComponent } from './header/dialog-user-info/dialog-user-info.component';
 import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { SendMessageComponent } from './send-message/send-message.component';
@@ -56,7 +55,6 @@ import { FurtherServicesComponent } from './side-menu/further-services/further-s
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { ThreadsComponent } from './threads/threads.component';
-import { UsersComponent } from './users/users.component';
 import { WelcomeScreenComponent } from './welcome-screen/welcome-screen.component';
 import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -73,9 +71,7 @@ import { CustomMenuComponent } from './custom-menu/custom-menu.component';
     RegisterComponent,
     HeaderComponent,
     SideMenuComponent,
-    HomeComponent,
     ThreadsComponent,
-    UsersComponent,
     SendMessageComponent,
     ChannelsComponent,
     DirectMessagesComponent,
@@ -94,7 +90,6 @@ import { CustomMenuComponent } from './custom-menu/custom-menu.component';
     CommonModule,
     BrowserModule,
     AppRoutingModule,
-    // QuillModule.forRoot(),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSidenavModule,

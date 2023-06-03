@@ -49,11 +49,12 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
 
   sendMessage() {
     this.channelService.saveMessageToFirebase(this.messageText);
+    this.messageText = '';
   }
 
-	async onDeleteSelectedMessage(messageId: string) {
-    	await this.channelService.deleteMessageFromFirebase(messageId);
-  	}
+  async onDeleteSelectedMessage(messageId: string) {
+    await this.channelService.deleteMessageFromFirebase(messageId);
+  }
 
   // make sure to destory the editor
   ngOnDestroy(): void {
@@ -61,7 +62,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   async ngOnInit() {
-    this.editor = new Editor()
+    this.editor = new Editor();
     let { channelId } = await this.displayChannelNameAndID();
     this.displayChannelName();
     this.messages = this.channelService.fetchMessagesFromFirebase(channelId);
@@ -69,9 +70,10 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
     this.router.events.subscribe(async (event) => {
       if (event instanceof NavigationEnd) {
         this.displayChannelName();
-        this.messages = this.channelService.fetchMessagesFromFirebase(channelId);
-			}
-		});
+        this.messages =
+          this.channelService.fetchMessagesFromFirebase(channelId);
+      }
+    });
   }
 
   displayChannelName() {
@@ -93,7 +95,10 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
       });
   }
 
-  displayChannelNameAndID(): Promise<{ channelName: string, channelId: string }> {
+  displayChannelNameAndID(): Promise<{
+    channelName: string;
+    channelId: string;
+  }> {
     return new Promise((resolve) => {
       this.route.paramMap
         .pipe(

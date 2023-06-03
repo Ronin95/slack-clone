@@ -1,31 +1,45 @@
 <div class="outer-container">
-	<mat-toolbar class="header header-height border">
-		<mat-icon style="color: white">tag</mat-icon>
-		<h2>{{ userName }}</h2>
-	</mat-toolbar>
+  <mat-toolbar class="header header-height border">
+    <mat-icon style="color: white">tag</mat-icon>
+    <h2>{{ userName }}</h2>
+  </mat-toolbar>
 
-	<div class="message-container">
-		<div *ngIf="messages; else noMessages" class="msg-card-style"></div>
+  <div class="message-container">
+    <div *ngIf="messages; else noMessages" class="msg-card-style"></div>
 
-		<ng-template #noMessages>
-			<p>Begin your conversation with {{ userName }}</p>
-		</ng-template>
-	</div>
+    <ng-template #noMessages>
+      <p>Begin your conversation with {{ userName }}</p>
+    </ng-template>
+  </div>
 
-	<div>
-		<!-- Create a formfield with the help of angular material that has a button where you can upload a image a textarea and another send button -->
-		<div class="input-container">
-			<!-- <input type="file" accept="image/*" #img style="display:none;"> -->
-			<input type="file" hidden id="fileInput" style="display: none" />
-			<button mat-icon-button>
-				<mat-icon>add_a_photo</mat-icon>
-			</button>
-			<mat-form-field class="input-field">
-				<textarea matInput placeholder="Insert your message..." [(ngModel)]="messageText"></textarea>
-			</mat-form-field>
-			<button (click)="sendMessage(messageText)" mat-icon-button>
-				<mat-icon>send</mat-icon>
-			</button>
-		</div>
-	</div>
+  <!-- Create a formfield with the help of angular material that has a button where you can upload a image a textarea and another send button -->
+  <div class="NgxEditor__Wrapper ngx-editor position-relative">
+    <ngx-editor-menu
+      [editor]="editor"
+      [toolbar]="toolbar"
+      [customMenuRef]="customMenu"
+    ></ngx-editor-menu>
+    <ngx-editor
+      [editor]="editor"
+      [(ngModel)]="messageText"
+      [disabled]="false"
+      [placeholder]="'Insert your message...'"
+    ></ngx-editor>
+    <button
+      class="editor-btn"
+      mat-icon-button
+      (click)="sendMessage(messageText)"
+    >
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+  <input
+    id="fileInput"
+    type="file"
+    style="display: none"
+    (change)="channelService.onFileChange($event)"
+  />
+  <ng-template #customMenu>
+    <app-custom-menu [editor]="editor"></app-custom-menu>
+  </ng-template>
 </div>

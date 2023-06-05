@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
-import { AuthService } from '../services/auth.service';
 import { Editor, Toolbar } from 'ngx-editor';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ChannelService } from '../services/channel.service';
+import { PrivateChatService } from '../services/private-chat.service';
 
 @Component({
   selector: 'app-private-chat',
@@ -25,9 +25,9 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
-    private auth: AuthService,
     private sanitizer: DomSanitizer,
-    public channelService: ChannelService
+    public channelService: ChannelService,
+    public privateChat: PrivateChatService
   ) {
     this.displayUserName();
   }
@@ -44,60 +44,9 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
     this.editor = new Editor();
   }
 
-  sendMessage(message: string) {
-    const loggedInUserId = this.auth.userData.uid;
-    const selectedUserId = this.subscribedParam; // UID des ausgewählten Benutzers aus der URL
-
-    // Überprüfen, ob der eingeloggte Benutzer vorhanden ist
-    if (!loggedInUserId) {
-      console.error('Eingeloggter Benutzer nicht gefunden.');
-      return;
-    }
-    const messageId = this.firestore.createId();
-    // Nachrichtenobjekt erstellen
-    const newMessage = {
-      messageId: messageId,
-      senderId: loggedInUserId,
-      receiverId: selectedUserId,
-      content: message,
-      timestamp: new Date().toISOString(),
-    };
-
-    // Pfad zur Speicherung der Nachricht für den eingeloggten Benutzer
-    const loggedInUserPath = `users/${loggedInUserId}/privateMessages`;
-    // Pfad zur Speicherung der Nachricht für den ausgewählten Benutzer
-    const selectedUserPath = `users/${selectedUserId}/privateMessages`;
-
-    // Nachricht für den eingeloggten Benutzer speichern
-    this.firestore
-      .collection(loggedInUserPath)
-      .add(newMessage)
-      .then(() => {
-        console.log('Nachricht für den Absender erfolgreich gespeichert');
-        // Hier können Sie weitere Aktionen ausführen, wie das Leeren des Textbereichs usw.
-      })
-      .catch((error) => {
-        console.error(
-          'Fehler beim Speichern der Nachricht für den Absender:',
-          error
-        );
-      });
-
-    // Nachricht für den ausgewählten Benutzer speichern
-    this.firestore
-      .collection(selectedUserPath)
-      .add(newMessage)
-      .then(() => {
-        console.log('Nachricht für den Empfänger erfolgreich gespeichert');
-        // Hier können Sie weitere Aktionen ausführen, wie das Leeren des Textbereichs usw.
-      })
-      .catch((error) => {
-        console.error(
-          'Fehler beim Speichern der Nachricht für den Empfänger:',
-          error
-        );
-      });
-
+  sendMessage(messageText: string) {
+    const selectedUserId = this.route.snapshot.params['id'];
+    this.privateChat.saveMessageToFirebase(this.messageText, selectedUserId);
     this.messageText = '';
   }
 

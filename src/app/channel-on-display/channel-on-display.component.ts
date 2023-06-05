@@ -63,13 +63,13 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
 
   async ngOnInit() {
     this.editor = new Editor();
-    let { channelId } = await this.displayChannelNameAndID();
+    let { channelName, channelId } = await this.displayChannelNameAndID();
     this.displayChannelName();
     this.messages = this.channelService.fetchMessagesFromFirebase(channelId);
 
     this.router.events.subscribe(async (event) => {
       if (event instanceof NavigationEnd) {
-        this.displayChannelName();
+        let { channelName, channelId } = await this.displayChannelNameAndID();
         this.messages =
           this.channelService.fetchMessagesFromFirebase(channelId);
       }

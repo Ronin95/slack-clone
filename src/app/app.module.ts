@@ -62,6 +62,7 @@ import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-displ
 import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-login.component';
 import { PrivateChatComponent } from './private-chat/private-chat.component';
 import { CustomMenuComponent } from './custom-menu/custom-menu.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { CustomMenuComponent } from './custom-menu/custom-menu.component';
     DialogErrorLoginComponent,
     PrivateChatComponent,
     CustomMenuComponent,
+    HomeComponent,
   ],
   imports: [
     CommonModule,

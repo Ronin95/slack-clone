@@ -12,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./channel-on-display.component.scss'],
 })
 export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
+  isChatIconClicked: boolean = false;
   channelArray: any[] = [];
   channelName: string = '';
   subscribedParam!: any;
@@ -22,7 +23,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
   editor!: Editor;
   toolbar: Toolbar = [
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote'],
-  
+
   ];
   channelId: string = '';
 
@@ -36,6 +37,10 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
 
   sanitizeHtml(html: string) {
     return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
+  onChatIconClick() {
+    this.isChatIconClicked = true;
   }
 
   ngOnChanges() {
@@ -69,6 +74,11 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
           this.channelService.fetchMessagesFromFirebase(channelId);
       }
     });
+  }
+
+  onEditMessage(messageId: string) {
+    messageId = messageId;
+    this.channelService.editMessageFromFirebase(messageId);
   }
 
   displayChannelName() {

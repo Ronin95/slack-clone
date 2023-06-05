@@ -199,4 +199,8 @@ export class ChannelService implements OnInit {
 		return messageId;
 	}
 
+  editMessageFromFirebase(messageId: string) {
+    console.log('Edit message from firebase: with message id: ' + messageId);
+  }
+
 }

@@ -4,48 +4,49 @@
     <h2>{{ channelName }}</h2>
   </mat-toolbar>
 
-  <div class="message-container">
-    <div class="msg-card-style" *ngFor="let message of messages | async">
-      <mat-card class="message-card">
-        <img
-          class="message-card-image"
-          mat-card-image
-          alt="Photo"
-          [src]="message.userPhotoURL || 'assets/img/blank-profile-img.png'"
-        />
-        <div class="message-card-main">
-          <mat-card-header class="message-card-main-header">
+  <div class="dual-container">
+    <div class="message-container">
+      <div class="msg-card-style" *ngFor="let message of messages | async">
+        <mat-card class="message-card">
+          <img
+            class="message-card-image"
+            mat-card-image
+            alt="Photo"
+            [src]="message.userPhotoURL || 'assets/img/blank-profile-img.png'"
+          />
+          <div class="message-card-main">
             <mat-card-title class="message-card-main-header-title">
-              <div>
-                <span class="author">{{ message.userName }}</span>
-                <span class="time-stamp">{{ message.date }}</span>
-              </div>
-              <div>
-                <mat-icon (click)="onDeleteSelectedMessage(message.messageId)"
-                  >delete</mat-icon
-                >
-              </div>
+                <div class=" name-date-style">
+                  <span class="author">{{ message.userName }}</span>
+                  <span class="time-stamp">{{ message.date }}</span>
+                </div>
+                <div class="edit-chat-delete-style">
+                  <mat-icon (click)="onEditMessage(message.messageId)">edit</mat-icon>
+                  <mat-icon (click)="onChatIconClick()" [routerLink]="'thread/' + message.messageId">chat</mat-icon>
+                  <mat-icon (click)="onDeleteSelectedMessage(message.messageId)">delete</mat-icon>
+                </div>
             </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="post-container">
-            <p class="post" [innerHTML]="sanitizeHtml(message.message)"></p>
-            <br />
-            <img
-              *ngIf="message.uploadedImgURL"
-              src="{{ message.uploadedImgURL }}"
-              alt="uploadedImg_name"
-              style="width: 250px"
-            />
-            <br />
-            <p class="thread-style" routerLink="thread/{{ message.messageId }}">
-              Answer
-            </p>
-          </mat-card-content>
-        </div>
-      </mat-card>
+            <mat-card-content class="post-container">
+              <p class="post" [innerHTML]="sanitizeHtml(message.message)"></p>
+              <br />
+              <img
+                *ngIf="message.uploadedImgURL"
+                src="{{ message.uploadedImgURL }}"
+                alt="uploadedImg_name"
+                style="width: 250px"
+              />
+              <br />
+            </mat-card-content>
+          </div>
+        </mat-card>
+      </div>
     </div>
-    <app-threads></app-threads>
+
+    <div class="thread-container bstyle" *ngIf="isChatIconClicked">
+      <router-outlet></router-outlet>
+    </div>
   </div>
+
 
   <div class="NgxEditor__Wrapper ngx-editor position-relative">
     <ngx-editor-menu
@@ -53,7 +54,7 @@
       [toolbar]="toolbar"
       [customMenuRef]="customMenu"
     ></ngx-editor-menu>
-    <ngx-editor 
+    <ngx-editor
       [editor]="editor"
       [(ngModel)]="messageText"
       [disabled]="false"
@@ -63,12 +64,7 @@
       <mat-icon>send</mat-icon>
     </button>
   </div>
-  <input
-  id="fileInput"
-  type="file"
-  style="display: none"
-  (change)="channelService.onFileChange($event)"
-/>
+  <input id="fileInput" type="file" style="display: none" (change)="channelService.onFileChange($event)" />
   <ng-template #customMenu>
     <app-custom-menu [editor]="editor"></app-custom-menu>
   </ng-template>

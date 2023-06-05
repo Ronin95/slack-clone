@@ -1,5 +1,9 @@
 @import 'src/fixedCSS/fixedVar.scss';
 
+* {
+  overflow: hidden;
+}
+
 .outer-container {
 	position: relative;
 	background-color: $bgClr-thirdary;
@@ -18,7 +22,24 @@
 		}
 	}
 
+
+  .dual-container  {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: stretch; /* change from center to stretch to make sure containers fill the vertical space */
+  }
+
+  .thread-container {
+    width: 50%;
+    padding-left: 20px;
+  }
+
 	.message-container {
+    border-right: 1px solid #000; /* change color as needed */
+    padding-right: 20px; /* optional: add some space between the content and the line */
+    margin-right: 20px; /* optional: add some space between the line and the thread-container */
+
 		overflow-y: scroll;
 		height: calc(100vh - 260px);
 		background-color: $bgClr-start;
@@ -71,8 +92,6 @@ mat-icon {
 	}
 
 	&-main {
-		// min-width: 280px;
-		// max-width: 1000px;
 
 		&-header {
 			padding-top: unset;
@@ -138,16 +157,30 @@ mat-icon {
 	}
 }
 
+.name-date-style {
+  height: 40px;
+  padding-left: 15px;
+  padding-top: 5px;
+  width: 280px;
+}
 
-.thread-style {
-	height: 34px;
-	padding: 5px;
-	&:hover {
-		cursor: pointer;
-		padding: 5px;
-		border-radius: 5px;
-		border: solid 1px grey;
-		background-color: rgb(248, 233, 233);
-	}
+.edit-chat-delete-style {
+  width: 120px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 
+
+  mat-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+
+    &:hover {
+      border-radius: 50%;
+      background-color: lightgrey;
+    }
+  }
 }

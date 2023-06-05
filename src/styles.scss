@@ -1,5 +1,27 @@
 @import 'src/fixedCSS/fixedVar.scss';
 
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+	scrollbar-width: auto;
+	scrollbar-color: #8407a6 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+	background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #8407a6;
+	border-radius: 10px;
+	border: 3px solid #ffffff;
+}
+
 html,
 body {
 	height: 100%;
@@ -96,12 +118,9 @@ body {
 	overflow-x: hidden;
 }
 
-/* Text Editor */
-.ql-toolbar {
-	border-radius: 10px;
-	background-color: rgb(211, 174, 174);
-}
-
-*::-webkit-scrollbar {
-	width: 0;
+//Editor
+ngx-editor {
+	display: block;
+	overflow-y: scroll !important;
+	height: 110px !important;
 }

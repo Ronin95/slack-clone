@@ -1,27 +1,5 @@
 @import 'src/fixedCSS/fixedVar.scss';
 
-/* ===== Scrollbar CSS ===== */
-/* Firefox */
-* {
-	scrollbar-width: auto;
-	scrollbar-color: #8407a6 #ffffff;
-}
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-	width: 12px;
-}
-
-*::-webkit-scrollbar-track {
-	background: #ffffff;
-}
-
-*::-webkit-scrollbar-thumb {
-	background-color: #8407a6;
-	border-radius: 10px;
-	border: 3px solid #ffffff;
-}
-
 .outer-container {
 	position: relative;
 	background-color: $bgClr-thirdary;
@@ -42,7 +20,7 @@
 
 	.message-container {
 		overflow-y: scroll;
-		height: calc(100vh - 315px);
+		height: calc(100vh - 260px);
 		background-color: $bgClr-start;
 		background-color: white;
 		width: calc(100vw - $side-menu-width);

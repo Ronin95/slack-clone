@@ -19,13 +19,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
   messageText: string = '';
   editor!: Editor;
   toolbar: Toolbar = [
-    ['bold', 'italic'],
-    ['underline', 'strike'],
-    ['code', 'blockquote'],
-    ['ordered_list', 'bullet_list'],
-    ['image'],
-    ['text_color', 'background_color'],
-    ['align_left', 'align_center', 'align_right', 'align_justify'],
+    ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote'],
   ];
 
   constructor(
@@ -59,9 +53,10 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
       console.error('Eingeloggter Benutzer nicht gefunden.');
       return;
     }
-
+    const messageId = this.firestore.createId();
     // Nachrichtenobjekt erstellen
     const newMessage = {
+      messageId: messageId,
       senderId: loggedInUserId,
       receiverId: selectedUserId,
       content: message,

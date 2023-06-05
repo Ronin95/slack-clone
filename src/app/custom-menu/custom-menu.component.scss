@@ -1,5 +1,13 @@
 .add-img-btn {
-    padding: unset;
-    height: 14px;
-    width: 14px;
+  padding: unset;
+  height: 33px;
+  width: 38px;
+  border-radius: 2px;
+  transition: ease-in-out 225ms;
+
+  &:hover {
+    cursor: default;
+    transition: ease-in-out 225ms;
+    background-color: #f1f3f9;
+  }
 }

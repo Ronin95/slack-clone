@@ -21,13 +21,8 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
   data = '';
   editor!: Editor;
   toolbar: Toolbar = [
-    ['bold', 'italic'],
-    ['underline', 'strike'],
-    ['code', 'blockquote'],
-    ['ordered_list', 'bullet_list'],
-    ['image'],
-    ['text_color', 'background_color'],
-    ['align_left', 'align_center', 'align_right', 'align_justify'],
+    ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote'],
+  
   ];
   channelId: string = '';
 

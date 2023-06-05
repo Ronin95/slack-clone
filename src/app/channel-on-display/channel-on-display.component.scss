@@ -103,10 +103,19 @@ mat-icon {
 				max-width: 100%;
 				overflow-wrap: break-word;
 				margin: 0 !important;
+
+				img {
+					height: 200px !important;
+				}
 			}
 		}
 	}
 }
+
+.ngx-editor__textarea img {
+	max-height: 20px; /* Setze die maximale Höhe des Bildes auf 250px */
+	width: auto; /* Behalte das Seitenverhältnis des Bildes bei */
+  }
 
 .input-container {
 	display: flex;

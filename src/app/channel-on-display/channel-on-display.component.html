@@ -28,15 +28,8 @@
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="post-container">
-            <p class="post" [innerHTML]="sanitizeHtml(message.message)"></p>
-            <br />
-            <img
-              *ngIf="message.uploadedImgURL"
-              src="{{ message.uploadedImgURL }}"
-              alt="uploadedImg_name"
-              style="width: 250px"
-            />
-            <br />
+            <p class="post" [innerHTML]="sanitizeHtmlWithImageSize(message.message)"></p>
+            
             <p class="thread-style" routerLink="thread/{{ message.messageId }}">
               Answer
             </p>

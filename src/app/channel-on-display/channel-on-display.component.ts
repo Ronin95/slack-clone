@@ -2,9 +2,9 @@ import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, map, switchMap } from 'rxjs';
+import { Observable, switchMap, Subscription  } from 'rxjs';
 import { Editor, Toolbar, Validators } from 'ngx-editor';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-channel-on-display',
@@ -12,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./channel-on-display.component.scss'],
 })
 export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
+  imageInsertedSubscription!: Subscription;
   channelArray: any[] = [];
   channelName: string = '';
   subscribedParam!: any;
@@ -34,9 +35,19 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
     private sanitizer: DomSanitizer
   ) {}
 
-  sanitizeHtml(html: string) {
-    return this.sanitizer.bypassSecurityTrustHtml(html);
+  sanitizeHtmlWithImageSize(html: string): SafeHtml {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html;
+
+    const images = wrapper.querySelectorAll('img');
+
+    images.forEach((image: HTMLImageElement) => {
+      image.style.maxHeight = '200px';
+    });
+    const sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(wrapper.innerHTML);
+    return sanitizedHtml;
   }
+  
 
   ngOnChanges() {
     console.log('Test - 2');
@@ -54,6 +65,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
   // make sure to destory the editor
   ngOnDestroy(): void {
     this.editor.destroy();
+    this.imageInsertedSubscription.unsubscribe();
   }
 
   async ngOnInit() {
@@ -61,6 +73,9 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
     let { channelName, channelId } = await this.displayChannelNameAndID();
     this.displayChannelName();
     this.messages = this.channelService.fetchMessagesFromFirebase(channelId);
+    this.imageInsertedSubscription = this.channelService.imageInsertedSubject.subscribe((url) => {
+      this.insertImageToEditor(url);
+    });
 
     this.router.events.subscribe(async (event) => {
       if (event instanceof NavigationEnd) {
@@ -69,6 +84,10 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
           this.channelService.fetchMessagesFromFirebase(channelId);
       }
     });
+  }
+
+  insertImageToEditor(url: string) {
+    this.messageText += `<img src="${url}" alt="Uploaded Image">`;
   }
 
   displayChannelName() {

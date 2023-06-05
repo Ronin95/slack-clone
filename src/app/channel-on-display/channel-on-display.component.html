@@ -26,6 +26,7 @@
                   <mat-icon (click)="onDeleteSelectedMessage(message.messageId)">delete</mat-icon>
                 </div>
             </mat-card-title>
+
             <mat-card-content class="post-container">
               <p class="post" [innerHTML]="sanitizeHtml(message.message)"></p>
               <br />
@@ -44,6 +45,16 @@
 
     <div class="thread-container bstyle" *ngIf="isChatIconClicked">
       <router-outlet></router-outlet>
+          </mat-card-header>
+          <mat-card-content class="post-container">
+            <p class="post" [innerHTML]="sanitizeHtmlWithImageSize(message.message)"></p>
+
+            <p class="thread-style" routerLink="thread/{{ message.messageId }}">
+              Answer
+            </p>
+          </mat-card-content>
+        </div>
+      </mat-card>
     </div>
   </div>
 

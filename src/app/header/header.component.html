@@ -1,4 +1,26 @@
 <mat-toolbar class="header-toolbar">
-  <input class="search-input" placeholder="Search messages ...">
-  <img  (click)="openUserDialog()" [src]="authService.photoURL || 'assets/img/blank-profile-img.png' "alt="profile-img">
+	<input
+		autocomplete="off"
+		aria-label="Search"
+		[class.loading]="isLoading"
+		#searchInput
+		(input)="input$.next(searchInput.value)"
+		class="search-input"
+		placeholder="Search messages ..."
+	/>
+
+	<ul class="search-results" *ngIf="results$ | async as results">
+		<li *ngFor="let message of results">
+			<a [routerLink]="['/....']">
+				{{ message }}
+			</a>
+		</li>
+		<li *ngIf="!results.length">No results</li>
+	</ul>
+
+	<img
+		(click)="openUserDialog()"
+		[src]="authService.photoURL || 'assets/img/blank-profile-img.png'"
+		alt="profile-img"
+	/>
 </mat-toolbar>

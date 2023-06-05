@@ -2,35 +2,53 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogUserInfoComponent } from './dialog-user-info/dialog-user-info.component';
 import {
-  AngularFirestore,
-  AngularFirestoreDocument,
+	AngularFirestore,
+	AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { AuthService } from '../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable } from 'rxjs';
+import { Observable, Subject, filter, debounceTime } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+	selector: 'app-header',
+	templateUrl: './header.component.html',
+	styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+	isLoading = false;
+	results$!: Observable<any>;
 
-  constructor(
-    public dialog: MatDialog,
-    private afs: AngularFirestore,
-    public authService: AuthService,
-    private afAuth: AngularFireAuth
-  ) {}
+	input$ = new Subject<string>();
 
-  ngOnInit() {
-    this.authService.authenticateUserGetImg();
-  }
+	constructor(
+		public dialog: MatDialog,
+		private afs: AngularFirestore,
+		public authService: AuthService,
+		private afAuth: AngularFireAuth
+	) {
+		this.input$
+			.pipe(
+				filter((term) => term.length > 3),
+				debounceTime(500), // wait 500ms after the last event before emitting last event
+				distinctUntilChanged((a, b) => {
+					// only emit if value is different from previous value
+					return JSON.stringify(a) === JSON.stringify(b);
+				})
+			)
+			.subscribe((term) => {
+				console.log(term);
+			});
+	}
 
-  openUserDialog(): void {
-    this.dialog.open(DialogUserInfoComponent, {
-      width: '250px',
-      position: { right: '10px', top: '45px' },
-    });
-  }
+	ngOnInit() {
+		this.authService.authenticateUserGetImg();
+	}
+
+	openUserDialog(): void {
+		this.dialog.open(DialogUserInfoComponent, {
+			width: '250px',
+			position: { right: '10px', top: '45px' },
+		});
+	}
 }

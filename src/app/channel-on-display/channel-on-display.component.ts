@@ -12,6 +12,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ['./channel-on-display.component.scss'],
 })
 export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
+  imageInsertedSubscription!: Subscription;
   channelArray: any[] = [];
   channelName: string = '';
   subscribedParam!: any;
@@ -63,7 +64,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
   // make sure to destory the editor
   ngOnDestroy(): void {
     this.editor.destroy();
-    // this.imageInsertedSubscription.unsubscribe();
+    this.imageInsertedSubscription.unsubscribe();
   }
 
   async ngOnInit() {
@@ -71,9 +72,9 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
     let { channelName, channelId } = await this.displayChannelNameAndID();
     this.displayChannelName();
     this.messages = this.channelService.fetchMessagesFromFirebase(channelId);
-    // this.imageInsertedSubscription = this.channelService.imageInsertedSubject.subscribe((url) => {
-    //   this.insertImageToEditor(url);
-    // });
+    this.imageInsertedSubscription = this.channelService.imageInsertedSubject.subscribe((url) => {
+      this.insertImageToEditor(url);
+    });
 
     this.router.events.subscribe(async (event) => {
       if (event instanceof NavigationEnd) {
@@ -82,6 +83,10 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
           this.channelService.fetchMessagesFromFirebase(channelId);
       }
     });
+  }
+
+  insertImageToEditor(url: string) {
+    this.messageText += `<img src="${url}" alt="Uploaded Image">`;
   }
 
   displayChannelName() {

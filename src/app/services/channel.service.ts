@@ -19,6 +19,7 @@ import {
 } from 'rxjs';
 import { getDocs, getFirestore } from 'firebase/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +40,8 @@ export class ChannelService implements OnInit {
   constructor(
     private afs: AngularFirestore,
     private storage: AngularFireStorage,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {}
@@ -78,7 +80,7 @@ export class ChannelService implements OnInit {
         fileRef.getDownloadURL().subscribe((downloadURL) => {
           console.log('File available at', downloadURL);
           this.imageInsertedSubject.next(downloadURL); // Notify the component that an image has been inserted
-		  this.clearFileInput();
+          this.clearFileInput();
         });
       }
     });
@@ -213,42 +215,44 @@ export class ChannelService implements OnInit {
     await sfRef.delete();
   }
 
+  // this function deletes the message from the firestore database
+  // async deleteMessageFromFirebase(messageId : string) {
+  // 	const channelId = await this.ChannelID('channels');
+  // 	const sfRef = this.afs.collection('channels').doc(channelId).collection('ChannelChat').doc(messageId);
+  // 	await sfRef.delete();
+  // }
 
-	// this function deletes the message from the firestore database
-	// async deleteMessageFromFirebase(messageId : string) {
-	// 	const channelId = await this.ChannelID('channels');
-	// 	const sfRef = this.afs.collection('channels').doc(channelId).collection('ChannelChat').doc(messageId);
-	// 	await sfRef.delete();
-	// }
-
-
-	async getMessageId(channelId: string): Promise<string> {
-		const snapshot$ = this.afs.collection('channels').doc(channelId).collection('ChannelChat').snapshotChanges().pipe(take(1));
-		const snapshot = await firstValueFrom(snapshot$);
-		if (!snapshot || snapshot.length === 0) {
-			throw new Error(`No documents found in collection: ChannelChat`);
-		}
-		const messageId = snapshot[0].payload.doc.id;
-		return messageId;
-	}
+  async getMessageId(channelId: string): Promise<string> {
+    const snapshot$ = this.afs
+      .collection('channels')
+      .doc(channelId)
+      .collection('ChannelChat')
+      .snapshotChanges()
+      .pipe(take(1));
+    const snapshot = await firstValueFrom(snapshot$);
+    if (!snapshot || snapshot.length === 0) {
+      throw new Error(`No documents found in collection: ChannelChat`);
+    }
+    const messageId = snapshot[0].payload.doc.id;
+    return messageId;
+  }
 
   editMessageFromFirebase(messageId: string) {
     console.log('Edit message from firebase: with message id: ' + messageId);
   }
 
+  sanitizeHtmlWithImageSize(html: string): SafeHtml {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html;
 
-  // async getMessageId(channelId: string): Promise<string> {
-  //   const snapshot$ = this.afs
-  //     .collection('channels')
-  //     .doc(channelId)
-  //     .collection('ChannelChat')
-  //     .snapshotChanges()
-  //     .pipe(take(1));
-  //   const snapshot = await firstValueFrom(snapshot$);
-  //   if (!snapshot || snapshot.length === 0) {
-  //     throw new Error(`No documents found in collection: ChannelChat`);
-  //   }
-  //   const messageId = snapshot[0].payload.doc.id;
-  //   return messageId;
-  // }
+    const images = wrapper.querySelectorAll('img');
+
+    images.forEach((image: HTMLImageElement) => {
+      image.style.maxHeight = '200px';
+    });
+    const sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(
+      wrapper.innerHTML
+    );
+    return sanitizedHtml;
+  }
 }

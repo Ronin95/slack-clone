@@ -35,6 +35,7 @@ export class AuthService {
 		public dialog: MatDialog,
 		private auth: Auth
 	) {
+		this.userData$ = this.afAuth.authState;
 		/* Saving user data in localstorage when
     logged in and setting up null when logged out */
 		this.afAuth.onAuthStateChanged((user) => {

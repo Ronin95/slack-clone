@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { Editor, Toolbar } from 'ngx-editor';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ChannelService } from '../services/channel.service';
 import { PrivateChatService } from '../services/private-chat.service';
 
@@ -15,25 +15,21 @@ import { PrivateChatService } from '../services/private-chat.service';
 export class PrivateChatComponent implements OnInit, OnDestroy {
   subscribedParam!: any;
   userName: string = '';
-  messages!: any[];
+  messages: any[] = [];
   messageText: string = '';
   editor!: Editor;
   toolbar: Toolbar = [
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote'],
   ];
+  imageInsertedSubscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
-    private sanitizer: DomSanitizer,
     public channelService: ChannelService,
-    public privateChat: PrivateChatService
+    public privateChatService: PrivateChatService
   ) {
     this.displayUserName();
-  }
-
-  sanitizeHtml(html: string) {
-    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
   ngOnDestroy(): void {
@@ -42,12 +38,40 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.editor = new Editor();
+    this.loadMessages();
+    this.imageInsertedSubscription =
+      this.channelService.imageInsertedSubject.subscribe((url) => {
+        this.insertImageToEditor(url);
+      });
   }
 
   sendMessage(messageText: string) {
     const selectedUserId = this.route.snapshot.params['id'];
-    this.privateChat.saveMessageToFirebase(this.messageText, selectedUserId);
+    this.privateChatService.saveMessageToFirebase(
+      this.messageText,
+      selectedUserId
+    );
     this.messageText = '';
+  }
+
+  loadMessages() {
+    this.route.params
+      .pipe(
+        switchMap((params) => {
+          const selectedUserId = params['id'];
+          return this.privateChatService.getMessagesFromFirebase(
+            selectedUserId
+          );
+        })
+      )
+      .subscribe((messages) => {
+        this.messages = messages;
+        console.log(this.messages);
+      });
+  }
+
+  insertImageToEditor(url: string) {
+    this.messageText += `<img src="${url}" alt="Uploaded Image">`;
   }
 
   displayUserName() {

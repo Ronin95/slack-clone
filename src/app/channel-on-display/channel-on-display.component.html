@@ -27,7 +27,7 @@
             </mat-card-title>
 
             <mat-card-content class="post-container">
-              <p class="post" [innerHTML]="sanitizeHtmlWithImageSize(message.message)"></p>
+              <p class="post" [innerHTML]="channelService.sanitizeHtmlWithImageSize(message.message)"></p>
               <br />
               <img
                 *ngIf="message.uploadedImgURL"

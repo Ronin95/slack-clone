@@ -3,8 +3,7 @@ import { ChannelService } from '../services/channel.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, switchMap, Subscription  } from 'rxjs';
-import { Editor, Toolbar, Validators } from 'ngx-editor';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Editor, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-channel-on-display',
@@ -32,21 +31,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
     private router: Router,
-    private sanitizer: DomSanitizer
   ) {}
-
-  sanitizeHtmlWithImageSize(html: string): SafeHtml {
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = html;
-
-    const images = wrapper.querySelectorAll('img');
-
-    images.forEach((image: HTMLImageElement) => {
-      image.style.maxHeight = '200px';
-    });
-    const sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(wrapper.innerHTML);
-    return sanitizedHtml;
-  }
 
   ngOnChanges() {
     console.log('Test - 2');

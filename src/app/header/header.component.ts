@@ -7,7 +7,7 @@ import {
 } from '@angular/fire/compat/firestore';
 import { AuthService } from '../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable, Subject, filter, debounceTime } from 'rxjs';
+import { Observable, Subject, filter, debounceTime, of } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ChannelService } from '../services/channel.service';
 import { UsersService } from '../services/users.service';
@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
 	results$!: Observable<any>;
 	input$ = new Subject<string>();
 
-	channels$ = this.channelService.getAllChannels();
+	messages!: any;
 	users$ = this.usersService.getUsers;
 
 	constructor(
@@ -34,6 +34,12 @@ export class HeaderComponent implements OnInit {
 		private usersService: UsersService
 	) {
 		this.searchInput();
+		this.messages = this.channelService
+			.fetchMessagesFromFirebase('KSixrcy1b2zNV9Rah30m')
+			.subscribe((data) => {
+				this.messages = of(data);
+				console.log(this.messages); // ist ein Observable, nicht messages.
+			});
 	}
 
 	searchInput() {

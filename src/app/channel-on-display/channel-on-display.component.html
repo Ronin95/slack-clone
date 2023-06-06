@@ -21,7 +21,7 @@
                   <span class="time-stamp">{{ message.date }}</span>
                 </div>
                 <div class="edit-chat-delete-style">
-                  <!-- <mat-icon (click)="onChatIconClick()" [routerLink]="'thread/' + message.messageId">chat</mat-icon> -->
+                  <mat-icon (click)="onChatIconClick()" [routerLink]="'thread/' + message.messageId">chat</mat-icon>
                   <mat-icon (click)="onDeleteSelectedMessage(message.messageId)">delete</mat-icon>
                 </div>
             </mat-card-title>
@@ -40,39 +40,32 @@
           </div>
         </mat-card>
       </div>
+
+      <div class="NgxEditor__Wrapper ngx-editor position-relative">
+        <ngx-editor-menu
+          [editor]="editor"
+          [toolbar]="toolbar"
+          [customMenuRef]="customMenu"
+        ></ngx-editor-menu>
+        <ngx-editor
+          [editor]="editor"
+          [(ngModel)]="messageText"
+          [disabled]="false"
+          [placeholder]="'Insert your message...'"
+        ></ngx-editor>
+        <button class="editor-btn" mat-icon-button (click)="sendMessage()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+      <input id="fileInput" type="file" style="display: none" (change)="channelService.onFileChange($event)" />
+      <ng-template #customMenu>
+        <app-custom-menu [editor]="editor"></app-custom-menu>
+      </ng-template>
     </div>
 
     <div class="thread-container bstyle">
       <router-outlet></router-outlet>
-          <mat-card-content class="post-container">
-            <!-- <p class="post" [innerHTML]="sanitizeHtmlWithImageSize(message.message)"></p> -->
-
-            <!-- <p class="thread-style" routerLink="thread/{{ message.messageId }}"> -->
-              <!-- Answer -->
-            <!-- </p> -->
-          </mat-card-content>
-        </div>
     </div>
-
-
-  <div class="NgxEditor__Wrapper ngx-editor position-relative">
-    <ngx-editor-menu
-      [editor]="editor"
-      [toolbar]="toolbar"
-      [customMenuRef]="customMenu"
-    ></ngx-editor-menu>
-    <ngx-editor
-      [editor]="editor"
-      [(ngModel)]="messageText"
-      [disabled]="false"
-      [placeholder]="'Insert your message...'"
-    ></ngx-editor>
-    <button class="editor-btn" mat-icon-button (click)="sendMessage()">
-      <mat-icon>send</mat-icon>
-    </button>
   </div>
-  <input id="fileInput" type="file" style="display: none" (change)="channelService.onFileChange($event)" />
-  <ng-template #customMenu>
-    <app-custom-menu [editor]="editor"></app-custom-menu>
-  </ng-template>
+
 </div>

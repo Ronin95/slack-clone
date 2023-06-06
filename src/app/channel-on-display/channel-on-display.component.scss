@@ -39,9 +39,8 @@
     border-right: 1px solid #000; /* change color as needed */
     padding-right: 20px; /* optional: add some space between the content and the line */
     margin-right: 20px; /* optional: add some space between the line and the thread-container */
-
 		overflow-y: scroll;
-		height: calc(100vh - 260px);
+		height: calc(100vh - 112px);
 		background-color: $bgClr-start;
 		background-color: white;
 		width: calc(100vw - $side-menu-width);

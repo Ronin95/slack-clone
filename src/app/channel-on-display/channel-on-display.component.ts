@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -10,7 +10,7 @@ import { Editor, Toolbar } from 'ngx-editor';
   templateUrl: './channel-on-display.component.html',
   styleUrls: ['./channel-on-display.component.scss'],
 })
-export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
+export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   imageInsertedSubscription!: Subscription;
   channelArray: any[] = [];
   channelName: string = '';
@@ -33,8 +33,22 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
     private router: Router,
   ) {}
 
+<<<<<<< Updated upstream
   ngOnChanges() {
     console.log('Test - 2');
+=======
+  sanitizeHtmlWithImageSize(html: string): SafeHtml {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html;
+
+    const images = wrapper.querySelectorAll('img');
+
+    images.forEach((image: HTMLImageElement) => {
+      image.style.maxHeight = '200px';
+    });
+    const sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(wrapper.innerHTML);
+    return sanitizedHtml;
+>>>>>>> Stashed changes
   }
 
   sendMessage() {
@@ -72,6 +86,10 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
 
   insertImageToEditor(url: string) {
     this.messageText += `<img src="${url}" alt="Uploaded Image">`;
+  }
+
+  onChatIconClick() {
+    console.log('Chat Icon clicked');
   }
 
   displayChannelName() {

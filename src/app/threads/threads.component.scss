@@ -1,6 +1,14 @@
 .thread-container {
-    position: absolute;
-    right: 0;
-    top: 70px;
-    width: 200px;
+  // border-style: dotted;
+  position: relative;
+  right: 20px;
+  // width: 270px;
+}
+
+.thread-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // border-style: dotted;
+  width: 300px;
 }

@@ -9,6 +9,8 @@ import { AuthService } from '../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable, Subject, filter, debounceTime } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { ChannelService } from '../services/channel.service';
+import { UsersService } from '../services/users.service';
 
 @Component({
 	selector: 'app-header',
@@ -18,15 +20,23 @@ import { distinctUntilChanged } from 'rxjs/operators';
 export class HeaderComponent implements OnInit {
 	isLoading = false;
 	results$!: Observable<any>;
-
 	input$ = new Subject<string>();
+
+	channels$ = this.channelService.getAllChannels();
+	users$ = this.usersService.getUsers;
 
 	constructor(
 		public dialog: MatDialog,
 		private afs: AngularFirestore,
 		public authService: AuthService,
-		private afAuth: AngularFireAuth
+		private afAuth: AngularFireAuth,
+		private channelService: ChannelService,
+		private usersService: UsersService
 	) {
+		this.searchInput();
+	}
+
+	searchInput() {
 		this.input$
 			.pipe(
 				filter((term) => term.length > 3),

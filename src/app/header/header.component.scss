@@ -1,36 +1,81 @@
 .header-toolbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 45px;
-  background-color: #2d082d;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 45px;
+	background-color: #2d082d;
 
-  img {
-    height: 30px;
-    width: 30px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid palevioletred;
-    position: absolute;
-    right: 15px;
-    cursor: pointer;
-  }
-}
+	.search-container {
+		position: relative;
 
-.search-input {
-  height: 30px;
-  width: 500px;
-  border-radius: 8px;
-  border: unset;
-  background-color: #1b002d;
-  color: #ffff;
-  padding-left: 10px;
+		.search-input {
+			height: 30px;
+			width: 500px;
+			border-radius: 8px;
+			border: unset;
+			color: #ffff;
+			padding-left: 10px;
+			background: url(./../../assets/icons/search.svg) no-repeat scroll
+				calc(100% - 10px) 5px;
+			background-size: 22px 22px;
+			background-color: #1b002d;
 
-  &::placeholder {
-    color: #ffff;
-  }
+			&::placeholder {
+				color: #ffff;
+			}
 
-  &:focus {
-    outline: none;
-  }
+			&:focus {
+				outline: none;
+			}
+		}
+		.search-results {
+			position: absolute;
+			top: 100%;
+			line-height: 1.4em;
+			color: rgba(0, 0, 0, 0.87);
+			font-size: 1em;
+			box-sizing: inherit;
+			animation-iteration-count: 1;
+			animation-duration: 300ms;
+			animation-timing-function: ease;
+			animation-fill-mode: both;
+			display: block !important;
+			visibility: visible !important;
+			top: 100%;
+			left: 0%;
+			transform-origin: center top;
+			white-space: normal;
+			text-align: left;
+			text-transform: none;
+			background: #ffffff;
+			margin-top: 0.5em;
+			width: 18em;
+			border-radius: 0.3em;
+			box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12),
+				0px 2px 10px 0px rgba(34, 36, 38, 0.15);
+			border: 1px solid #d4d4d5;
+			z-index: 998;
+			max-width: calc(100vw - 2rem);
+
+			& > li:not(:has(> a)) {
+				padding: 0.9em 1.1em;
+			}
+
+			li {
+				display: list-item;
+				text-align: -webkit-match-parent;
+			}
+		}
+	}
+
+	img {
+		height: 30px;
+		width: 30px;
+		object-fit: cover;
+		border-radius: 8px;
+		border: 1px solid palevioletred;
+		position: absolute;
+		right: 15px;
+		cursor: pointer;
+	}
 }

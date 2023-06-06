@@ -1,22 +1,24 @@
 <mat-toolbar class="header-toolbar">
-	<input
-		autocomplete="off"
-		aria-label="Search"
-		[class.loading]="isLoading"
-		#searchInput
-		(input)="input$.next(searchInput.value)"
-		class="search-input"
-		placeholder="Search messages ..."
-	/>
+	<div class="search-container">
+		<input
+			autocomplete="off"
+			aria-label="Search"
+			[class.loading]="isLoading"
+			#searchInput
+			(input)="input$.next(searchInput.value)"
+			class="search-input"
+			placeholder="Search messages ..."
+		/>
 
-	<ul class="search-results" *ngIf="results$ | async as results">
-		<li *ngFor="let message of results">
-			<a [routerLink]="['/....']">
-				{{ message }}
-			</a>
-		</li>
-		<li *ngIf="!results.length">No results</li>
-	</ul>
+		<ul class="search-results" *ngIf="results$ | async as results">
+			<li *ngFor="let message of results">
+				<a [routerLink]="['/....']">
+					{{ message }}
+				</a>
+			</li>
+			<li *ngIf="!results.length">No results</li>
+		</ul>
+	</div>
 
 	<img
 		(click)="openUserDialog()"
@@ -24,3 +26,12 @@
 		alt="profile-img"
 	/>
 </mat-toolbar>
+
+<!-- <ul class="search-results" *ngIf="results$ | async as results">
+	<li *ngFor="let message of results">
+		<a [routerLink]="['/....']">
+			{{ message }}
+		</a>
+	</li>
+	<li *ngIf="!results.length">No results</li>
+</ul> -->

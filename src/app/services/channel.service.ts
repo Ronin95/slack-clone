@@ -212,12 +212,14 @@ export class ChannelService implements OnInit {
       .doc(messageId);
     await sfRef.delete();
   }
+
+
 	// this function deletes the message from the firestore database
-	async deleteMessageFromFirebase(messageId : string) {
-		const channelId = await this.ChannelID('channels');
-		const sfRef = this.afs.collection('channels').doc(channelId).collection('ChannelChat').doc(messageId);
-		await sfRef.delete();
-	}
+	// async deleteMessageFromFirebase(messageId : string) {
+	// 	const channelId = await this.ChannelID('channels');
+	// 	const sfRef = this.afs.collection('channels').doc(channelId).collection('ChannelChat').doc(messageId);
+	// 	await sfRef.delete();
+	// }
 
 
 	async getMessageId(channelId: string): Promise<string> {
@@ -233,18 +235,20 @@ export class ChannelService implements OnInit {
   editMessageFromFirebase(messageId: string) {
     console.log('Edit message from firebase: with message id: ' + messageId);
   }
-  async getMessageId(channelId: string): Promise<string> {
-    const snapshot$ = this.afs
-      .collection('channels')
-      .doc(channelId)
-      .collection('ChannelChat')
-      .snapshotChanges()
-      .pipe(take(1));
-    const snapshot = await firstValueFrom(snapshot$);
-    if (!snapshot || snapshot.length === 0) {
-      throw new Error(`No documents found in collection: ChannelChat`);
-    }
-    const messageId = snapshot[0].payload.doc.id;
-    return messageId;
-  }
+
+
+  // async getMessageId(channelId: string): Promise<string> {
+  //   const snapshot$ = this.afs
+  //     .collection('channels')
+  //     .doc(channelId)
+  //     .collection('ChannelChat')
+  //     .snapshotChanges()
+  //     .pipe(take(1));
+  //   const snapshot = await firstValueFrom(snapshot$);
+  //   if (!snapshot || snapshot.length === 0) {
+  //     throw new Error(`No documents found in collection: ChannelChat`);
+  //   }
+  //   const messageId = snapshot[0].payload.doc.id;
+  //   return messageId;
+  // }
 }

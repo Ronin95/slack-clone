@@ -63,7 +63,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
   // make sure to destory the editor
   ngOnDestroy(): void {
     this.editor.destroy();
-    this.imageInsertedSubscription.unsubscribe();
+    // this.imageInsertedSubscription.unsubscribe();
   }
 
   async ngOnInit() {
@@ -71,9 +71,9 @@ export class ChannelOnDisplayComponent implements OnInit, OnChanges, OnDestroy {
     let { channelName, channelId } = await this.displayChannelNameAndID();
     this.displayChannelName();
     this.messages = this.channelService.fetchMessagesFromFirebase(channelId);
-    this.imageInsertedSubscription = this.channelService.imageInsertedSubject.subscribe((url) => {
-      this.insertImageToEditor(url);
-    });
+    // this.imageInsertedSubscription = this.channelService.imageInsertedSubject.subscribe((url) => {
+    //   this.insertImageToEditor(url);
+    // });
 
     this.router.events.subscribe(async (event) => {
       if (event instanceof NavigationEnd) {

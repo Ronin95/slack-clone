@@ -21,14 +21,14 @@
                   <span class="time-stamp">{{ message.date }}</span>
                 </div>
                 <div class="edit-chat-delete-style">
-                  <mat-icon (click)="onEditMessage(message.messageId)">edit</mat-icon>
-                  <mat-icon (click)="onChatIconClick()" [routerLink]="'thread/' + message.messageId">chat</mat-icon>
+                  <!-- <mat-icon (click)="onEditMessage(message.messageId)">edit</mat-icon> -->
+                  <!-- <mat-icon (click)="onChatIconClick()" [routerLink]="'thread/' + message.messageId">chat</mat-icon> -->
                   <mat-icon (click)="onDeleteSelectedMessage(message.messageId)">delete</mat-icon>
                 </div>
             </mat-card-title>
 
             <mat-card-content class="post-container">
-              <p class="post" [innerHTML]="sanitizeHtml(message.message)"></p>
+              <!-- <p class="post" [innerHTML]="sanitizeHtml(message.message)"></p> -->
               <br />
               <img
                 *ngIf="message.uploadedImgURL"
@@ -43,20 +43,17 @@
       </div>
     </div>
 
-    <div class="thread-container bstyle" *ngIf="isChatIconClicked">
+    <div class="thread-container bstyle">
       <router-outlet></router-outlet>
-          </mat-card-header>
           <mat-card-content class="post-container">
-            <p class="post" [innerHTML]="sanitizeHtmlWithImageSize(message.message)"></p>
+            <!-- <p class="post" [innerHTML]="sanitizeHtmlWithImageSize(message.message)"></p> -->
 
-            <p class="thread-style" routerLink="thread/{{ message.messageId }}">
-              Answer
-            </p>
+            <!-- <p class="thread-style" routerLink="thread/{{ message.messageId }}"> -->
+              <!-- Answer -->
+            <!-- </p> -->
           </mat-card-content>
         </div>
-      </mat-card>
     </div>
-  </div>
 
 
   <div class="NgxEditor__Wrapper ngx-editor position-relative">

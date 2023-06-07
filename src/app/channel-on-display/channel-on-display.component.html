@@ -65,7 +65,7 @@
 
     <hr>
 
-    <div class="thread-container" *ngIf="showThreadContainer" (closeEvent)="showThreadContainer = false">
+    <div class="thread-container" (closeEvent)="showThreadContainer = false" *ngIf="showThreadContainer">
       <router-outlet></router-outlet>
     </div>
   </div>

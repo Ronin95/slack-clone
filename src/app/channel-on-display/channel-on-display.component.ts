@@ -5,6 +5,9 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, switchMap, Subscription  } from 'rxjs';
 import { Editor, Toolbar } from 'ngx-editor';
 import { SafeHtml } from '@angular/platform-browser';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { ThreadsService } from '../services/threads.service';
 
 @Component({
   selector: 'app-channel-on-display',
@@ -14,6 +17,7 @@ import { SafeHtml } from '@angular/platform-browser';
 export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   imageInsertedSubscription!: Subscription;
   showThreadContainer = false;
+  private closeSub!: Subscription;
   channelArray: any[] = [];
   channelName: string = '';
   subscribedParam!: any;
@@ -30,6 +34,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   sanitizer: any;
 
   constructor(
+    private threadsService: ThreadsService,
     public channelService: ChannelService,
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
@@ -67,6 +72,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.editor.destroy();
     this.imageInsertedSubscription.unsubscribe();
+    this.closeSub.unsubscribe();
   }
 
   async ngOnInit() {
@@ -84,6 +90,10 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
         this.messages =
           this.channelService.fetchMessagesFromFirebase(channelId);
       }
+    });
+
+    this.closeSub = this.threadsService.close$.subscribe(() => {
+      this.showThreadContainer = false;
     });
   }
 

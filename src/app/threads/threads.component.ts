@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ThreadsService } from '../services/threads.service';
+
 
 @Component({
   selector: 'app-threads',
@@ -8,14 +10,11 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./threads.component.scss']
 })
 export class ThreadsComponent implements OnInit {
-  @Output() closeEvent = new EventEmitter<void>();
-
-  constructor() { }
+  constructor(private threadsService: ThreadsService) { }
 
   ngOnInit() {}
 
   onCloseIconClick() {
-    console.log('onCloseIconClick');
-    this.closeEvent.emit();
+    this.threadsService.closeThread();
   }
 }

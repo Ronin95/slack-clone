@@ -5,8 +5,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, switchMap, Subscription  } from 'rxjs';
 import { Editor, Toolbar } from 'ngx-editor';
 import { SafeHtml } from '@angular/platform-browser';
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { ThreadsService } from '../services/threads.service';
 
 @Component({
@@ -28,7 +26,6 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   editor!: Editor;
   toolbar: Toolbar = [
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote'],
-
   ];
   channelId: string = '';
   sanitizer: any;
@@ -40,11 +37,6 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     private firestore: AngularFirestore,
     private router: Router,
   ) {}
-
-
-  ngOnChanges() {
-    console.log('Test - 2');
-  }
 
   sanitizeHtmlWithImageSize(html: string): SafeHtml {
     const wrapper = document.createElement('div');

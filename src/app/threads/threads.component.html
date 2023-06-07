@@ -8,4 +8,22 @@
       <mat-icon (click)="onCloseIconClick()">close</mat-icon>
     </div>
   </mat-toolbar>
+
+  <div class="editor-style">
+    <div class="NgxEditor__Wrapper ngx-editor position-relative">
+      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" [customMenuRef]="customMenu"></ngx-editor-menu>
+      <ngx-editor [editor]="editor" [(ngModel)]="messageText" [disabled]="false" [placeholder]="'Insert your message...'"></ngx-editor>
+      <button class="editor-btn" mat-icon-button (click)="sendMessage()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+    <input id="fileInput" type="file" style="display: none" (change)="channelService.onFileChange($event)" />
+    <ng-template #customMenu>
+      <app-custom-menu [editor]="editor"></app-custom-menu>
+    </ng-template>
+  </div>
+
+  
 </div>
+
+

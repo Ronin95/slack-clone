@@ -33,10 +33,10 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     private router: Router,
   ) {}
 
-<<<<<<< Updated upstream
+
   ngOnChanges() {
     console.log('Test - 2');
-=======
+
   sanitizeHtmlWithImageSize(html: string): SafeHtml {
     const wrapper = document.createElement('div');
     wrapper.innerHTML = html;
@@ -48,7 +48,6 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     });
     const sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(wrapper.innerHTML);
     return sanitizedHtml;
->>>>>>> Stashed changes
   }
 
   sendMessage() {

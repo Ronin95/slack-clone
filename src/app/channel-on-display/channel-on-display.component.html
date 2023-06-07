@@ -63,7 +63,9 @@
       </ng-template>
     </div>
 
-    <div class="thread-container bstyle">
+    <hr>
+
+    <div class="thread-container" *ngIf="showThreadContainer" (closeEvent)="showThreadContainer = false">
       <router-outlet></router-outlet>
     </div>
   </div>

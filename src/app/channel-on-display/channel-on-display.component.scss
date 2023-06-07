@@ -21,30 +21,28 @@
 			color: white;
 		}
 	}
+}
 
-
-  .dual-container  {
+.dual-container  {
     display: flex;
     justify-content: center;
     flex-direction: row;
     align-items: stretch; /* change from center to stretch to make sure containers fill the vertical space */
-  }
+}
 
-  .thread-container {
-    width: 50%;
-    padding-left: 20px;
-  }
+.thread-container {
+	width: 50%;
+}
 
-	.message-container {
-    border-right: 1px solid #000; /* change color as needed */
-    padding-right: 20px; /* optional: add some space between the content and the line */
-    margin-right: 20px; /* optional: add some space between the line and the thread-container */
-		overflow-y: scroll;
-		height: calc(100vh - 112px);
-		background-color: $bgClr-start;
-		background-color: white;
-		width: calc(100vw - $side-menu-width);
-	}
+.message-container {
+	// border-right: 1px solid #000; /* change color as needed */
+	padding-right: 20px; /* optional: add some space between the content and the line */
+	margin-right: 20px; /* optional: add some space between the line and the thread-container */
+	overflow-y: scroll;
+	height: calc(100vh - 112px);
+	background-color: $bgClr-start;
+	background-color: white;
+	width: calc(100vw - $side-menu-width);
 }
 
 .msg-card-style {
@@ -64,7 +62,7 @@ mat-card-header {
 mat-card-title {
 	display: flex;
 	justify-content: space-between;
-  width: 100%;
+  	width: 100%;
 }
 
 mat-icon {

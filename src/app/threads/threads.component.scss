@@ -1,14 +1,32 @@
 .thread-container {
-  // border-style: dotted;
-  position: relative;
-  right: 20px;
-  // width: 270px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;  // this will stack the children vertically
 }
 
-.thread-header {
+.icon-thread {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    position: relative;
+    top: 7px;
+  }
+}
+
+.close-icon {
+  position: relative;
+  top: 5px;
+}
+
+mat-icon {
+  cursor: pointer;
+}
+
+mat-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // border-style: dotted;
-  width: 300px;
 }

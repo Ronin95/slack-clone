@@ -1,9 +1,11 @@
 <div class="thread-container">
-  <div class="thread-header">
-    <mat-toolbar>
+  <mat-toolbar>
+    <div class="icon-thread">
       <mat-icon style="color: rgb(0, 0, 0)">tag</mat-icon>
       <h2>Thread</h2>
-    </mat-toolbar>
-    <mat-icon>close</mat-icon>
-  </div>
+    </div>
+    <div class="close-icon">
+      <mat-icon (click)="onCloseIconClick()">close</mat-icon>
+    </div>
+  </mat-toolbar>
 </div>

@@ -13,6 +13,7 @@ import { SafeHtml } from '@angular/platform-browser';
 })
 export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   imageInsertedSubscription!: Subscription;
+  showThreadContainer = false;
   channelArray: any[] = [];
   channelName: string = '';
   subscribedParam!: any;
@@ -91,6 +92,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   }
 
   onChatIconClick() {
+    this.showThreadContainer = true;
     console.log('Chat Icon clicked');
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ChannelService } from '../services/channel.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
@@ -8,21 +8,14 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./threads.component.scss']
 })
 export class ThreadsComponent implements OnInit {
-  threadId!: string;
+  @Output() closeEvent = new EventEmitter<void>();
 
-  constructor(private route: ActivatedRoute) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      if (id === null) {
-        // Handle the error. For example, you might navigate to a 'not found' page
-        console.error('Thread ID is missing from route');
-      } else {
-        this.threadId = id;
-        // Now you can load the thread based on this.threadId...
-      }
-    });
+  ngOnInit() {}
 
+  onCloseIconClick() {
+    console.log('onCloseIconClick');
+    this.closeEvent.emit();
   }
 }

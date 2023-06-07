@@ -4,6 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, switchMap, Subscription  } from 'rxjs';
 import { Editor, Toolbar } from 'ngx-editor';
+import { SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-channel-on-display',
@@ -25,6 +26,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
 
   ];
   channelId: string = '';
+  sanitizer: any;
 
   constructor(
     public channelService: ChannelService,
@@ -36,6 +38,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
 
   ngOnChanges() {
     console.log('Test - 2');
+  }
 
   sanitizeHtmlWithImageSize(html: string): SafeHtml {
     const wrapper = document.createElement('div');

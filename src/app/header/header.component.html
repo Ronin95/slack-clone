@@ -2,6 +2,7 @@
 	<div class="search-container">
 		<input
 			autocomplete="off"
+			type="search"
 			aria-label="Search"
 			[class.loading]="isLoading"
 			#searchInput
@@ -9,12 +10,12 @@
 			class="search-input"
 			placeholder="Search messages ..."
 		/>
-		<mat-icon
+		<!-- 	<mat-icon
 			(click)="searchInput.value = ''"
 			*ngIf="searchInput.value"
 			class="clear-button"
 			>clear</mat-icon
-		>
+		> -->
 
 		<!-- 	<ul class="search-results" *ngIf="filteredMessages$ | async as filteredMessages">
 			<li *ngFor="let message of filteredMessages">

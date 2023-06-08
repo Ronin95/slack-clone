@@ -5,6 +5,7 @@
 	</div>
 	<div [class.d-none]="!openMenu">
 		<div class="user-img-span" *ngFor="let user of users$ | async">
+			<ng-container *ngIf="user.uid !== loggedInUser?.uid">
 			<img
 				[src]="user.photoURL || 'assets/img/blank-profile-img.png'"
 				alt="user-img"
@@ -12,6 +13,7 @@
 			<span routerLink="chat/{{ user.uid }}">{{
 				user.displayName ? user.displayName : 'Guest'
 			}}</span>
+		</ng-container>
 		</div>
 		<div routerLink="home/sendMessage" class="tag-channel-name-pos">
 			<mat-icon class="mat-icon-style">add</mat-icon>

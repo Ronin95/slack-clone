@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
 	selector: 'app-direct-messages',
@@ -12,10 +13,15 @@ import { map } from 'rxjs/operators';
 export class DirectMessagesComponent implements OnInit {
 	users$!: Observable<any[]>;
 	openMenu: boolean = true;
+	loggedInUser: any;
 
-	ngOnInit() {}
+	ngOnInit() {
+	  this.afAuth.authState.subscribe((user) => {
+		this.loggedInUser = user;
+	  });
+	}
 
-	constructor(firestore: AngularFirestore) {
+	constructor(firestore: AngularFirestore, private afAuth: AngularFireAuth) {
 		// access the users collection in firestore
 		this.users$ = firestore
 			.collection('users')

@@ -15,6 +15,7 @@
 			border: unset;
 			color: #ffff;
 			padding-left: 10px;
+			padding-right: 40px;
 			background: url(./../../assets/icons/search.svg) no-repeat scroll
 				calc(100% - 10px) 5px;
 			background-size: 22px 22px;
@@ -28,6 +29,16 @@
 				outline: none;
 			}
 		}
+
+		.clear-button {
+			position: absolute;
+			right: 30px;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+			color: white;
+		}
+
 		.search-results {
 			position: absolute;
 			top: 100%;
@@ -73,6 +84,11 @@
 
 				img {
 					cursor: default;
+				}
+
+				* {
+					text-decoration: none;
+					color: black;
 				}
 			}
 		}

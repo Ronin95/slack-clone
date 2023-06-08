@@ -2,6 +2,7 @@
 	<div class="search-container">
 		<input
 			autocomplete="off"
+			type="search"
 			aria-label="Search"
 			[class.loading]="isLoading"
 			#searchInput
@@ -10,13 +11,14 @@
 			placeholder="Search messages ..."
 		/>
 
-		<ul class="search-results" *ngIf="results$ | async as results">
-			<li *ngFor="let message of results">
+		<ul class="search-results" *ngIf="filteredMessages$ | async as filteredMessages">
+			<li *ngFor="let message of filteredMessages">
+				<img [src]="message.userPhotoURL" alt="" />
 				<a [routerLink]="['/....']">
-					{{ message }}
+					{{ message.message }}
 				</a>
 			</li>
-			<li *ngIf="!results.length">No results</li>
+			<li *ngIf="!filteredMessages.length">No results</li>
 		</ul>
 	</div>
 

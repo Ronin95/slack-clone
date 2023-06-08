@@ -8,7 +8,7 @@ import {
 import { AuthService } from '../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable, Subject, filter, debounceTime, of } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { ChannelService } from '../services/channel.service';
 import { UsersService } from '../services/users.service';
 
@@ -22,7 +22,9 @@ export class HeaderComponent implements OnInit {
 	results$!: Observable<any>;
 	input$ = new Subject<string>();
 
-	messages!: any;
+	messages!: any[];
+	filteredMessages$!: Observable<any[]>;
+
 	users$ = this.usersService.getUsers;
 
 	constructor(
@@ -34,27 +36,32 @@ export class HeaderComponent implements OnInit {
 		private usersService: UsersService
 	) {
 		this.searchInput();
-		this.messages = this.channelService
+		this.channelService
 			.fetchMessagesFromFirebase('KSixrcy1b2zNV9Rah30m')
-			.subscribe((data) => {
-				this.messages = of(data);
-				console.log(this.messages); // ist ein Observable, nicht messages.
+			.subscribe((messages) => {
+				this.messages = messages;
+				console.log(messages);
 			});
 	}
 
 	searchInput() {
-		this.input$
-			.pipe(
-				filter((term) => term.length > 3),
-				debounceTime(500), // wait 500ms after the last event before emitting last event
-				distinctUntilChanged((a, b) => {
-					// only emit if value is different from previous value
-					return JSON.stringify(a) === JSON.stringify(b);
-				})
+		this.filteredMessages$ = this.input$.pipe(
+			debounceTime(500),
+			distinctUntilChanged(),
+			filter((term) => term.length > 3),
+			switchMap((term) =>
+				of(this.messages).pipe(
+					map((messages) =>
+						messages.filter((message) => message.message.includes(term))
+					)
+				)
 			)
-			.subscribe((term) => {
-				console.log(term);
-			});
+		);
+
+		this.filteredMessages$.subscribe((filteredMessages) => {
+			this.filteredMessages$ = of(filteredMessages);
+			console.log(this.filteredMessages$);
+		});
 	}
 
 	ngOnInit() {

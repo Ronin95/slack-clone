@@ -28,7 +28,7 @@ export class ChannelsComponent implements OnInit {
 
 	ngOnInit() {
 		this.channelService.getAllChannels().subscribe((channels: any) => {
-      this.channel = channels;
+      	this.channel = channels;
     });
 	}
 

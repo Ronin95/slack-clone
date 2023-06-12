@@ -1,11 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, switchMap } from 'rxjs';
+import { Observable, Subscription, combineLatest, map, switchMap, tap } from 'rxjs';
 import { Editor, Toolbar } from 'ngx-editor';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ChannelService } from '../services/channel.service';
 import { PrivateChatService } from '../services/private-chat.service';
+import { FormControl } from '@angular/forms';
+import { ChatListControlService } from '../services/chat-list-control.service';
+import { UsersService } from '../services/users.service';
+import { privateMessage } from '../../models/private-chat';
 
 @Component({
   selector: 'app-private-chat',
@@ -15,19 +18,24 @@ import { PrivateChatService } from '../services/private-chat.service';
 export class PrivateChatComponent implements OnInit, OnDestroy {
   subscribedParam!: any;
   userName: string = '';
-  messages: any[] = [];
   messageText: string = '';
   editor!: Editor;
   toolbar: Toolbar = [
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote'],
   ];
   imageInsertedSubscription!: Subscription;
+  myChats$ = this.privateChatService.myChats$;
+  messageControl = new FormControl('');
+  messages$: Observable<privateMessage[]> | undefined;
+  user$ = this.usersService.currentUserProfile$;
 
   constructor(
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
     public channelService: ChannelService,
-    public privateChatService: PrivateChatService
+    public privateChatService: PrivateChatService,
+    private chatListControlService: ChatListControlService,
+    private usersService: UsersService,
   ) {
     this.displayUserName();
   }
@@ -36,38 +44,31 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
     this.editor.destroy();
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {   
     this.editor = new Editor();
-    this.loadMessages();
     this.imageInsertedSubscription =
       this.channelService.imageInsertedSubject.subscribe((url) => {
         this.insertImageToEditor(url);
       });
-  }
+      this.messages$ = this.chatListControlService.chatListControl.valueChanges.pipe(
+        map((value) => value[0]),
+        switchMap((chatId) => this.privateChatService.getChatMessages$(chatId)),
+        tap(() => {
 
-  sendMessage(messageText: string) {
-    const selectedUserId = this.route.snapshot.params['id'];
-    this.privateChatService.saveMessageToFirebase(
-      this.messageText,
-      selectedUserId
-    );
-    this.messageText = '';
-  }
-
-  loadMessages() {
-    this.route.params
-      .pipe(
-        switchMap((params) => {
-          const selectedUserId = params['id'];
-          return this.privateChatService.getMessagesFromFirebase(
-            selectedUserId
-          );
         })
-      )
-      .subscribe((messages) => {
-        this.messages = messages;
-        console.log(this.messages);
-      });
+      );
+  }
+
+  sendMessage() {
+    const message = this.messageControl.value;
+    const selectedChatId = this.chatListControlService.chatListControl.value[0];
+    if (message && selectedChatId) {
+      this.privateChatService
+        .addChatMessage(selectedChatId, message)
+        .subscribe(() => {
+        });
+      this.messageControl.setValue('');
+    }
   }
 
   insertImageToEditor(url: string) {

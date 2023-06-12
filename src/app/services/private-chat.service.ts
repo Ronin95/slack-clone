@@ -1,94 +1,137 @@
 import { Injectable } from '@angular/core';
 import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-} from '@angular/fire/compat/firestore';
-import { ActivatedRoute } from '@angular/router';
-import { AuthService } from './auth.service';
-import { Observable, catchError, from, map, of, switchMap } from 'rxjs';
+  addDoc,
+  collection,
+  collectionData,
+  doc,
+  DocumentData,
+  Firestore,
+  orderBy,
+  query,
+  updateDoc,
+  where,
+} from '@angular/fire/firestore';
+import {
+  BehaviorSubject,
+  concatMap,
+  map,
+  Observable,
+  take,
+} from 'rxjs';
+import { UsersService } from './users.service';
+import { User } from '../../models/user.model';
+import { PrivateChat, privateMessage } from '../../models/private-chat';
+import { ChannelService } from './channel.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PrivateChatService {
-  subscribedParam!: any;
+  private myChatsSubject = new BehaviorSubject<any[]>([]);
+
+  setMyChats(chats: any[]) {
+    this.myChatsSubject.next(chats);
+  }
 
   constructor(
-    private route: ActivatedRoute,
-    private firestore: AngularFirestore,
-    private auth: AuthService
+    private firestore: Firestore,
+    private userService: UsersService,
+    private channelService: ChannelService
   ) {}
 
-  saveMessageToFirebase(message: string, selectedUserId: string) {
-    const loggedInUserId = this.auth.userData.uid;
-    const loggedInUserName = this.auth.userData.displayName;
-    const messageId = this.firestore.createId();
-    // Create message object
-    const newMessage = {
-      messageId: messageId,
-      senderId: loggedInUserId,
-      senderName: loggedInUserName,
-      receiverId: selectedUserId,
-      content: message,
-      timestamp: new Date().toISOString(),
-    };
-
-    // Path to save message for logged user
-    const loggedInUserPath = `users/${loggedInUserId}/privateMessages`;
-    // Path to save message for selected user
-    const selectedUserPath = `users/${selectedUserId}/privateMessages`;
-
-    this.saveMessageForLoggedUser(loggedInUserPath, newMessage, messageId);
-    this.saveMessageForSelectedUser(selectedUserPath, newMessage, messageId);
-  }
-
-  saveMessageForLoggedUser(
-    loggedInUserPath: string,
-    newMessage: any,
-    messageId: string
-  ) {
-    //save message for logged user
-    this.firestore
-      .collection(loggedInUserPath)
-      .doc(messageId)
-      .set(newMessage)
-      .then(() => {
-        console.log('Saved message for logged user successful');
+  get myChats$(): Observable<PrivateChat[]> {
+    const ref = collection(this.firestore, 'chats');
+    return this.userService.currentUserProfile$.pipe(
+      concatMap((user) => {
+        const myQuery = query(
+          ref,
+          where('userIds', 'array-contains', user?.['uid'])
+        );
+        return collectionData(myQuery, { idField: 'id' }).pipe(
+          map((chats: DocumentData[]) => this.addChatNameAndPic(typeof user?.['uid'] === 'string' ? user?.['uid'] : undefined, chats.map(chat => chat as PrivateChat)))
+        ) as Observable<PrivateChat[]>;
       })
-      .catch((error) => {
-        console.error('Saved message for logged user was failed:', error);
-      });
+    );
   }
 
-  saveMessageForSelectedUser(
-    selectedUserPath: string,
-    newMessage: any,
-    messageId: string
-  ) {
-    // save message for selected user
-    this.firestore
-      .collection(selectedUserPath)
-      .doc(messageId)
-      .set(newMessage)
-      .then(() => {
-        console.log('Saved message for selected user successful');
-      })
-      .catch((error) => {
-        console.error('Saved message for selected user was failed:', error);
-      });
-  }
-
-  getMessagesFromFirebase(selectedUserPath: string): Observable<any[]> {
-    const selectedUser = `users/${selectedUserPath}/privateMessages`;
-
-    return this.firestore
-      .collection(selectedUser, (ref) => ref.orderBy('timestamp'))
-      .valueChanges()
-      .pipe(
-        catchError((error) => {
-          console.error('Error fetching private chat messages:', error);
-          return of([]);
+  createChat(otherUser: User): Observable<string> {
+    const ref = collection(this.firestore, 'chats');
+    return this.userService.currentUserProfile$.pipe(
+      take(1),
+      concatMap((user) =>
+        addDoc(ref, {
+          userIds: [user?.['uid'], otherUser?.uid],
+          users: [
+            {
+              displayName: user?.['displayName'] ?? '',
+              photoURL: user?.['photoURL'] ?? '',
+            },
+            {
+              displayName: otherUser.displayName ?? '',
+              photoURL: otherUser.photoURL ?? '',
+            },
+          ],
         })
-      );
+      ),
+      map((ref) => ref.id)
+    );
+  }
+
+  isExistingChat(otherUserId: string): Observable<string | null> {
+    return this.myChats$.pipe(
+      take(1),
+      map((chats) => {
+        for (let i = 0; i < chats.length; i++) {
+          if (chats[i].userIds.includes(otherUserId)) {
+            return chats[i].id;
+          }
+        }
+
+        return null;
+      })
+    );
+  }
+
+  addChatMessage(chatId: string, message: string): Observable<any> {
+    const ref = collection(this.firestore, 'chats', chatId, 'messages');
+    const chatRef = doc(this.firestore, 'chats', chatId);
+    const date = new Date();
+    const formattedDate = this.channelService.getFormattedDate(date);
+    return this.userService.currentUserProfile$.pipe(
+      take(1),
+      concatMap((user) =>
+        addDoc(ref, {
+          text: message,
+          senderId: user?.['uid'],
+          sentDate: formattedDate,
+          displayName: user?.['displayName'],
+          photoURL: user?.['photoURL']
+        })
+      ),
+      concatMap(() =>
+        updateDoc(chatRef, { lastMessage: message, lastMessageDate: formattedDate })
+      )
+    );
+  }
+
+  getChatMessages$(chatId: string): Observable<privateMessage[]> {
+    const ref = collection(this.firestore, 'chats', chatId, 'messages');
+    const queryAll = query(ref, orderBy('sentDate', 'asc'));
+    return collectionData(queryAll) as Observable<privateMessage[]>;
+  }
+
+  addChatNameAndPic(
+    currentUserId: string | undefined,
+    chats: PrivateChat[]
+  ): PrivateChat[] {
+    chats.forEach((chat: PrivateChat) => {
+      const otherUserIndex =
+        chat.userIds.indexOf(currentUserId ?? '') === 0 ? 1 : 0;
+      const { displayName, photoURL } = chat.users[otherUserIndex];
+      chat.chatName = displayName;
+      chat.chatPic = photoURL;
+    });
+
+    return chats;
   }
 }

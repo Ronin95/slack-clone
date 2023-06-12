@@ -3,8 +3,8 @@
 		<mat-icon class="arrow-right" [class.turn]="openMenu">arrow_right</mat-icon>
 		<h1>Direct Messages</h1>
 	</div>
-	<div [class.d-none]="!openMenu">
-		<div class="user-img-span" *ngFor="let user of users$ | async">
+	<mat-selection-list [multiple]="false" [class.d-none]="!openMenu" [formControl]="chatListControlService.chatListControl">
+		<div class="user-img-span" (click)="createChat(user)" *ngFor="let user of users$ | async">
 			<ng-container *ngIf="user.uid !== loggedInUser?.uid">
 			<img
 				[src]="user.photoURL || 'assets/img/blank-profile-img.png'"
@@ -19,5 +19,5 @@
 			<mat-icon class="mat-icon-style">add</mat-icon>
 			<h2>New Chat</h2>
 		</div>
-	</div>
+	</mat-selection-list>
 </div>

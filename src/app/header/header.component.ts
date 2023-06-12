@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
 
 	messages!: any[];
 	filteredMessages$!: Observable<any[]>;
+	filteredMessagesArray: any[] = [];
 
 	users$ = this.usersService.getUsers;
 
@@ -59,8 +60,8 @@ export class HeaderComponent implements OnInit {
 		);
 
 		this.filteredMessages$.subscribe((filteredMessages) => {
-			this.filteredMessages$ = of(filteredMessages);
-			console.log(this.filteredMessages$);
+			this.filteredMessagesArray = filteredMessages;
+			console.log(this.filteredMessagesArray);
 		});
 	}
 

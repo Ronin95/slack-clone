@@ -9,6 +9,42 @@
     </div>
   </mat-toolbar>
 
+  <div class="thread-msg-container">
+    <mat-card class="thread-card bstyle">
+      <img
+        class="message-card-image"
+        mat-card-image
+        src="../../assets/img/blank-profile-img.png"
+        style="width: 100px;"
+        alt="Photo"
+      />
+
+      <mat-card-title class="thread-message-card">
+        <div class="name-date-style">
+          <span class="author">Name</span>
+          <span class="time-stamp">Date</span>
+        </div>
+      </mat-card-title>
+      <!-- <div class="thread-card bstyle">
+            <mat-card-title class="thread-message-card">
+          <div class="name-date-style">
+            <span class="author">Name</span>
+            <span class="time-stamp">Date</span>
+          </div>
+        </mat-card-title>
+
+        <mat-card-content class="post-container">
+          <p>Some Text here</p>
+          <br />
+          <img src="../../assets/img/blank-profile-img.png" alt="random-img" style="width: 200px;">
+          <br />
+        </mat-card-content>
+      </div> -->
+    </mat-card>
+
+    
+  </div>
+
   <div class="editor-style">
     <div class="NgxEditor__Wrapper ngx-editor position-relative">
       <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" [customMenuRef]="customMenu"></ngx-editor-menu>

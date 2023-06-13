@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit {
 	filteredMessagesArray: any[] = [];
 
 	users$ = this.usersService.getUsers;
+	channelID?: string;
 
 	constructor(
 		public dialog: MatDialog,
@@ -37,12 +38,12 @@ export class HeaderComponent implements OnInit {
 		private usersService: UsersService
 	) {
 		this.searchInput();
-		this.channelService
-			.fetchMessagesFromFirebase('KSixrcy1b2zNV9Rah30m')
+		/* 		this.channelService
+			.fetchMessagesFromFirebase(this.channelID!)
 			.subscribe((messages) => {
 				this.messages = messages;
 				console.log(messages);
-			});
+			}); */
 	}
 
 	searchInput() {
@@ -67,12 +68,28 @@ export class HeaderComponent implements OnInit {
 
 	ngOnInit() {
 		this.authService.authenticateUserGetImg();
+		this.getChannelID();
 	}
 
 	openUserDialog(): void {
 		this.dialog.open(DialogUserInfoComponent, {
 			width: '250px',
 			position: { right: '10px', top: '45px' },
+		});
+	}
+
+	getChannelID() {
+		this.channelService.currentChannelID$.subscribe((channelID) => {
+			this.channelID = channelID;
+			console.log('channelid in header', this.channelID);
+
+			// Fetch messages inside the subscription
+			this.channelService
+				.fetchMessagesFromFirebase(this.channelID!)
+				.subscribe((messages) => {
+					this.messages = messages;
+					console.log(messages);
+				});
 		});
 	}
 }

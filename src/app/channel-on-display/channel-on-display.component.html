@@ -22,7 +22,7 @@
 							</div>
 							<div class="edit-chat-delete-style">
 								<mat-icon
-									(click)="onChatIconClick()"
+									(click)="onChatIconClick(message.messageId)"
 									[routerLink]="'thread/' + message.messageId"
 									>chat</mat-icon
 								>
@@ -83,7 +83,7 @@
 			</ng-template>
 		</div>
 
-		<hr />
+		<!-- <hr /> -->
 
 		<div
 			class="thread-container"

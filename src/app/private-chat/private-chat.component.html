@@ -5,45 +5,47 @@
   </mat-toolbar>
 
   <div class="message-container">
-    <ng-container *ngIf="messages$ | async as privateMessage; else noMessages">
+    <ng-container *ngIf="messages$ | async as privateMessage">
       <div class="msg-card-style">
-        <mat-card *ngFor="let message of privateMessage" class="message-card">
-          <img
-            class="message-card-image"
-            mat-card-image
-            alt="Photo"
-            [src]="
-              message.photoURL
-                ? message.photoURL
-                : 'assets/img/blank-profile-img.png'
-            "
-          />
-          <div class="message-card-main">
-            <mat-card-title class="message-card-main-header-title">
-              <div class="name-date-style">
-                <span class="author">{{ message.displayName }}</span>
-                <span class="time-stamp">{{ message.sentDate }}</span>
-              </div>
-              <div class="edit-chat-delete-style">
-                <!-- <mat-icon (click)="onChatIconClick()" [routerLink]="'thread/' + message.messageId">chat</mat-icon> -->
-                <mat-icon>delete</mat-icon>
-              </div>
-            </mat-card-title>
+        <ng-container *ngIf="privateMessage.length > 0; else noMessages">
+          <mat-card *ngFor="let message of privateMessage" class="message-card">
+            <img
+              class="message-card-image"
+              mat-card-image
+              alt="Photo"
+              [src]="
+                message.photoURL
+                  ? message.photoURL
+                  : 'assets/img/blank-profile-img.png'
+              "
+            />
+            <div class="message-card-main">
+              <mat-card-title class="message-card-main-header-title">
+                <div class="name-date-style">
+                  <span class="author">{{ message.displayName }}</span>
+                  <span class="time-stamp">{{ message.sentDate }}</span>
+                </div>
+                <div class="edit-chat-delete-style">
+                  <!-- <mat-icon (click)="onChatIconClick()" [routerLink]="'thread/' + message.messageId">chat</mat-icon> -->
+                  <mat-icon>delete</mat-icon>
+                </div>
+              </mat-card-title>
 
-            <mat-card-content class="post-container">
-              <p
-                class="post"
-                [innerHTML]="
-                  channelService.sanitizeHtmlWithImageSize(message.text)
-                "
-              ></p>
-            </mat-card-content>
-          </div>
-        </mat-card>
+              <mat-card-content class="post-container">
+                <p
+                  class="post"
+                  [innerHTML]="
+                    channelService.sanitizeHtmlWithImageSize(message.text)
+                  "
+                ></p>
+              </mat-card-content>
+            </div>
+          </mat-card>
+        </ng-container>
       </div>
     </ng-container>
     <ng-template #noMessages>
-      <p>Begin your conversation with {{ userName }}</p>
+      <p class="empty-msg">Begin your conversation with {{ userName }}</p>
     </ng-template>
   </div>
 

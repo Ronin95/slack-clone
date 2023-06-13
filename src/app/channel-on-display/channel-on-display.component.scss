@@ -1,58 +1,58 @@
-@import 'src/fixedCSS/fixedVar.scss';
+@import "src/fixedCSS/fixedVar.scss";
 
 * {
   overflow: hidden;
 }
 
 .outer-container {
-	position: relative;
-	background-color: $bgClr-thirdary;
-	width: calc(100vw - $side-menu-width);
-	height: 100%;
+  position: relative;
+  background-color: $bgClr-thirdary;
+  width: calc(100vw - $side-menu-width);
+  height: 100%;
 
-	.header {
-		width: 100%;
-		background-color: $bgClr-start;
-		border-right: unset;
-		border-left: unset;
+  .header {
+    width: 100%;
+    background-color: $bgClr-start;
+    border-right: unset;
+    border-left: unset;
 
-		h2 {
-			margin: 0;
-			color: white;
-		}
-	}
+    h2 {
+      margin: 0;
+      color: white;
+    }
+  }
 }
 
-.dual-container  {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: stretch; /* change from center to stretch to make sure containers fill the vertical space */
+.dual-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: stretch; /* change from center to stretch to make sure containers fill the vertical space */
 }
 
 .thread-container {
-	width: 50%;
+  width: 50%;
 }
 
 .message-container {
-	// border-right: 1px solid #000; /* change color as needed */
-	padding-right: 20px; /* optional: add some space between the content and the line */
-	margin-right: 20px; /* optional: add some space between the line and the thread-container */
-	overflow-y: scroll;
-	height: calc(100vh - 112px);
-	background-color: $bgClr-start;
-	background-color: white;
-	width: calc(100vw - $side-menu-width);
+  // border-right: 1px solid #000; /* change color as needed */
+  padding-right: 20px; /* optional: add some space between the content and the line */
+  margin-right: 20px; /* optional: add some space between the line and the thread-container */
+  overflow-y: scroll;
+  height: calc(100vh - 112px);
+  background-color: $bgClr-start;
+  background-color: white;
+  width: calc(100vw - $side-menu-width);
 }
 
 .msg-card-style {
-	margin: 5px;
-	display: flex;
-	flex-direction: column;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
 .message-card-main {
-	width: 100%;
+  width: 100%;
 }
 
 mat-card-header {
@@ -60,107 +60,101 @@ mat-card-header {
 }
 
 mat-card-title {
-	display: flex;
-	justify-content: space-between;
-  	width: 100%;
-}
-
-mat-icon {
-	cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .message-card {
-	display: flex !important;
-	flex-direction: row !important;
-	padding: 18px;
-	background-color: rgb(209, 116, 116);
+  display: flex !important;
+  flex-direction: row !important;
+  padding: 18px;
+  background-color: rgb(209, 116, 116);
 
-	* {
-		color: black;
-	}
-
-	&-image {
-		width: 50px !important;
-		height: 50px;
-		border-radius: 10px !important;
-		background-color: white;
-		object-fit: cover;
-		position: center;
-	}
-
-	&-main {
-
-		&-header {
-			padding-top: unset;
-			width: 100%;
-
-			&-title {
-				line-height: unset;
-				padding-right: 12px;
-
-				.author {
-					font-size: 1rem;
-					padding-right: 12px;
-				}
-
-				.time-stamp {
-					font-size: 0.8rem;
-				}
-			}
-
-			.chat-icon {
-				cursor: pointer;
-			}
-		}
-		.post-container {
-			width: 100% !important;
-			.post {
-				min-width: 280px;
-				max-width: 100%;
-				overflow-wrap: break-word;
-				margin: 0 !important;
-
-				img {
-					height: 200px !important;
-				}
-			}
-		}
-	}
-}
-
-.ngx-editor__textarea img {
-	max-height: 20px; /* Setze die maximale Höhe des Bildes auf 250px */
-	width: auto; /* Behalte das Seitenverhältnis des Bildes bei */
+  * {
+    color: black;
   }
 
+  &-image {
+    width: 50px !important;
+    height: 50px;
+    border-radius: 10px !important;
+    background-color: white;
+    object-fit: cover;
+    position: center;
+  }
+
+  &-main {
+    min-width: 280px;
+    max-width: 1000px;
+
+    &-header {
+      padding-top: unset;
+      width: 100%;
+
+      &-title {
+        line-height: unset;
+        padding-right: 12px;
+
+        .author {
+          font-size: 1rem;
+          padding-right: 12px;
+        }
+
+        .time-stamp {
+          font-size: 0.8rem;
+        }
+      }
+
+      .chat-icon {
+        cursor: pointer;
+      }
+    }
+
+    .post-container {
+      width: 100% !important;
+      .post {
+        min-width: 280px;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        margin: 0 !important;
+
+        img {
+          height: 200px !important;
+        }
+      }
+    }
+  }
+}
+
 .input-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: $bgClr-start;
-	padding: 10px;
-	width: calc(100vw - $side-menu-width);
-	height: 200px;
-	position: absolute;
-	bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $bgClr-start;
+  padding: 10px;
+  width: calc(100vw - $side-menu-width);
+  height: 200px;
+  position: absolute;
+  bottom: 0;
 
-	.img-container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+  .img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-	button {
-		color: white;
-	}
+  button {
+    color: white;
+  }
 
-	.input-field {
-		width: 100%;
+  .input-field {
+    width: 100%;
 
-		textarea {
-			min-height: 100px;
-		}
-	}
+    textarea {
+      min-height: 100px;
+    }
+  }
 }
 
 .name-date-style {
@@ -176,13 +170,13 @@ mat-icon {
   justify-content: space-evenly;
   align-items: center;
 
-
   mat-icon {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 30px;
     height: 30px;
+    cursor: pointer;
 
     &:hover {
       border-radius: 50%;

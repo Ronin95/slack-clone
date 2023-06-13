@@ -33,7 +33,7 @@ export class ThreadsComponent implements OnInit {
   ngOnInit() {
     this.editor = new Editor();
     this.paramsSubscription = this.route.params.subscribe(params => {
-      this.threadsService.getCurrentChannelID();
+      this.threadsService.accessCurrentChannelID();
       this.threadsService.getCurrentThreadID();
       this.threadsService.accessSelectedMessage();
     });

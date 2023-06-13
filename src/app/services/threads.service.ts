@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,15 @@ export class ThreadsService implements OnInit {
   private closeSource = new Subject<void>();
   close$ = this.closeSource.asObservable();
 
-  constructor() {}
+  constructor(private firestore: AngularFirestore) {}
 
   ngOnInit() {
   }
 
-  getCurrentChannelID() {
+  accessCurrentChannelID() {
     console.log('Current Channel ID Accessed');
+    // get current channel id from local storage
+    let channelId = localStorage.getItem('selected_channelId');
   }
   
   getCurrentThreadID() {

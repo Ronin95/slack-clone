@@ -43,4 +43,9 @@ export class ChannelsComponent implements OnInit {
 	onDeleteChannel(channelId: any) {
 		this.channelService.deleteChannel(channelId);
 	}
+
+	saveCurrentSelectedChannel(channelId: any) {
+		// save the current selected channel id to local storage
+		localStorage.setItem('selected_channelId', channelId);
+	}
 }

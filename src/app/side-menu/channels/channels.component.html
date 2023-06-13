@@ -7,7 +7,7 @@
 		<div class="tag-channel-name-pos" *ngFor="let chann of channel">
 			<div class="icon-channel-name">
         <mat-icon class="mat-icon-style">tag</mat-icon>
-			  <h2 routerLink="channel/{{ chann.channelId }}">{{ chann.channelName }}</h2>
+			  <h2 routerLink="channel/{{ chann.channelId }}" (click)="saveCurrentSelectedChannel(chann.channelId)">{{ chann.channelName }}</h2>
       </div>
 			<div>
         <mat-icon class="mat-icon-style" (click)="onDeleteChannel(chann.channelId)">delete</mat-icon>

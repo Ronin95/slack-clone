@@ -93,7 +93,9 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     this.messageText += `<img src="${url}" alt="Uploaded Image">`;
   }
 
-  onChatIconClick() {
+  onChatIconClick(messageId: string) {
+    // save messageId into local storage
+    let messageID = localStorage.setItem('selected_messageId', messageId);
     this.showThreadContainer = true;
   }
 

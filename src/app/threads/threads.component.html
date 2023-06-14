@@ -9,41 +9,33 @@
     </div>
   </mat-toolbar>
 
-  <div class="thread-msg-container">
+  <div class="thread-msg-container" *ngIf="selectedMessage">
     <mat-card class="thread-card bstyle">
       <img
         class="message-card-image"
         mat-card-image
-        src="../../assets/img/blank-profile-img.png"
-        style="width: 100px;"
+        [src]="selectedMessage.userPhotoURL || '../../assets/img/blank-profile-img.png'"
+        style="width: 50px;"
         alt="Photo"
       />
 
       <mat-card-title class="thread-message-card">
         <div class="name-date-style">
-          <span class="author">Name</span>
-          <span class="time-stamp">Date</span>
+          <span class="author">{{ selectedMessage.userName }}</span>
+          <span class="time-stamp">{{ selectedMessage.date | date: 'short' }}</span>
         </div>
       </mat-card-title>
-      <!-- <div class="thread-card bstyle">
-            <mat-card-title class="thread-message-card">
-          <div class="name-date-style">
-            <span class="author">Name</span>
-            <span class="time-stamp">Date</span>
-          </div>
-        </mat-card-title>
-
+      <div class="thread-card bstyle">
         <mat-card-content class="post-container">
-          <p>Some Text here</p>
+          <p>{{ selectedMessage.message }}</p>
           <br />
-          <img src="../../assets/img/blank-profile-img.png" alt="random-img" style="width: 200px;">
+          <img *ngIf="selectedMessage.uploadedImgURL" [src]="selectedMessage.uploadedImgURL" alt="random-img" style="width: 200px;">
           <br />
         </mat-card-content>
-      </div> -->
+      </div>
     </mat-card>
-
-    
   </div>
+
 
   <div class="editor-style">
     <div class="NgxEditor__Wrapper ngx-editor position-relative">
@@ -57,7 +49,7 @@
     <ng-template #customMenu>
       <app-custom-menu [editor]="editor"></app-custom-menu>
     </ng-template>
-  </div>  
+  </div>
 </div>
 
 

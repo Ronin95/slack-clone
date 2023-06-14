@@ -13,6 +13,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   styleUrls: ['./threads.component.scss']
 })
 export class ThreadsComponent implements OnInit {
+  selectedMessage: any;
   private paramsSubscription!: Subscription;
   channel!: Observable<any>;
   thread!: Observable<any>;
@@ -33,9 +34,17 @@ export class ThreadsComponent implements OnInit {
   ngOnInit() {
     this.editor = new Editor();
     this.paramsSubscription = this.route.params.subscribe(params => {
-      this.threadsService.accessSelectedMessage();
+      this.threadsService.accessSelectedMessage().subscribe((message: any) => {
+        if (message) {
+          this.selectedMessage = message;
+        } else {
+          console.error('No message found');
+        }
+      });
     });
   }
+
+
 
   ngOnDestroy() {
     // Don't forget to unsubscribe to avoid memory leaks

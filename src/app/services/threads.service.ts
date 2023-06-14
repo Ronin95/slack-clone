@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
@@ -19,8 +19,7 @@ export class ThreadsService implements OnInit {
     this.closeSource.next();
   }
 
-  accessSelectedMessage() {
-    console.log('Selected Message Accessed');
+  accessSelectedMessage(): Observable<any> {
     // Retrieve IDs from local storage
     const selected_channelID = localStorage.getItem('selected_channelID');
     const selected_messageID = localStorage.getItem('selected_messageID');
@@ -28,17 +27,12 @@ export class ThreadsService implements OnInit {
     // Check if IDs are null
     if (!selected_channelID || !selected_messageID) {
       console.error('selected_ChannelID or selected_messageID is null');
-      return;
+      return of(null); // return an Observable of null
     }
 
-    // Fetch the message from Firestore and log its date
-    this.firestore.collection('channels').doc(selected_channelID).collection('ChannelChat').doc(selected_messageID).valueChanges()
-    .subscribe(message => {
-      if (message && 'date' in message) {
-        console.log(message['date']);
-      } else {
-        console.error('message is undefined or does not contain a date');
-      }
-      }, error => console.log(error));
-    }
+    // Fetch the message from Firestore and return the Observable
+    return this.firestore.collection('channels').doc(selected_channelID).collection('ChannelChat').doc(selected_messageID).valueChanges();
+  }
+
+
 }

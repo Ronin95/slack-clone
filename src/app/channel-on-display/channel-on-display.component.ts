@@ -93,6 +93,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
 	}
 
   onChatIconClick(messageId: string) {
+    let selectedMessageID = localStorage.setItem('selected_messageID', messageId);
     this.showThreadContainer = true;
   }
 

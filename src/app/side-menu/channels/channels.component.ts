@@ -22,7 +22,7 @@ export class ChannelsComponent implements OnInit {
 	openMenu: boolean = true;
 
 	constructor(
-		public dialog: MatDialog, 
+		public dialog: MatDialog,
 		public channelService: ChannelService
 	) {}
 
@@ -46,6 +46,6 @@ export class ChannelsComponent implements OnInit {
 
 	saveCurrentSelectedChannel(channelId: any) {
 		// save the current selected channel id to local storage
-		localStorage.setItem('selected_channelId', channelId);
+		localStorage.setItem('selected_channelID', channelId);
 	}
 }

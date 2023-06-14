@@ -26,15 +26,13 @@ export class ThreadsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private firestoreDB: AngularFirestore,
-    private threadsService: ThreadsService, 
+    private threadsService: ThreadsService,
     public channelService: ChannelService
   ) { }
 
   ngOnInit() {
     this.editor = new Editor();
     this.paramsSubscription = this.route.params.subscribe(params => {
-      this.threadsService.accessCurrentChannelID();
-      this.threadsService.getCurrentThreadID();
       this.threadsService.accessSelectedMessage();
     });
   }

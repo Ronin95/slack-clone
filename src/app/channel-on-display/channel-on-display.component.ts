@@ -92,7 +92,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
 		this.messageText += `<img src="${url}" alt="Uploaded Image">`;
 	}
 
-  onChatIconClick() {
+  onChatIconClick(messageId: string) {
     this.showThreadContainer = true;
   }
 

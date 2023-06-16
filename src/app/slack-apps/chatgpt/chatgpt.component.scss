@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  overflow: auto;
 }
 
 .input-style {
@@ -27,8 +28,24 @@ input {
   padding: 10px;
 }
 
+.user-style,
 .response-style {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 50vw;
+  word-wrap: break-word;
+}
+
+.user-style {
+  color: blue;
+}
+
+.response-style {
+  color: red;
+}
+
+.send-btn {
+  border: none;
+  background-color: transparent;
 }

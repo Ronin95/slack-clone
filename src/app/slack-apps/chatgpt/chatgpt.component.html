@@ -3,11 +3,14 @@
     <h1>Hello I am your personal SlackCloneAI assistant.</h1>
     <h3>If you need any help, with anything, I will give my best to help you out.</h3>
   </div>
-  <div >
+  <div>
+    <div *ngFor="let message of messages">
+      <p class="user-style" *ngIf="message.role === 'user'">You: {{ message.content }}</p>
+      <p class="response-style" *ngIf="message.role === 'assistant'">AI: {{ message.content }}</p>
+    </div>
     <div class="input-style">
       <input type="text" [(ngModel)]="inputText" placeholder="Place your concerns..." />
-      <mat-icon (click)="callOpenAiApi(inputText)">send</mat-icon>
+      <button class="send-btn" ><mat-icon (click)="callOpenAiApi(inputText)">send</mat-icon></button>
     </div>
-    <p class="response-style" *ngIf="openAiResponse">AI: {{ openAiResponse }}</p>
   </div>
 </div>

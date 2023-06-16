@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Configuration, OpenAIApi } from 'openai';
-import { from, Observable } from 'rxjs';
+import { Configuration, OpenAIApi, CreateChatCompletionRequest, ChatCompletionRequestMessageRoleEnum } from 'openai';
+import { from, Observable, throwError } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
@@ -8,25 +8,49 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class OpenAiService {
-
-  constructor() { }
-
   readonly configuration = new Configuration({
     apiKey: environment.openAIToken
   });
 
   readonly openai = new OpenAIApi(this.configuration);
 
+  constructor() { }
+
   getDataFromOpenAI(text: string): Observable<string> {
-    return from(this.openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: text,
+    // Check if the user has exceeded the API call limit
+    const apiCallData = JSON.parse(localStorage.getItem('apiCallData') || '{}');
+    const now = new Date().getTime();
+    const oneDayAgo = now - 24 * 60 * 60 * 1000;
+
+    if (apiCallData.timestamp && apiCallData.timestamp > oneDayAgo) {
+      if (apiCallData.count >= 5) {
+        return throwError('You have exceeded the maximum number of API calls within 24 hours.');
+      } else {
+        apiCallData.count += 1;
+      }
+    } else {
+      apiCallData.timestamp = now;
+      apiCallData.count = 1;
+    }
+
+    localStorage.setItem('apiCallData', JSON.stringify(apiCallData));
+
+    const messages = [
+      {role: ChatCompletionRequestMessageRoleEnum.System, content: "You are a helpful assistant."},
+      {role: ChatCompletionRequestMessageRoleEnum.User, content: text}
+    ];
+
+    const requestPayload: CreateChatCompletionRequest = {
+      model: "gpt-3.5-turbo",
+      messages: messages,
       max_tokens: 256
-    })).pipe(
-      filter(resp => !!resp && !!resp.data),
-      map(resp => resp.data),
-      filter((data: any) => data.choices && data.choices.length > 0 && data.choices[0].text),
-      map(data => data.choices[0].text)
+    };
+
+    return from(this.openai.createChatCompletion(requestPayload)).pipe(
+      filter(resp => !!resp && !!resp.data && !!resp.data.choices && resp.data.choices.length > 0),
+      filter(resp => !!resp.data.choices[0].message),
+      map(resp => resp.data.choices[0].message?.content.trim()),
+      filter((responseContent): responseContent is string => responseContent !== undefined)
     );
   }
 }

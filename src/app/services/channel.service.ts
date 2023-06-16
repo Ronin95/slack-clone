@@ -142,8 +142,8 @@ export class ChannelService implements OnInit {
 	}
 
  /**
-  * The above code is likely defining a function called `clearFileInput()`. However, since there is no code inside the
-  * function, it is unclear what the function is intended to do.
+  * The above code is likely defining a function called `clearFileInput()`. The function clears the input from the
+  * `fileInput` element by setting its value to an empty string.
   *
   * @method
   * @name clearFileInput

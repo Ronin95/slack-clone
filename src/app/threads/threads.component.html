@@ -9,23 +9,22 @@
     </div>
   </mat-toolbar>
 
-  <div class="thread-msg-container" *ngIf="selectedMessage">
-    <mat-card class="thread-card bstyle">
-      <img
-        class="message-card-image"
-        mat-card-image
-        [src]="selectedMessage.userPhotoURL || '../../assets/img/blank-profile-img.png'"
-        style="width: 50px;"
-        alt="Photo"
-      />
-
+  <div class="thread-msg-container " *ngIf="selectedMessage">
+    <mat-card class="thread-card ">
       <mat-card-title class="thread-message-card">
+        <img
+          class="message-card-image"
+          mat-card-image
+          [src]="selectedMessage.userPhotoURL || '../../assets/img/blank-profile-img.png'"
+          style="width: 50px;"
+          alt="Photo"
+        />
         <div class="name-date-style">
           <span class="author">{{ selectedMessage.userName }}</span>
           <span class="time-stamp">{{ selectedMessage.date }}</span>
         </div>
       </mat-card-title>
-      <div class="thread-card bstyle">
+      <div class="thread-card">
         <mat-card-content class="post-container">
           <p>{{ selectedMessage.message }}</p>
           <br />

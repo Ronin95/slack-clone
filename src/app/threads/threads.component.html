@@ -38,12 +38,12 @@
   <div class="editor-style">
     <div class="NgxEditor__Wrapper ngx-editor position-relative">
       <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" [customMenuRef]="customMenu"></ngx-editor-menu>
-      <ngx-editor [editor]="editor" [(ngModel)]="messageText" [disabled]="false" [placeholder]="'Insert your message...'"></ngx-editor>
+      <ngx-editor [editor]="editor" [(ngModel)]="messageText" [disabled]="false" [placeholder]="'Respond to message...'"></ngx-editor>
       <button class="editor-btn" mat-icon-button (click)="sendMessageToThread()">
         <mat-icon>send</mat-icon>
       </button>
     </div>
-    <input id="fileInput" type="file" style="display: none" (change)="channelService.onFileChange($event)" />
+    <input id="fileInput" type="file" style="display: none;" (change)="channelService.onFileChange($event)" />
     <ng-template #customMenu>
       <app-custom-menu [editor]="editor"></app-custom-menu>
     </ng-template>

@@ -58,7 +58,8 @@ export class ThreadsComponent implements OnInit {
   }
 
   sendMessageToThread() {
-    console.log('Test - 1');
+    this.threadsService.sendMessageToThread(this.messageText);
+    this.messageText = '';
   }
 
   onCloseIconClick() {

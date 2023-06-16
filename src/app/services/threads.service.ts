@@ -52,6 +52,10 @@ export class ThreadsService implements OnInit {
         return message;
       }));
   }
+
+  sendMessageToThread(messageText: string) {
+    
+  }
   
 
 

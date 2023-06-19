@@ -37,7 +37,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxEditorModule } from 'ngx-editor';
-// import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Components
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -123,10 +122,6 @@ import { WeatherComponent } from './slack-apps/weather/weather.component';
     provideStorage(() => getStorage()),
     HttpClientModule,
     NgxEditorModule,
-    // ServiceWorkerModule.register('ngsw-worker.js', {
-    //   enabled: environment.production,
-    //   registrationStrategy: 'registerWhenStable:30000'
-    // })
   ],
   providers: [AuthService, OpenAiService],
   bootstrap: [AppComponent],

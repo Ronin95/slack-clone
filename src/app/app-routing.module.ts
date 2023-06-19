@@ -15,6 +15,7 @@ import {
 	redirectLoggedInTo,
 } from '@angular/fire/auth-guard';
 import { PrivateChatComponent } from './private-chat/private-chat.component';
+import { WeatherComponent } from './slack-apps/weather/weather.component';
 
 const redirectToLogin = () => redirectUnauthorizedTo(['']);
 const redirectToHome = () => redirectLoggedInTo(['home']);
@@ -25,6 +26,7 @@ const routes: Routes = [
 	{ path: 'home', component: HomeComponent, ...canActivate(redirectToLogin) },
 	// { path: 'home/threads', component: ThreadsComponent },
 	{ path: 'home/chatgpt', component: ChatgptComponent },
+  { path: 'home/weather', component: WeatherComponent},
 	{ path: 'home/sendMessage', component: SendMessageComponent },
 	{ path: '', component: WelcomeScreenComponent, ...canActivate(redirectToHome) },
 	{ path: 'sideMenu', component: SideMenuComponent },

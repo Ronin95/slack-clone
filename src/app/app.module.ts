@@ -37,6 +37,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxEditorModule } from 'ngx-editor';
+// import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Components
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -63,6 +64,7 @@ import { DialogErrorLoginComponent } from './dialog-error-login/dialog-error-log
 import { PrivateChatComponent } from './private-chat/private-chat.component';
 import { CustomMenuComponent } from './custom-menu/custom-menu.component';
 import { HomeComponent } from './home/home.component';
+import { WeatherComponent } from './slack-apps/weather/weather.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +89,7 @@ import { HomeComponent } from './home/home.component';
     PrivateChatComponent,
     CustomMenuComponent,
     HomeComponent,
+    WeatherComponent,
   ],
   imports: [
     CommonModule,
@@ -120,6 +123,10 @@ import { HomeComponent } from './home/home.component';
     provideStorage(() => getStorage()),
     HttpClientModule,
     NgxEditorModule,
+    // ServiceWorkerModule.register('ngsw-worker.js', {
+    //   enabled: environment.production,
+    //   registrationStrategy: 'registerWhenStable:30000'
+    // })
   ],
   providers: [AuthService, OpenAiService],
   bootstrap: [AppComponent],

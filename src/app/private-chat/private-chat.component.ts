@@ -28,6 +28,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
   messageControl = new FormControl('');
   messages$: Observable<privateMessage[]> | undefined;
   user$ = this.usersService.currentUserProfile$;
+  chatId: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -52,6 +53,9 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
       });
       this.messages$ = this.chatListControlService.chatListControl.valueChanges.pipe(
         map((value) => value[0]),
+        tap((chatId) => {
+          this.chatId = chatId; // Weise den Wert von chatId zu
+        }),
         switchMap((chatId) => this.privateChatService.getChatMessages$(chatId)),
         tap(() => {
 
@@ -60,15 +64,19 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    const message = this.messageControl.value;
+    const message = this.messageText;
     const selectedChatId = this.chatListControlService.chatListControl.value[0];
     if (message && selectedChatId) {
       this.privateChatService
         .addChatMessage(selectedChatId, message)
         .subscribe(() => {
         });
-      this.messageControl.setValue('');
+      this.messageText = '';
     }
+  }
+
+  async deleteMessage(messageId: string) {
+    await this.privateChatService.deleteChatMessage(messageId, this.chatId);
   }
 
   insertImageToEditor(url: string) {

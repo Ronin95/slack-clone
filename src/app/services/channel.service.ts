@@ -21,7 +21,6 @@ export class ChannelService implements OnInit {
 	photoURL!: string;
 	userData!: Subscription;
 	foundUser!: any; // in getUserNameAndImgFromFirebase()
-	uploadedImgURL: string = '';
 	channelIDSource = new BehaviorSubject<string>('');
 	currentChannelID$ = this.channelIDSource.asObservable();
 
@@ -280,11 +279,7 @@ export class ChannelService implements OnInit {
 			date: formattedDate,
 			userName: this.name, // Adding username to the document
 			userPhotoURL: this.photoURL, // Adding photoURL to the document
-			uploadedImgURL: this.uploadedImgURL, // Adding uploaded image URL to the document
 		});
-
-		// Reset the uploadedImgURL for the next upload
-		this.uploadedImgURL = '';
 	}
 
  /**

@@ -64,14 +64,14 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    const message = this.messageControl.value;
+    const message = this.messageText;
     const selectedChatId = this.chatListControlService.chatListControl.value[0];
     if (message && selectedChatId) {
       this.privateChatService
         .addChatMessage(selectedChatId, message)
         .subscribe(() => {
         });
-      this.messageControl.setValue('');
+      this.messageText = '';
     }
   }
 

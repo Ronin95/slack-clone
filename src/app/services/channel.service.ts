@@ -1,26 +1,10 @@
 import { Injectable, OnInit, inject } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import {
-	Firestore,
-	collection,
-	collectionData,
-	deleteDoc,
-	doc,
-} from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import {
-	Observable,
-	Subscription,
-	finalize,
-	take,
-	firstValueFrom,
-	map,
-	Subject,
-	BehaviorSubject,
-	of,
-} from 'rxjs';
-import { getDocs, getFirestore } from 'firebase/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Firestore, collection, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { getDocs, getFirestore } from 'firebase/firestore';
+import { Observable, Subscription, take, firstValueFrom, map, Subject, BehaviorSubject, of } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Injectable({
@@ -32,8 +16,8 @@ export class ChannelService implements OnInit {
 	firestore: Firestore = inject(Firestore);
 	channels!: any;
 	channel!: Array<any>;
-	name!: string;
 	uid!: string;
+	name!: string;
 	photoURL!: string;
 	userData!: Subscription;
 	foundUser!: any; // in getUserNameAndImgFromFirebase()
@@ -44,7 +28,6 @@ export class ChannelService implements OnInit {
 	constructor(
 		private afs: AngularFirestore,
 		private storage: AngularFireStorage,
-		private router: Router,
 		private sanitizer: DomSanitizer
 	) {}
 
@@ -217,20 +200,7 @@ export class ChannelService implements OnInit {
   */
 	getFormattedDate(date: Date): string {
 		const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-		const months = [
-			'Jan',
-			'Feb',
-			'Mar',
-			'Apr',
-			'May',
-			'Jun',
-			'Jul',
-			'Aug',
-			'Sep',
-			'Oct',
-			'Nov',
-			'Dec',
-		];
+		const months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',];
 		const dayName = days[date.getDay()];
 		const day = String(date.getDate()).padStart(2, '0');
 		const month = months[date.getMonth()];

@@ -2,16 +2,30 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable, Subject, map, of } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { ChannelService } from './channel.service';
+import { Firestore, collection, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { getDocs, getFirestore } from 'firebase/firestore';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThreadsService implements OnInit {
   private closeSource = new Subject<void>();
+  firestoreDB: any = getFirestore();
   close$ = this.closeSource.asObservable();
+  foundUser!: any;
+  uploadedImgURL: string = '';
+  name!: string;
+	photoURL!: string;
 
-  constructor(private firestore: AngularFirestore, private sanitizer: DomSanitizer) {}
+  constructor(
+    private firestore: AngularFirestore,
+    private sanitizer: DomSanitizer,
+    private channelService: ChannelService,
+    private db: AngularFireDatabase,
+  ) {}
 
   ngOnInit() {
   }
@@ -28,19 +42,30 @@ export class ThreadsService implements OnInit {
     // Return the cleaned text
     return tmp.textContent || tmp.innerText || '';
   }
-  
 
-  accessSelectedMessage(): Observable<any> {
+  retrieveFromLocalStorage() {
     // Retrieve IDs from local storage
     const selected_channelID = localStorage.getItem('selected_channelID');
     const selected_messageID = localStorage.getItem('selected_messageID');
-  
+
     // Check if IDs are null
     if (!selected_channelID || !selected_messageID) {
       console.error('selected_ChannelID or selected_messageID is null');
-      return of(null); // return an Observable of null
+      return null;
     }
-  
+
+    // return as an object
+    return { selected_channelID, selected_messageID };
+  }
+
+  accessSelectedMessage(): Observable<any> {
+    const ids = this.retrieveFromLocalStorage();
+    if (!ids) {
+      // If ids are null, handle this scenario (perhaps by returning an empty Observable)
+      return of({});
+    }
+    let {selected_channelID, selected_messageID} = ids;
+
     // Fetch the message from Firestore and return the Observable
     return this.firestore.collection('channels').doc(selected_channelID).collection('ChannelChat').doc(selected_messageID).valueChanges()
       .pipe(map(message => {
@@ -53,10 +78,53 @@ export class ThreadsService implements OnInit {
       }));
   }
 
-  sendMessageToThread(messageText: string) {
-    
+  async accessUserData() {
+    const userData = collection(this.firestoreDB, 'users');
+		const docsSnap = await getDocs(userData);
+		const getUIDFromLocalStorage = localStorage.getItem('loggedInUser');
+		const getArrayForm = docsSnap.docs.map((doc) => doc.data());
+		for (let i = 0; i < getArrayForm.length; i++) {
+			if (getArrayForm[i]['uid'] === getUIDFromLocalStorage?.slice(1, -1)) {
+				this.foundUser = getArrayForm[i];
+				break;
+			}
+		}
+		if (this.foundUser !== null) {
+			this.name = this.foundUser['displayName'];
+			this.photoURL = this.foundUser['photoURL'];
+		}
   }
-  
 
+  async sendMessageToThread(messageText: string): Promise<void> {
+    // Get the user's name and image from Firebase
+    await this.accessUserData();
+    const ids = this.retrieveFromLocalStorage();
+    // Check if IDs are null
+    if (!ids) {
+      console.error('Cannot send message: IDs are null');
+      return;
+    }
+    const { selected_channelID, selected_messageID } = ids;
+    // Construct the path to the new collection
+    const path = `channels/${selected_channelID}/ChannelChat/${selected_messageID}/ChannelChatThread`;
+    // Create a unique ID for the message
+    const messageId = this.firestore.createId();
+    const date = new Date();
+    const formattedDate = this.channelService.getFormattedDate(date);
+    // Create a new document in the ChannelChatThread collection with your own ID
+    this.firestore.collection(path).doc(messageId).set({
+      messageId: messageId,
+      message: messageText,
+      date: formattedDate,
+      userName: this.name,
+      userPhotoURL: this.photoURL,
+      uploadedImgURL: this.uploadedImgURL,
+    })
+      .then(() => console.log('Message sent!'))
+      .catch(err => console.error('Error sending message: ', err));
+
+    // Reset the uploadedImgURL
+    this.uploadedImgURL = '';
+  }
 
 }

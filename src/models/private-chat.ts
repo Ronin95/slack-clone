@@ -3,8 +3,6 @@ import { Timestamp } from 'firebase/firestore';
 
 export interface PrivateChat {
     id: string;
-    lastMessage?: string;
-    lastMessageDate?: Date;
     userIds: string[];
     users: User[];
 
@@ -14,6 +12,7 @@ export interface PrivateChat {
 }
 
 export interface privateMessage {
+    messageId: string;
     text: string;
     senderId: string;
     displayName: string;

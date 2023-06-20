@@ -3,6 +3,7 @@ import {
   addDoc,
   collection,
   collectionData,
+  deleteDoc,
   doc,
   DocumentData,
   Firestore,
@@ -11,17 +12,12 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import {
-  BehaviorSubject,
-  concatMap,
-  map,
-  Observable,
-  take,
-} from 'rxjs';
+import { BehaviorSubject, concatMap, map, Observable, take } from 'rxjs';
 import { UsersService } from './users.service';
 import { User } from '../../models/user.model';
 import { PrivateChat, privateMessage } from '../../models/private-chat';
 import { ChannelService } from './channel.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +31,7 @@ export class PrivateChatService {
 
   constructor(
     private firestore: Firestore,
+    private afs: AngularFirestore,
     private userService: UsersService,
     private channelService: ChannelService
   ) {}
@@ -48,7 +45,12 @@ export class PrivateChatService {
           where('userIds', 'array-contains', user?.['uid'])
         );
         return collectionData(myQuery, { idField: 'id' }).pipe(
-          map((chats: DocumentData[]) => this.addChatNameAndPic(typeof user?.['uid'] === 'string' ? user?.['uid'] : undefined, chats.map(chat => chat as PrivateChat)))
+          map((chats: DocumentData[]) =>
+            this.addChatNameAndPic(
+              typeof user?.['uid'] === 'string' ? user?.['uid'] : undefined,
+              chats.map((chat) => chat as PrivateChat)
+            )
+          )
         ) as Observable<PrivateChat[]>;
       })
     );
@@ -93,25 +95,32 @@ export class PrivateChatService {
   }
 
   addChatMessage(chatId: string, message: string): Observable<any> {
-    const ref = collection(this.firestore, 'chats', chatId, 'messages');
-    const chatRef = doc(this.firestore, 'chats', chatId);
+    const ref = this.afs.collection('chats').doc(chatId).collection('messages');
     const date = new Date();
     const formattedDate = this.channelService.getFormattedDate(date);
+    const messageId = this.afs.createId();
     return this.userService.currentUserProfile$.pipe(
       take(1),
       concatMap((user) =>
-        addDoc(ref, {
+        ref.doc(messageId).set({
           text: message,
+          messageId: messageId,
           senderId: user?.['uid'],
           sentDate: formattedDate,
           displayName: user?.['displayName'],
-          photoURL: user?.['photoURL']
+          photoURL: user?.['photoURL'],
         })
-      ),
-      concatMap(() =>
-        updateDoc(chatRef, { lastMessage: message, lastMessageDate: formattedDate })
       )
     );
+  }
+
+  async deleteChatMessage(messageId: string, chatId: string) {
+    const sfRef = this.afs
+      .collection('chats')
+      .doc(chatId)
+      .collection('messages')
+      .doc(messageId);
+    await sfRef.delete();
   }
 
   getChatMessages$(chatId: string): Observable<privateMessage[]> {

@@ -36,19 +36,6 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
 		private router: Router
 	) {}
 
-	sanitizeHtmlWithImageSize(html: string): SafeHtml {
-		const wrapper = document.createElement('div');
-		wrapper.innerHTML = html;
-
-		const images = wrapper.querySelectorAll('img');
-
-		images.forEach((image: HTMLImageElement) => {
-			image.style.maxHeight = '200px';
-		});
-		const sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(wrapper.innerHTML);
-		return sanitizedHtml;
-	}
-
 	sendMessage() {
 		this.channelService.saveMessageToFirebase(this.messageText);
 		this.messageText = '';

@@ -34,6 +34,32 @@
     </mat-card>
   </div>
 
+  <ng-container *ngFor="let threadMessage of threadMessages">
+    <div class="thread-msg-container " *ngIf="hasChannelChatThread$ | async">
+      <mat-card class="thread-card ">
+        <mat-card-title class="thread-message-card">
+          <img
+            class="message-card-image"
+            mat-card-image
+            [src]="threadMessage.userPhotoURL || '../../assets/img/blank-profile-img.png'"
+            style="width: 50px;"
+            alt="Photo"
+          />
+          <div class="name-date-style">
+            <span class="author">{{ threadMessage.userName }}</span>
+            <span class="time-stamp">{{ threadMessage.date }}</span>
+          </div>
+        </mat-card-title>
+        <div class="thread-card">
+          <mat-card-content class="post-container">
+            <p>{{ threadMessage.message }}</p>
+            <br />
+            <img *ngIf="threadMessage.uploadedImgURL" [src]="threadMessage.uploadedImgURL" alt="random-img" style="width: 200px;">
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </div>
+  </ng-container>
 
   <div class="editor-style">
     <div class="NgxEditor__Wrapper ngx-editor position-relative">

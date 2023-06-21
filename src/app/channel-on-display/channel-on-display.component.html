@@ -43,6 +43,13 @@
 									)
 								"
 							></p>
+              <img
+								*ngIf="message.uploadedImgURL"
+								src="{{ message.uploadedImgURL }}"
+								alt="uploadedImg_name"
+								style="width: 250px"
+							/>
+							<br />
 						</mat-card-content>
 					</div>
 				</mat-card>

@@ -78,6 +78,25 @@ export class ThreadsService implements OnInit {
       }));
   }
 
+  checkIfChannelChatThreadExists(messageId: string): Observable<boolean> {
+    const selected_channelID = localStorage.getItem('selected_channelID');
+    console.log('selected Message Id is: ' ,messageId);
+    if (!selected_channelID || !messageId) {
+        // If either ID is null, return false
+        return of(false);
+    }
+
+    // Construct the path to the possible ChannelChatThread collection
+    const path = `channels/${selected_channelID}/ChannelChat/${messageId}/ChannelChatThread`;
+
+    // Try to get the collection
+    const collectionRef = this.firestore.collection(path);
+    return collectionRef.snapshotChanges().pipe(
+        map(actions => actions.length > 0)
+    );
+}
+
+
   async accessUserData() {
     const userData = collection(this.firestoreDB, 'users');
 		const docsSnap = await getDocs(userData);
@@ -108,12 +127,12 @@ export class ThreadsService implements OnInit {
     // Construct the path to the new collection
     const path = `channels/${selected_channelID}/ChannelChat/${selected_messageID}/ChannelChatThread`;
     // Create a unique ID for the message
-    const messageId = this.firestore.createId();
+    const threadId = this.firestore.createId();
     const date = new Date();
     const formattedDate = this.channelService.getFormattedDate(date);
     // Create a new document in the ChannelChatThread collection with your own ID
-    this.firestore.collection(path).doc(messageId).set({
-      messageId: messageId,
+    this.firestore.collection(path).doc(threadId).set({
+      threadId: threadId,
       message: messageText,
       date: formattedDate,
       userName: this.name,
@@ -125,6 +144,23 @@ export class ThreadsService implements OnInit {
 
     // Reset the uploadedImgURL
     this.uploadedImgURL = '';
+  }
+
+  fetchThreadMessages() {
+    const collection = this.firestore.collectionGroup('ChannelChatThread');
+
+    return collection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data();
+        const id = a.payload.doc.id;
+        // Check if message exists
+        if (data.message) {
+          // Sanitize message text
+          data.message = this.stripHtmlTags(data.message);
+        }
+        return { id, ...data };
+      }))
+    );
   }
 
 }

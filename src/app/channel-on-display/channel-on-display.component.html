@@ -6,9 +6,10 @@
 
 	<div class="dual-container">
 		<div class="message-container">
-			<div class="msg-card-style" *ngFor="let message of messages | async">
+			<div [class.d-none]="!(message.message?.toLowerCase().includes(channelService.searchValue.toLowerCase())) && 
+			!((message.userName)?.displayName?.includes(channelService.searchValue.toLowerCase()))" class="msg-card-style" *ngFor="let message of messages | async">
 				<mat-card class="message-card">
-					<img
+					<img 
 						class="message-card-image"
 						mat-card-image
 						alt="Photo"

@@ -101,4 +101,14 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
         }
       });
   }
+
+  messageMatchesSearch(message: any): boolean {
+    const searchValue = this.channelService.searchValue.toLowerCase();
+    return (
+      (message.text && message.text.toLowerCase().includes(searchValue)) ||
+      (message.displayName &&
+        message.displayName.toLowerCase().includes(searchValue))
+    );
+  }
+  
 }

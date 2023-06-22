@@ -4,28 +4,12 @@
 			autocomplete="off"
 			type="search"
 			aria-label="Search"
-			[class.loading]="isLoading"
 			#searchInput
-			(input)="input$.next(searchInput.value)"
+			[(ngModel)]="channelService.searchValue"
 			class="search-input"
 			placeholder="Search messages ..."
 		/>
-		<!-- 	<mat-icon
-			(click)="searchInput.value = ''"
-			*ngIf="searchInput.value"
-			class="clear-button"
-			>clear</mat-icon
-		> -->
 
-		<!-- 	<ul class="search-results" *ngIf="filteredMessages$ | async as filteredMessages">
-			<li *ngFor="let message of filteredMessages">
-				<img [src]="message.userPhotoURL" alt="" />
-				<a [routerLink]="['/....']">
-					{{ message.message }}
-				</a>
-			</li>
-			<li *ngIf="!filteredMessages.length">No results</li>
-		</ul> -->
 	</div>
 
 	<img
@@ -35,11 +19,3 @@
 	/>
 </mat-toolbar>
 
-<!-- <ul class="search-results" *ngIf="results$ | async as results">
-	<li *ngFor="let message of results">
-		<a [routerLink]="['/....']">
-			{{ message }}
-		</a>
-	</li>
-	<li *ngIf="!results.length">No results</li>
-</ul> -->

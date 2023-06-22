@@ -6,9 +6,9 @@
 
   <div class="message-container">
     <ng-container *ngIf="messages$ | async as privateMessage">
-      <div class="msg-card-style">
+      <div *ngFor="let message of privateMessage"  [class.d-none]="!messageMatchesSearch(message)" class="msg-card-style">
         <ng-container *ngIf="privateMessage.length > 0; else noMessages">
-          <mat-card *ngFor="let message of privateMessage" class="message-card">
+          <mat-card class="message-card">
             <img
               class="message-card-image"
               mat-card-image

@@ -23,6 +23,7 @@ export class ChannelService implements OnInit {
 	foundUser!: any; // in getUserNameAndImgFromFirebase()
 	channelIDSource = new BehaviorSubject<string>('');
 	currentChannelID$ = this.channelIDSource.asObservable();
+	searchValue: string = '';
 
 	constructor(
 		private afs: AngularFirestore,

@@ -18,78 +18,24 @@ import { UsersService } from '../services/users.service';
 	styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-	isLoading = false;
-	results$!: Observable<any>;
-	input$ = new Subject<string>();
-
-	messages!: any[];
-	filteredMessages$!: Observable<any[]>;
-	filteredMessagesArray: any[] = [];
-
-	users$ = this.usersService.getUsers;
-	channelID?: string;
-
 	constructor(
 		public dialog: MatDialog,
 		private afs: AngularFirestore,
 		public authService: AuthService,
 		private afAuth: AngularFireAuth,
-		private channelService: ChannelService,
+		public channelService: ChannelService,
 		private usersService: UsersService
 	) {
-		this.searchInput();
-		/* 		this.channelService
-			.fetchMessagesFromFirebase(this.channelID!)
-			.subscribe((messages) => {
-				this.messages = messages;
-				console.log(messages);
-			}); */
-	}
-
-	searchInput() {
-		this.filteredMessages$ = this.input$.pipe(
-			debounceTime(500),
-			distinctUntilChanged(),
-			filter((term) => term.length > 3),
-			switchMap((term) =>
-				of(this.messages).pipe(
-					map((messages) =>
-						messages.filter((message) => message.message.includes(term))
-					)
-				)
-			)
-		);
-
-		this.filteredMessages$.subscribe((filteredMessages) => {
-			this.filteredMessagesArray = filteredMessages;
-			console.log(this.filteredMessagesArray);
-		});
 	}
 
 	ngOnInit() {
 		this.authService.authenticateUserGetImg();
-		this.getChannelID();
 	}
 
 	openUserDialog(): void {
 		this.dialog.open(DialogUserInfoComponent, {
 			width: '250px',
 			position: { right: '10px', top: '45px' },
-		});
-	}
-
-	getChannelID() {
-		this.channelService.currentChannelID$.subscribe((channelID) => {
-			this.channelID = channelID;
-			console.log('channelid in header', this.channelID);
-
-			// Fetch messages inside the subscription
-			this.channelService
-				.fetchMessagesFromFirebase(this.channelID!)
-				.subscribe((messages) => {
-					this.messages = messages;
-					console.log(messages);
-				});
 		});
 	}
 }

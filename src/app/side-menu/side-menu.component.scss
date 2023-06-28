@@ -1,27 +1,43 @@
 * {
-	box-sizing: border-box !important;
+  box-sizing: border-box !important;
 }
 
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {
-	scrollbar-width: auto;
+  scrollbar-width: auto;
 }
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-	width: 0;
+  width: 0;
 }
 
 .side-menu {
-	display: flex;
-	flex-direction: column;
-	background-color: #4a154b;
-	width: 100%;
-	min-width: 255px;
-	max-width: 255px;
-	height: calc(100vh - 45px);
-	border-left: unset !important;
-	border-bottom: unset !important;
-	overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #4a154b;
+  width: 100%;
+  max-width: 255px;
+  height: calc(100vh - 45px);
+  border-left: unset !important;
+  border-bottom: unset !important;
+  overflow-y: auto;
+}
+
+.min-width-255 {
+  min-width: 255px;
+}
+
+.menu-btn {
+  position: fixed;
+  top: 5px;
+  left: 0;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+
+  mat-icon {
+    color: #ffff;
+  }
 }

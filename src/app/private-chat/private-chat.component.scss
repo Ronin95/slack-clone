@@ -189,3 +189,9 @@ mat-card-title {
     }
   }
 }
+
+@media(max-width: 690px) {
+  .name-date-style {
+    height: 60px;
+  }
+}

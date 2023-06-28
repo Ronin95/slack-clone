@@ -1,5 +1,16 @@
-<div class="side-menu border">
-	<app-channels></app-channels>
-  <app-direct-messages></app-direct-messages>
-  <app-further-services></app-further-services>
-</div>
+<mat-drawer-container class="side-menu border" autosize>
+  <mat-drawer
+    #drawer
+    class="side-menu border min-width-255"
+    mode="side"
+    [opened]="true"
+  >
+    <app-channels></app-channels>
+    <app-direct-messages></app-direct-messages>
+    <app-further-services></app-further-services>
+  </mat-drawer>
+
+  <button class="menu-btn" type="button" mat-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-drawer-container>

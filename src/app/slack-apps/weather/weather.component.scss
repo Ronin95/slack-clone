@@ -42,3 +42,21 @@ mat-card-content {
   position: relative;
   top: -30px;
 }
+
+@media(max-width: 1060px) {
+  mat-form-field, mat-card{
+    width: 500px;
+  }
+}
+
+@media(max-width: 800px) {
+  mat-form-field, mat-card{
+    width: 400px;
+  }
+}
+
+@media(max-width: 650px) {
+  mat-form-field, mat-card{
+    width: 300px;
+  }
+}

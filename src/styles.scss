@@ -1,126 +1,126 @@
-@import 'src/fixedCSS/fixedVar.scss';
+@import "src/fixedCSS/fixedVar.scss";
 
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 * {
-	scrollbar-width: auto;
-	scrollbar-color: #8407a6 #ffffff;
+  scrollbar-width: auto;
+  scrollbar-color: #8407a6 #ffffff;
 }
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-	width: 12px;
+  width: 12px;
 }
 
 *::-webkit-scrollbar-track {
-	background: #ffffff;
+  background: #ffffff;
 }
 
 *::-webkit-scrollbar-thumb {
-	background-color: #8407a6;
-	border-radius: 10px;
-	border: 3px solid #ffffff;
+  background-color: #8407a6;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
 }
 
 html,
 body {
-	height: 100%;
+  height: 100%;
 }
 body {
-	margin: 0;
-	font-family: 'Roboto', 'Helvetica Neue';
+  margin: 0;
+  font-family: "Roboto", "Helvetica Neue";
 }
 
 .bstyle {
-	border-style: dotted;
+  border-style: dotted;
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Roboto', 'Helvetica Neue';
-	box-sizing: border-box !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", "Helvetica Neue";
+  box-sizing: border-box !important;
 }
 
 .d-none {
-	display: none !important;
+  display: none !important;
 }
 
 .d-flex {
-	display: flex;
+  display: flex;
 }
 
 .align-center {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .flex-column {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .ml-12 {
-	margin-left: 12px;
+  margin-left: 12px;
 }
 
 .mr-12 {
-	margin-right: 12px;
+  margin-right: 12px;
 }
 
 .mb-12 {
-	margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 button {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .text-center {
-	text-align: center;
+  text-align: center;
 }
 
 .header-height {
-	height: 65px !important;
+  height: 65px !important;
 }
 
 .border {
-	border: 1px solid $border-clr-texteditor;
+  border: 1px solid $border-clr-texteditor;
 }
 
 .flex-row {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .position-relative {
-	position: relative;
+  position: relative;
 }
 
 .editor-btn {
-	position: absolute !important;
-	bottom: 0;
-	right: 0;
+  position: absolute !important;
+  bottom: 0;
+  right: 0;
 }
 
 .ngx-editor {
-	height: 150px !important;
+  height: 150px !important;
 }
 
 html,
 body {
-	height: 100%;
+  height: 100%;
 }
 body {
-	margin: 0;
-	font-family: 'Roboto', 'Helvetica Neue';
-	overflow-x: hidden;
+  margin: 0;
+  font-family: "Roboto", "Helvetica Neue";
+  overflow-x: hidden;
 }
 
 //Editor
 ngx-editor {
-	display: block;
-	overflow-y: scroll !important;
-	height: 110px !important;
+  display: block;
+  overflow-y: scroll !important;
+  height: 110px !important;
 }

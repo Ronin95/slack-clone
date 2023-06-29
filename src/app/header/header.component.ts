@@ -22,8 +22,10 @@ export class HeaderComponent implements OnInit {
 	}
 
 	openUserDialog(): void {
+		const screenWidth = window.innerWidth;
+		const dialogWidth = (screenWidth >= 500) ? '250px' : '200px';
 		this.dialog.open(DialogUserInfoComponent, {
-			width: '250px',
+			width: dialogWidth,
 			position: { right: '10px', top: '45px' },
 		});
 	}

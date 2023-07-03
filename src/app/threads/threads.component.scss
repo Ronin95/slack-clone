@@ -1,3 +1,31 @@
+* {
+  overflow-x: hidden;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+.messages-for-thread {
+  scrollbar-width: auto;
+  scrollbar-color: #8407a6 #ffffff;
+  overflow-y: auto;
+  height: 500px; /* Adjust this value to fit your layout */
+}
+
+/* Chrome, Edge, and Safari */
+.messages-for-thread::-webkit-scrollbar {
+  width: 12px;
+}
+
+.messages-for-thread::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.messages-for-thread::-webkit-scrollbar-thumb {
+  background-color: #8407a6;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
+
 .thread-container {
   display: flex;
   justify-content: center;

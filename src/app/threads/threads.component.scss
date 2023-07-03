@@ -26,11 +26,19 @@
   border: 3px solid #ffffff;
 }
 
+.thread-toolbar {
+  position: relative;
+  bottom: 30px;
+  right: 10px;
+}
+
 .thread-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;  // this will stack the children vertically
+  height: 100%;
+  overflow: hidden;
 }
 
 .icon-thread {
@@ -57,11 +65,14 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-style: dotted;
 }
 
 .editor-style {
   padding: 5px;
   width: 100%;
+  position: relative;
+  top: 30px;
 }
 
 .thread-message-card {

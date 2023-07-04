@@ -64,6 +64,7 @@ import { PrivateChatComponent } from './private-chat/private-chat.component';
 import { CustomMenuComponent } from './custom-menu/custom-menu.component';
 import { HomeComponent } from './home/home.component';
 import { WeatherComponent } from './slack-apps/weather/weather.component';
+import { NewsComponent } from './slack-apps/news/news.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { WeatherComponent } from './slack-apps/weather/weather.component';
     CustomMenuComponent,
     HomeComponent,
     WeatherComponent,
+    NewsComponent,
   ],
   imports: [
     CommonModule,

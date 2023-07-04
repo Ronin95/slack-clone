@@ -1,0 +1,14 @@
+<div class="padding-35">
+    <h1>Top News</h1>
+    <div class="flex-wrap complete-news-container">
+        <div class="news-container" *ngFor="let data of topHeadlines">
+            <mat-card class="mt-32">
+                <mat-card-content>
+                    <img src="{{ data.urlToImage }}" alt="image">
+                    <h2>{{ data.title }}</h2>
+                    <a href="{{ data.url }}" target="_blank">Read More</a>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

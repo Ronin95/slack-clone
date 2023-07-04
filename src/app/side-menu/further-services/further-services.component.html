@@ -1,17 +1,21 @@
-<div class="dropdown ">
-  <div class="dropdown-channels " (click)="toggleChannels()">
+<div class="dropdown">
+  <div class="dropdown-channels" (click)="toggleChannels()">
     <mat-icon class="arrow-right" [class.turn]="openMenu">arrow_right</mat-icon>
     <h1>Apps</h1>
   </div>
   <!--  -->
-  <div class="dropdown-menu " [class.d-none]="!openMenu">
-    <div class="tag-channel-name-pos" >
+  <div class="dropdown-menu" [class.d-none]="!openMenu">
+    <div class="tag-channel-name-pos">
       <mat-icon class="mat-icon-style">psychology</mat-icon>
       <h2 routerLink="home/chatgpt">AI Assistant</h2>
     </div>
     <div class="tag-channel-name-pos">
       <mat-icon class="mat-icon-style">terrain</mat-icon>
       <h2 routerLink="home/weather">Weather API</h2>
+    </div>
+    <div class="tag-channel-name-pos">
+      <mat-icon class="mat-icon-style">newspaper</mat-icon>
+      <h2 routerLink="home/news">News</h2>
     </div>
   </div>
 </div>

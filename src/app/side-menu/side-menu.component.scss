@@ -33,7 +33,7 @@
   position: fixed;
   top: 5px;
   left: 0;
-  display: flex;
+  display: none;
   justify-content: flex-start;
 
   mat-icon {
@@ -46,5 +46,9 @@
     position: fixed;
     left: 0px;
     top: 45px;
+  }
+
+  .menu-btn {
+    display: flex;
   }
 }

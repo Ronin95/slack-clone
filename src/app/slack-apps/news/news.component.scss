@@ -65,3 +65,10 @@ mat-card {
     border-radius: 10px;
     border: 3px solid #ffffff;
   }
+
+  @media(max-width: 780px) {
+    .news-container {
+      max-width: 100%;
+      padding-right: 35px;
+    }
+  }

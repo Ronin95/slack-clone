@@ -1,9 +1,9 @@
 <mat-drawer-container class="side-menu border" autosize>
   <mat-drawer
     #drawer
-    class="side-menu border min-width-255"
-    mode="side"
+    class="side-menu side-menu-responsive border min-width-255"
     [opened]="true"
+    mode="side"
   >
     <app-channels></app-channels>
     <app-direct-messages></app-direct-messages>
@@ -11,6 +11,7 @@
   </mat-drawer>
 
   <button class="menu-btn" type="button" mat-button (click)="drawer.toggle()">
-    <mat-icon>menu</mat-icon>
+    <mat-icon *ngIf="!drawer.opened"> menu </mat-icon>
+    <mat-icon *ngIf="drawer.opened"> close </mat-icon>
   </button>
 </mat-drawer-container>

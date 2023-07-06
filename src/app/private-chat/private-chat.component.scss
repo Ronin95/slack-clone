@@ -190,6 +190,16 @@ mat-card-title {
   }
 }
 
+@media(max-width: 850px) {
+  .outer-container {
+    width: 100vw;
+  }
+
+  .message-container {
+    width: 100%;
+  }
+}
+
 @media(max-width: 690px) {
   .name-date-style {
     height: 60px;

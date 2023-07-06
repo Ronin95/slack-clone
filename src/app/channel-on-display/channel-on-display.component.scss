@@ -206,3 +206,9 @@ mat-card-title {
     }
   }
 }
+
+@media(max-width: 850px) {
+  .outer-container {
+    width: 100vw;
+  }
+}

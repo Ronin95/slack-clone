@@ -40,3 +40,11 @@
     color: #ffff;
   }
 }
+
+@media (max-width: 850px) {
+  .side-menu-responsive {
+    position: fixed;
+    left: 0px;
+    top: 45px;
+  }
+}

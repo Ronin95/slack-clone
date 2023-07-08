@@ -147,7 +147,16 @@ export class ThreadsService implements OnInit {
   }
 
   fetchThreadMessages() {
-    const collection = this.firestore.collectionGroup('ChannelChatThread');
+    // Retrieve IDs from local storage
+    const ids = this.retrieveFromLocalStorage();
+    if (!ids) {
+      // If ids are null, handle this scenario by returning an empty Observable array
+      return of([]);
+    }
+    let {selected_channelID, selected_messageID} = ids;
+
+    // Access the specific collection
+    const collection = this.firestore.collection('channels').doc(selected_channelID).collection('ChannelChat').doc(selected_messageID).collection('ChannelChatThread');
 
     return collection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -162,5 +171,4 @@ export class ThreadsService implements OnInit {
       }))
     );
   }
-
 }

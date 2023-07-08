@@ -8,7 +8,7 @@
   scrollbar-width: auto;
   scrollbar-color: #8407a6 #ffffff;
   overflow-y: auto;
-  height: 500px; /* Adjust this value to fit your layout */
+  height: 600px;
 }
 
 /* Chrome, Edge, and Safari */
@@ -24,12 +24,6 @@
   background-color: #8407a6;
   border-radius: 10px;
   border: 3px solid #ffffff;
-}
-
-.thread-toolbar {
-  position: relative;
-  bottom: 30px;
-  right: 10px;
 }
 
 .thread-container {
@@ -65,14 +59,11 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-style: dotted;
 }
 
 .editor-style {
   padding: 5px;
   width: 100%;
-  position: relative;
-  top: 30px;
 }
 
 .thread-message-card {

@@ -15,7 +15,7 @@ export class SideMenuComponent {
 
   ngAfterViewInit() {
     this.breakpointObserver
-      .observe([Breakpoints.Handset, Breakpoints.Tablet])
+      .observe([Breakpoints.Handset])
       .subscribe((result) => {
         if (result.matches) {
           this.drawer.mode = 'over';

@@ -30,7 +30,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;  // this will stack the children vertically
+  flex-direction: column; // this will stack the children vertically
   height: 100%;
   overflow: hidden;
 }
@@ -95,4 +95,19 @@ mat-toolbar {
 .time-stamp {
   padding-left: 10px;
   font-size: 0.8rem;
+}
+
+@media (max-width: 600px) {
+  .editor-style {
+    position: absolute;
+    bottom: 0;
+  }
+
+  .thread-container {
+    justify-content: unset;
+  }
+
+  .messages-for-thread {
+    height: calc(100vh - 260px);
+  }
 }

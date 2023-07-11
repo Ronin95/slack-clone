@@ -61,7 +61,7 @@
   padding-right: 5px; /* optional: add some space between the content and the line */
   margin-right: 5px; /* optional: add some space between the line and the thread-container */
   overflow-y: scroll;
-  height: calc(100vh - 112px);
+  height: calc(100vh - 260px);
   background-color: $bgClr-start;
   background-color: white;
   width: calc(100vw - $side-menu-width);
@@ -205,6 +205,13 @@ mat-card-title {
       background-color: lightgrey;
     }
   }
+}
+
+.text-editor {
+  position: absolute;
+  bottom: 0;
+  right: 25px;
+  left: 5px;
 }
 
 @media(max-width: 850px) {

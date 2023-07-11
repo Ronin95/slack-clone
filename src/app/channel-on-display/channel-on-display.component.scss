@@ -214,6 +214,17 @@ mat-card-title {
   left: 5px;
 }
 
+@media(max-width: 1100px) {
+  .thread-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffff;
+  }
+}
+
 @media(max-width: 600px) {
   .outer-container {
     width: 100vw;
@@ -223,14 +234,7 @@ mat-card-title {
     width: 100%;
   }
 
-  .thread-container {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #ffff;
-  }
+
 }
 
 @media(max-width: 400px) {

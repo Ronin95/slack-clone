@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
@@ -11,19 +11,20 @@ export class SideMenuComponent {
   @ViewChild('drawer')
   drawer!: MatDrawer;
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, private cdRef: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
-    this.breakpointObserver
-      .observe([Breakpoints.Handset])
+    this.breakpointObserver.observe([Breakpoints.Handset])
       .subscribe((result) => {
-        if (result.matches) {
-          this.drawer.mode = 'over';
-          this.drawer.close();
-        } else {
-          this.drawer.mode = 'side';
-          this.drawer.open();
-        }
+        setTimeout(() => {
+          if (result.matches) {
+            this.drawer.mode = 'over';
+            this.drawer.close();
+          } else {
+            this.drawer.mode = 'side';
+            this.drawer.open();
+          }
+        });
       });
   }
 }

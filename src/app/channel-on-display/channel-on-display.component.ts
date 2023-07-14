@@ -80,8 +80,18 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
 	}
 
   onChatIconClick(messageId: string) {
-    let selectedMessageID = localStorage.setItem('selected_messageID', messageId);
-    this.showThreadContainer = true;
+    const currentMessageID = localStorage.getItem("selected_messageID");
+
+    if (currentMessageID !== messageId) {
+      this.showThreadContainer = false;
+      // this line is to ensure Angular's change detection recognizes the change
+      // setTimeout would let the value change in the next JavaScript VM turn
+      setTimeout(() => {
+        this.showThreadContainer = true;
+      }, 0);
+    }
+
+    localStorage.setItem("selected_messageID", messageId);
   }
 
 	displayChannelName() {

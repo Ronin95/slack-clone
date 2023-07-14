@@ -4,6 +4,7 @@ import { DialogNewChannelComponent } from './dialog-new-channel/dialog-new-chann
 import { Firestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ChannelService } from '../../services/channel.service';
+import { ThreadsService } from '../../services/threads.service';
 
 @Component({
 	selector: 'app-channels',
@@ -23,7 +24,8 @@ export class ChannelsComponent implements OnInit {
 
 	constructor(
 		public dialog: MatDialog,
-		public channelService: ChannelService
+		public channelService: ChannelService,
+    public threadsService: ThreadsService,
 	) {}
 
 	ngOnInit() {
@@ -47,5 +49,6 @@ export class ChannelsComponent implements OnInit {
 	saveCurrentSelectedChannel(channelId: any) {
 		// save the current selected channel id to local storage
 		localStorage.setItem('selected_channelID', channelId);
+    this.threadsService.closeThread();
 	}
 }

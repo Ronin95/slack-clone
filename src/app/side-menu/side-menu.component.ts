@@ -27,4 +27,11 @@ export class SideMenuComponent {
         });
       });
   }
+
+  closeDrawer() {
+    if (window.innerWidth < 600) {
+      this.drawer.close();
+    }
+  }
+  
 }

@@ -74,7 +74,7 @@ mat-card-title {
   display: flex !important;
   flex-direction: row !important;
   padding: 18px;
-  background-color: rgb(209, 116, 116);
+  background-color: #d3d3d3;
 
   * {
     color: black;
@@ -190,7 +190,12 @@ mat-card-title {
   }
 }
 
-@media(max-width: 850px) {
+.ngx-editor {
+  margin-left: 5px;
+  margin-right: 20px;
+}
+
+@media (max-width: 850px) {
   .outer-container {
     width: 100vw;
   }
@@ -200,8 +205,20 @@ mat-card-title {
   }
 }
 
-@media(max-width: 690px) {
+@media (max-width: 690px) {
   .name-date-style {
     height: 60px;
+  }
+}
+
+@media (max-width: 400px) {
+  .message-card-main {
+    .time-stamp {
+      font-size: 0.6rem;
+    }
+
+    .author {
+      font-size: 0.9rem;
+    }
   }
 }

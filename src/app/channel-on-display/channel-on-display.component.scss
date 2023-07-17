@@ -106,7 +106,6 @@ mat-card-title {
 
   &-main {
     min-width: 280px;
-    max-width: 1000px;
 
     &-header {
       padding-top: unset;
@@ -217,16 +216,10 @@ mat-card-title {
 }
 
 .text-editor {
-  margin: 5px;
-  position: relative;
-  // bottom: 0;
-  width: 80%;
-  right: 0px;
-  // left: 5px;
-
-  .editor-btn {
-
-  }
+  position: absolute;
+  right: 25px;
+  left: 15px;
+  bottom: 0;
 }
 
 @media(max-width: 1100px) {

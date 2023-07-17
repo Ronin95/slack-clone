@@ -74,7 +74,7 @@ mat-card-title {
   display: flex !important;
   flex-direction: row !important;
   padding: 18px;
-  background-color: rgb(209, 116, 116);
+  background-color: #d3d3d3;
 
   * {
     color: black;
@@ -188,6 +188,11 @@ mat-card-title {
       background-color: lightgrey;
     }
   }
+}
+
+.ngx-editor {
+  margin-left: 5px;
+  margin-right: 20px;
 }
 
 @media (max-width: 850px) {

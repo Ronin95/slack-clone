@@ -190,7 +190,7 @@ mat-card-title {
   }
 }
 
-@media(max-width: 850px) {
+@media (max-width: 850px) {
   .outer-container {
     width: 100vw;
   }
@@ -200,8 +200,20 @@ mat-card-title {
   }
 }
 
-@media(max-width: 690px) {
+@media (max-width: 690px) {
   .name-date-style {
     height: 60px;
+  }
+}
+
+@media (max-width: 400px) {
+  .message-card-main {
+    .time-stamp {
+      font-size: 0.6rem;
+    }
+
+    .author {
+      font-size: 0.9rem;
+    }
   }
 }

@@ -41,13 +41,15 @@
   }
 }
 
-@media (max-width: 850px) {
+@media (max-width: 1300px) {
   .side-menu-responsive {
     position: fixed;
     left: 0px;
     top: 45px;
   }
+}
 
+@media (max-width: 960px) {
   .menu-btn {
     display: flex;
   }

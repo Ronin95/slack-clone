@@ -269,3 +269,26 @@ mat-card-title {
     overflow-x: hidden;
   }
 }
+
+@media(max-width: 280px) {
+  .message-container {
+    width: 300px;
+    overflow-x: hidden;
+  }
+
+  .name-date-style {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .edit-chat-delete-style {
+    position: absolute;
+    right: 0;
+    top: 15px;
+    width: unset;
+  }
+
+  .post-container {
+    padding-top: 20px;
+  }
+}

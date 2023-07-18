@@ -305,7 +305,7 @@ export class ChannelService implements OnInit {
 		return this.afs
 			.collection('channels')
 			.doc(channelId)
-			.collection('ChannelChat', (ref) => ref.orderBy('date', 'desc')) // sorting by date from oldest to newest post
+			.collection('ChannelChat', (ref) => ref.orderBy('date', 'asc')) // sorting by date from oldest to newest post
 			.snapshotChanges()
 			.pipe(
 				map((actions) =>

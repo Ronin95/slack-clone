@@ -216,10 +216,16 @@ mat-card-title {
 }
 
 .text-editor {
-  position: absolute;
-  right: 25px;
-  left: 15px;
-  bottom: 0;
+  position: relative;
+  height: 25%;
+  width: 95%;
+  padding: 10px;
+
+  .editor-btn {
+    position: absolute !important;
+    bottom: 40px;
+    right: 10px;
+  }
 }
 
 @media (max-width: 1100px) {

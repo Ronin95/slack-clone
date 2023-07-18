@@ -7,8 +7,7 @@
 	<div class="dual-container">
 		<div class="messages-editor">
 			<div class="message-container ">
-				<div [class.d-none]="!(message.message?.toLowerCase().includes(channelService.searchValue.toLowerCase())) &&
-				!((message.userName)?.displayName?.includes(channelService.searchValue.toLowerCase()))" class="msg-card-style" *ngFor="let message of messages | async">
+				<div [class.d-none]="!(message.message?.toLowerCase().includes(channelService.searchValue.toLowerCase())) &&!((message.userName)?.displayName?.includes(channelService.searchValue.toLowerCase()))" class="msg-card-style" *ngFor="let message of messages | async">
 					<mat-card class="message-card">
 						<img class="message-card-image" mat-card-image alt="Photo" [src]="message.userPhotoURL || 'assets/img/blank-profile-img.png'"/>
 						<div class="message-card-main">
@@ -24,9 +23,8 @@
 							</mat-card-title>
 	
 							<mat-card-content class="post-container">
-								<p #post class="post" [innerHTML]="channelService.sanitizeHtmlWithImageSize(message.message)"></p>
-				  				<img *ngIf="message.uploadedImgURL" src="{{ message.uploadedImgURL }}" alt="uploadedImg_name" style="width: 250px"/>
-								<br />
+								<p #post class="post post-css" [innerHTML]="channelService.sanitizeHtmlWithImageSize(message.message)"></p>
+				  				<img class="uploaded-img" *ngIf="message.uploadedImgURL" src="{{ message.uploadedImgURL }}" alt="uploadedImg_name" style="width: 250px"/>
 							</mat-card-content>
 						</div>
 					</mat-card>

@@ -6,7 +6,11 @@
 
   <div class="message-container">
     <ng-container *ngIf="messages$ | async as privateMessage">
-      <div *ngFor="let message of privateMessage"  [class.d-none]="!messageMatchesSearch(message)" class="msg-card-style">
+      <div
+        *ngFor="let message of privateMessage"
+        [class.d-none]="!messageMatchesSearch(message)"
+        class="msg-card-style"
+      >
         <ng-container *ngIf="privateMessage.length > 0; else noMessages">
           <mat-card class="message-card">
             <img
@@ -26,7 +30,9 @@
                   <span class="time-stamp">{{ message.sentDate }}</span>
                 </div>
                 <div class="edit-chat-delete-style">
-                  <mat-icon (click)="deleteMessage(message.messageId)">delete</mat-icon>
+                  <mat-icon (click)="deleteMessage(message.messageId)"
+                    >delete</mat-icon
+                  >
                 </div>
               </mat-card-title>
 
@@ -49,29 +55,31 @@
   </div>
 
   <!-- Create a formfield with the help of angular material that has a button where you can upload a image a textarea and another send button -->
-  <div class="NgxEditor__Wrapper ngx-editor position-relative">
-    <ngx-editor-menu
-      [editor]="editor"
-      [toolbar]="toolbar"
-      [customMenuRef]="customMenu"
-    ></ngx-editor-menu>
-    <ngx-editor
-      [editor]="editor"
-      [(ngModel)]="messageText"
-      [disabled]="false"
-      [placeholder]="'Insert your message...'"
-    ></ngx-editor>
-    <button class="editor-btn" mat-icon-button (click)="sendMessage()">
-      <mat-icon>send</mat-icon>
-    </button>
+  <div class="text-editor-container">
+    <div class="NgxEditor__Wrapper ngx-editor position-relative">
+      <ngx-editor-menu
+        [editor]="editor"
+        [toolbar]="toolbar"
+        [customMenuRef]="customMenu"
+      ></ngx-editor-menu>
+      <ngx-editor
+        [editor]="editor"
+        [(ngModel)]="messageText"
+        [disabled]="false"
+        [placeholder]="'Insert your message...'"
+      ></ngx-editor>
+      <button class="editor-btn" mat-icon-button (click)="sendMessage()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+    <input
+      id="fileInput"
+      type="file"
+      style="display: none"
+      (change)="channelService.onFileChange($event)"
+    />
+    <ng-template #customMenu>
+      <app-custom-menu [editor]="editor"></app-custom-menu>
+    </ng-template>
   </div>
-  <input
-    id="fileInput"
-    type="file"
-    style="display: none"
-    (change)="channelService.onFileChange($event)"
-  />
-  <ng-template #customMenu>
-    <app-custom-menu [editor]="editor"></app-custom-menu>
-  </ng-template>
 </div>

@@ -54,7 +54,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
       this.messages$ = this.chatListControlService.chatListControl.valueChanges.pipe(
         map((value) => value[0]),
         tap((chatId) => {
-          this.chatId = chatId; // Weise den Wert von chatId zu
+          this.chatId = chatId; 
         }),
         switchMap((chatId) => this.privateChatService.getChatMessages$(chatId)),
         tap(() => {

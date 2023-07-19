@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-side-menu',
@@ -11,10 +11,10 @@ export class SideMenuComponent {
   @ViewChild('drawer')
   drawer!: MatDrawer;
 
-  constructor(private breakpointObserver: BreakpointObserver, private cdRef: ChangeDetectorRef) {}
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
   ngAfterViewInit() {
-    this.breakpointObserver.observe([Breakpoints.Handset])
+        this.breakpointObserver.observe([`(max-width: 600px)`])
       .subscribe((result) => {
         setTimeout(() => {
           if (result.matches) {
@@ -33,5 +33,5 @@ export class SideMenuComponent {
       this.drawer.close();
     }
   }
-  
+
 }

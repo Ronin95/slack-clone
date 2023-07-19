@@ -63,6 +63,7 @@ export class DirectMessagesComponent implements OnInit {
     )
     .subscribe((chatId) => {
       this.chatListControlService.chatListControl.setValue([chatId]);
+      localStorage.setItem('currentChatId', chatId);
     });
   }
 

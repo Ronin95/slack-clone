@@ -43,24 +43,30 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.editor.destroy();
+    localStorage.removeItem('currentChatId');
   }
 
-  ngOnInit(): void {   
+  ngOnInit(): void {
     this.editor = new Editor();
-    this.imageInsertedSubscription =
-      this.channelService.imageInsertedSubject.subscribe((url) => {
-        this.insertImageToEditor(url);
-      });
+    this.imageInsertedSubscription = this.channelService.imageInsertedSubject.subscribe((url) => {
+      this.insertImageToEditor(url);
+    });
+
+    const storedChatId = localStorage.getItem('currentChatId');
+    if (storedChatId) {
+      this.chatListControlService.chatListControl.setValue([storedChatId]);
+      this.chatId = storedChatId;
+      this.messages$ = this.privateChatService.getChatMessages$(storedChatId);
+    } else {
       this.messages$ = this.chatListControlService.chatListControl.valueChanges.pipe(
         map((value) => value[0]),
         tap((chatId) => {
-          this.chatId = chatId; 
+          this.chatId = chatId;
         }),
         switchMap((chatId) => this.privateChatService.getChatMessages$(chatId)),
-        tap(() => {
-
-        })
+        tap(() => {})
       );
+    }
   }
 
   sendMessage() {

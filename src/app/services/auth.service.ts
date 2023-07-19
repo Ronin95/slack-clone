@@ -72,7 +72,20 @@ export class AuthService {
 		});
 	}
 
-	// Sign in with email/password
+ /**
+  * The `SignIn(email: string, password: string)` method is used to sign in a user with their email and password. It uses
+  * the `signInWithEmailAndPassword` method from `AngularFireAuth` to authenticate the user. If the sign-in is successful,
+  * it calls the `SetUserData` method to save the user data and navigates to the home page. If there is an error during
+  * sign-in, it sets the `errorLogin` flag to true and displays an error message using the `loginErrorMsg` method.
+  * 
+  * @method
+  * @name SignIn
+  * @kind method
+  * @memberof AuthService
+  * @param {string} email
+  * @param {string} password
+  * @returns {Promise<void>}
+  */
 	SignIn(email: string, password: string) {
 		return this.afAuth
 			.signInWithEmailAndPassword(email, password)
@@ -92,6 +105,18 @@ export class AuthService {
 			});
 	}
 
+ /**
+  * The `guestLogin()` method is used to sign in a user as a guest. It calls the `signInAnonymously()` method from
+  * `AngularFireAuth` to authenticate the user. If the sign-in is successful, it calls the `SetUserData` method to save the
+  * user data and navigates to the home page. If there is an error during sign-in, it displays an error message using
+  * `window.alert()`.
+  * 
+  * @method
+  * @name guestLogin
+  * @kind method
+  * @memberof AuthService
+  * @returns {Promise<void>}
+  */
 	guestLogin() {
 		return this.afAuth
 			.signInAnonymously()
@@ -108,7 +133,22 @@ export class AuthService {
 			});
 	}
 
-	// Sign up with email/password
+ /**
+  * The `SignUp` method is used to create a new user account with the provided email, password, and display name. It uses
+  * the `createUserWithEmailAndPassword` method from `AngularFireAuth` to create the user account. If the account creation
+  * is successful, it calls the `SendVerificationMail` method to send a verification email to the user. It also sets the
+  * display name of the user and saves the user data using the `SetUserData` method. Finally, it navigates to the home page.
+  * If there is an error during the account creation, it sets the `errorMsgRegister` variable to display an error message.
+  * 
+  * @method
+  * @name SignUp
+  * @kind method
+  * @memberof AuthService
+  * @param {string} email
+  * @param {string} password
+  * @param {string} displayName
+  * @returns {Promise<void>}
+  */
 	SignUp(email: string, password: string, displayName: string) {
 		return this.afAuth
 			.createUserWithEmailAndPassword(email, password)
@@ -133,12 +173,33 @@ export class AuthService {
 			});
 	}
 
-	// Send email verfificaiton when new user sign up
+ /**
+  * The `SendVerificationMail()` method is used to send a verification email to the user after they have signed up for a new
+  * account. It calls the `sendEmailVerification()` method from `AngularFireAuth` to send the email.
+  * 
+  * @method
+  * @name SendVerificationMail
+  * @kind method
+  * @memberof AuthService
+  * @returns {Promise<any>}
+  */
 	SendVerificationMail() {
 		return this.afAuth.currentUser.then((u: any) => u.sendEmailVerification());
 	}
 
-	// Reset password
+ /**
+  * The `ForgotPassword(passwordResetEmail: string)` method is used to send a password reset email to the user. It takes the
+  * user's email address as a parameter and calls the `sendPasswordResetEmail()` method from `AngularFireAuth` to send the
+  * email. If the email is sent successfully, it displays a success message. If there is an error, it displays the error
+  * message using `window.alert()`.
+  * 
+  * @method
+  * @name ForgotPassword
+  * @kind method
+  * @memberof AuthService
+  * @param {string} passwordResetEmail
+  * @returns {Promise<void>}
+  */
 	ForgotPassword(passwordResetEmail: string) {
 		return this.afAuth
 			.sendPasswordResetEmail(passwordResetEmail)
@@ -154,19 +215,6 @@ export class AuthService {
 	get isLoggedIn(): boolean {
 		const user = JSON.parse(localStorage.getItem('user')!);
 		return user !== null && user.emailVerified !== false ? true : false;
-	}
-
-	// Auth logic to run auth providers
-	AuthLogin(provider: any) {
-		return this.afAuth
-			.signInWithPopup(provider)
-			.then((result) => {
-				this.router.navigate(['dashboard']);
-				this.SetUserData(result.user);
-			})
-			.catch((error) => {
-				window.alert(error);
-			});
 	}
 
 	/* Setting up user data when sign in with username/password,
@@ -186,7 +234,17 @@ export class AuthService {
 		});
 	}
 
-	// Sign out
+ /**
+  * The `SignOut()` method is used to sign out the currently logged-in user. It calls the `signOut()` method from
+  * `AngularFireAuth` to sign out the user. After signing out, it removes the user data from the local storage and navigates
+  * to the home page.
+  * 
+  * @method
+  * @name SignOut
+  * @kind method
+  * @memberof AuthService
+  * @returns {Promise<void>}
+  */
 	SignOut() {
 		return this.afAuth.signOut().then(() => {
 			localStorage.removeItem('user');
@@ -194,7 +252,20 @@ export class AuthService {
 		});
 	}
 
-	//error msg if email or password is invalid
+ /**
+  * The `loginErrorMsg` method is used to display an error message dialog when there is an error during the sign-in process.
+  * It takes two parameters: `enterAnimationDuration` and `exitAnimationDuration`, both of type string. These parameters are
+  * used to control the animation duration when the error message dialog enters and exits the screen. The method opens a
+  * dialog using the `MatDialog` service and passes the animation durations as options.
+  * 
+  * @method
+  * @name loginErrorMsg
+  * @kind method
+  * @memberof AuthService
+  * @param {string} enterAnimationDuration
+  * @param {string} exitAnimationDuration
+  * @returns {void}
+  */
 	loginErrorMsg(enterAnimationDuration: string, exitAnimationDuration: string): void {
 		this.dialog.open(DialogErrorLoginComponent, {
 			enterAnimationDuration,
@@ -202,6 +273,18 @@ export class AuthService {
 		});
 	}
 
+ /**
+  * The `authenticateUserGetImg()` method is used to authenticate the user and retrieve their profile image. It subscribes
+  * to the `user` observable from `afAuth` (AngularFireAuth) and retrieves the user's data from Firestore using the `uid`
+  * obtained from the user object. It then sets the `uid` and `photoURL` properties of the AuthService class based on the
+  * retrieved data.
+  * 
+  * @method
+  * @name authenticateUserGetImg
+  * @kind method
+  * @memberof AuthService
+  * @returns {void}
+  */
 	authenticateUserGetImg() {
 		this.afAuth.user.subscribe((user) => {
 			if (user) {

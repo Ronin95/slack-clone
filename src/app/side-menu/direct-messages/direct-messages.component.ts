@@ -49,6 +49,17 @@ export class DirectMessagesComponent implements OnInit {
       );
   }
 
+  /**
+   * The `createChat(user: User)` method is a function that is called when a user wants to create a new private chat with
+   * another user.
+   * 
+   * @method
+   * @name createChat
+   * @kind method
+   * @memberof DirectMessagesComponent
+   * @param {User} user
+   * @returns {void}
+   */
   createChat(user: User) {
     this.privateChatService
     .isExistingChat(user.uid)
@@ -67,6 +78,16 @@ export class DirectMessagesComponent implements OnInit {
     });
   }
 
+  /**
+   * The `toggleDirectMessages()` method is a function that toggles the visibility of the direct messages menu. It sets the
+   * value of the `openMenu` property to the opposite of its current value, effectively hiding or showing the menu.
+   * 
+   * @method
+   * @name toggleDirectMessages
+   * @kind method
+   * @memberof DirectMessagesComponent
+   * @returns {void}
+   */
   toggleDirectMessages() {
     this.openMenu = !this.openMenu;
   }

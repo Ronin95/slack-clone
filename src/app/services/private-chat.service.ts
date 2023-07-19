@@ -56,6 +56,18 @@ export class PrivateChatService {
     );
   }
 
+  /**
+   * The `createChat` method in the `PrivateChatService` class is used to create a new private chat between the current user
+   * and another user. It takes an `otherUser` parameter of type `User`, which represents the other user involved in the
+   * chat.
+   * 
+   * @method
+   * @name createChat
+   * @kind method
+   * @memberof PrivateChatService
+   * @param {User} otherUser
+   * @returns {Observable<string>}
+   */
   createChat(otherUser: User): Observable<string> {
     const ref = collection(this.firestore, 'chats');
     return this.userService.currentUserProfile$.pipe(
@@ -79,6 +91,18 @@ export class PrivateChatService {
     );
   }
 
+  /**
+   * The `isExistingChat` method in the `PrivateChatService` class is used to check if there is an existing chat between the
+   * current user and another user. It takes an `otherUserId` parameter of type `string`, which represents the ID of the
+   * other user.
+   * 
+   * @method
+   * @name isExistingChat
+   * @kind method
+   * @memberof PrivateChatService
+   * @param {string} otherUserId
+   * @returns {Observable<string | null>}
+   */
   isExistingChat(otherUserId: string): Observable<string | null> {
     return this.myChats$.pipe(
       take(1),
@@ -94,6 +118,19 @@ export class PrivateChatService {
     );
   }
 
+  /**
+   * The `addChatMessage` method in the `PrivateChatService` class is used to add a new message to a specific private chat.
+   * It takes two parameters: `chatId` of type `string`, which represents the ID of the chat, and `message` of type `string`,
+   * which represents the content of the message.
+   * 
+   * @method
+   * @name addChatMessage
+   * @kind method
+   * @memberof PrivateChatService
+   * @param {string} chatId
+   * @param {string} message
+   * @returns {Observable<any>}
+   */
   addChatMessage(chatId: string, message: string): Observable<any> {
     const ref = this.afs.collection('chats').doc(chatId).collection('messages');
     const date = new Date();
@@ -114,6 +151,21 @@ export class PrivateChatService {
     );
   }
 
+  /**
+   * The `deleteChatMessage` method in the `PrivateChatService` class is an asynchronous method that is used to delete a
+   * specific chat message from a private chat. It takes two parameters: `messageId` of type `string`, which represents the
+   * ID of the message to be deleted, and `chatId` of type `string`, which represents the ID of the chat where the message
+   * belongs.
+   * 
+   * @async
+   * @method
+   * @name deleteChatMessage
+   * @kind method
+   * @memberof PrivateChatService
+   * @param {string} messageId
+   * @param {string} chatId
+   * @returns {Promise<void>}
+   */
   async deleteChatMessage(messageId: string, chatId: string) {
     const sfRef = this.afs
       .collection('chats')
@@ -123,12 +175,29 @@ export class PrivateChatService {
     await sfRef.delete();
   }
 
+  /**
+   * The `getChatMessages$` method in the `PrivateChatService` class is used to retrieve the messages of a specific private
+   * chat. It takes a `chatId` parameter of type `string`, which represents the ID of the chat.
+   * 
+   */
   getChatMessages$(chatId: string): Observable<privateMessage[]> {
     const ref = collection(this.firestore, 'chats', chatId, 'messages');
     const queryAll = query(ref, orderBy('sentDate', 'asc'));
     return collectionData(queryAll) as Observable<privateMessage[]>;
   }
 
+  /**
+   * The `addChatNameAndPic(` method in the `PrivateChatService` class is used to add the chat name and profile picture to
+   * each private chat object in the `chats` array.
+   * 
+   * @method
+   * @name addChatNameAndPic
+   * @kind method
+   * @memberof PrivateChatService
+   * @param {string | undefined} currentUserId
+   * @param {PrivateChat[]} chats
+   * @returns {PrivateChat[]}
+   */
   addChatNameAndPic(
     currentUserId: string | undefined,
     chats: PrivateChat[]

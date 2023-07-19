@@ -38,6 +38,17 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
+  /**
+   * The `sendMessage()` method is responsible for sending a message to the Firebase database. It first checks if the
+   * `messageText` variable is not empty. If it is not empty, it calls the `saveMessageToFirebase()` method from the
+   * `channelService` to save the message to Firebase. After that, it resets the `messageText` variable to an empty string.
+   * 
+   * @method
+   * @name sendMessage
+   * @kind method
+   * @memberof ChannelOnDisplayComponent
+   * @returns {void}
+   */
   sendMessage() {
     if (this.messageText) {
       this.channelService.saveMessageToFirebase(this.messageText);
@@ -80,6 +91,19 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * The `insertImageToEditor(url: string)` method is responsible for inserting an image into the editor. It takes a `url`
+   * parameter, which is the URL of the image to be inserted. Inside the method, it appends an HTML `<img>` tag with the
+   * `src` attribute set to the provided `url` to the `messageText` variable. This allows the image to be displayed in the
+   * editor when the message is sent.
+   * 
+   * @method
+   * @name insertImageToEditor
+   * @kind method
+   * @memberof ChannelOnDisplayComponent
+   * @param {string} url
+   * @returns {void}
+   */
   insertImageToEditor(url: string) {
     this.messageText += `<img src="${url}" alt="Uploaded Image">`;
   }
@@ -99,6 +123,19 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     localStorage.setItem("selected_messageID", messageId);
   }
 
+  /**
+   * The `displayChannelName()` method is responsible for retrieving the channel name from the Firebase database and
+   * assigning it to the `channelName` variable in the component. It uses the `route.paramMap` to get the `id` parameter from
+   * the URL, which represents the channel ID. Then, it uses the `AngularFirestore` service to fetch the channel document
+   * from the `channels` collection in Firebase based on the `id`. Once the channel document is retrieved, it extracts the
+   * `channelName` field from the document and assigns it to the `channelName` variable in the component.
+   * 
+   * @method
+   * @name displayChannelName
+   * @kind method
+   * @memberof ChannelOnDisplayComponent
+   * @returns {void}
+   */
   displayChannelName() {
     this.route.paramMap
       .pipe(
@@ -118,6 +155,19 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * The `displayChannelNameAndID()` method is a promise-based method that retrieves the channel name and ID from the
+   * Firebase database. It uses the `route.paramMap` to get the `id` parameter from the URL, which represents the channel ID.
+   * Then, it uses the `AngularFirestore` service to fetch the channel document from the `channels` collection in Firebase
+   * based on the `id`. Once the channel document is retrieved, it extracts the `channelName` and `channelId` fields from the
+   * document and returns them as a resolved promise.
+   * 
+   * @method
+   * @name displayChannelNameAndID
+   * @kind method
+   * @memberof ChannelOnDisplayComponent
+   * @returns {Promise<{ channelName: string; channelId: string; }>}
+   */
   displayChannelNameAndID(): Promise<{
     channelName: string;
     channelId: string;

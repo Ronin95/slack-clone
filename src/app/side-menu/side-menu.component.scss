@@ -69,14 +69,12 @@
   }
 }
 
-@media (max-width: 960px) {
-  .menu-btn {
-    display: flex;
-  }
-}
-
 @media(max-width: 600px) {
   .side-menu {
     max-width: unset;
+  }
+
+  .menu-btn {
+    display: flex;
   }
 }

@@ -7,13 +7,14 @@
   <div class="bstyle ai-user-field">
     <div *ngFor="let message of messages" class="gpt-messages">
       <div class="user-box ">
-        <!-- <img [src]="channelService.photoURL" alt="user-img"> -->
-        <p class="user-style" *ngIf="message.role === 'user'">Me: {{ message.content }}</p>
+        <img *ngIf="message.includesImage && buttonClicked" [src]="authService.photoURL" alt="user-img" >
+        <p class="user-style" *ngIf="message.role === 'user'">{{ message.content }}</p>
       </div>    
       <div class="ai-box">
-        <p class="response-style" *ngIf="message.role === 'assistant'">AI: {{ message.content }}</p>
+        <mat-icon class="mat-icon-style" *ngIf="message.role === 'assistant'">psychology</mat-icon>
+        <p class="response-style" *ngIf="message.role === 'assistant'">GPT Model: {{ message.content }}</p>
       </div>
-    </div>
+    </div>        
     <div class="input-style ">
       <input type="text" [(ngModel)]="inputText" placeholder="Place your concerns..." />
       <button class="send-btn" ><mat-icon (click)="callOpenAiApi(inputText)">send</mat-icon></button>

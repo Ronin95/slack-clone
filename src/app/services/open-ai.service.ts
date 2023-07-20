@@ -23,7 +23,7 @@ export class OpenAiService {
     const oneDayAgo = now - 24 * 60 * 60 * 1000;
 
     if (apiCallData.timestamp && apiCallData.timestamp > oneDayAgo) {
-      if (apiCallData.count >= 55) {
+      if (apiCallData.count >= 255) {
         return throwError('You have exceeded the maximum number of API calls within 24 hours.');
       } else {
         apiCallData.count += 1;
@@ -43,7 +43,7 @@ export class OpenAiService {
     const requestPayload: CreateChatCompletionRequest = {
       model: "gpt-3.5-turbo",
       messages: messages,
-      max_tokens: 256
+      max_tokens: 100
     };
 
     return from(this.openai.createChatCompletion(requestPayload)).pipe(

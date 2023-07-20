@@ -28,24 +28,47 @@ input {
   padding: 10px;
 }
 
-.user-style,
-.response-style {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50vw;
-  word-wrap: break-word;
-}
 .user-box {
-  
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 30px;
+
+  img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
 
   .user-style {
     color: blue;
+    border: 2px solid lightgrey;
+    border-radius: 10px;
+    padding: 25px 25px;
   }
 }
 
-.response-style {
-  color: red;
+.ai-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 30px;
+
+  mat-icon {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+
+  .response-style {
+    color: red;
+    border: 2px solid lightgrey;
+    border-radius: 10px;
+    padding: 25px 25px;
+  }
 }
 
 .send-btn {

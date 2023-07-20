@@ -1,19 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OpenAiService } from '../../services/open-ai.service';
+import { ChannelService } from '../../services/channel.service';
 
 @Component({
   selector: 'app-chatgpt',
   templateUrl: './chatgpt.component.html',
   styleUrls: ['./chatgpt.component.scss']
 })
-export class ChatgptComponent {
+export class ChatgptComponent implements OnInit {
   messages: { role: string, content: string }[] = [];
   inputText: string = "";
   error: string | undefined;
+  
 
-  constructor(private openaiservice: OpenAiService) {
+  constructor(private openaiservice: OpenAiService, public channelService: ChannelService) {
     this.messages.push({role: 'system', content: 'You are a helpful assistant.'});
-  } // Inject your service
+  }
+  
+  ngOnInit() { }
 
   callOpenAiApi(text: string) {
     console.log('callOpenAiApi function has been called with text:', text);

@@ -2,14 +2,19 @@
   <div>
     <h1>Hello I am your personal SlackCloneAI assistant.</h1>
     <h3>If you need any help, with anything, I will give my best to help you out.</h3>
-    <h5>(You can try this function 5 times per 24h)</h5>
+    <h5>(You can try this function 10 times per 24h)</h5>
   </div>
-  <div>
-    <div *ngFor="let message of messages">
-      <p class="user-style" *ngIf="message.role === 'user'">You: {{ message.content }}</p>
-      <p class="response-style" *ngIf="message.role === 'assistant'">AI: {{ message.content }}</p>
+  <div class="bstyle ai-user-field">
+    <div *ngFor="let message of messages" class="gpt-messages">
+      <div class="user-box ">
+        <!-- <img [src]="channelService.photoURL" alt="user-img"> -->
+        <p class="user-style" *ngIf="message.role === 'user'">Me: {{ message.content }}</p>
+      </div>    
+      <div class="ai-box">
+        <p class="response-style" *ngIf="message.role === 'assistant'">AI: {{ message.content }}</p>
+      </div>
     </div>
-    <div class="input-style">
+    <div class="input-style ">
       <input type="text" [(ngModel)]="inputText" placeholder="Place your concerns..." />
       <button class="send-btn" ><mat-icon (click)="callOpenAiApi(inputText)">send</mat-icon></button>
     </div>

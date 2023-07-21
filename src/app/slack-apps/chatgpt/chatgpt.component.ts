@@ -21,6 +21,17 @@ export class ChatgptComponent implements OnInit {
   
   ngOnInit() { }
 
+  /**
+   * The `callOpenAiApi(text: string)` method is a function that is called when the user wants to send a message to the
+   * OpenAI API. It takes a `text` parameter, which is the message text entered by the user.
+   * 
+   * @method
+   * @name callOpenAiApi
+   * @kind method
+   * @memberof ChatgptComponent
+   * @param {string} text
+   * @returns {void}
+   */
   callOpenAiApi(text: string) {
     this.isLoading = true;
     this.buttonClicked = true;

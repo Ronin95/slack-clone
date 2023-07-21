@@ -13,10 +13,28 @@ export class WelcomeScreenComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * The `openLogin()` method is responsible for opening a dialog box that displays the LoginComponent.
+   * 
+   * @method
+   * @name openLogin
+   * @kind method
+   * @memberof WelcomeScreenComponent
+   * @returns {void}
+   */
   openLogin() {
     this.dialog.open(LoginComponent);
   }
 
+  /**
+   * The `openSignUp()` method is responsible for opening a dialog box that displays the RegisterComponent.
+   * 
+   * @method
+   * @name openSignUp
+   * @kind method
+   * @memberof WelcomeScreenComponent
+   * @returns {void}
+   */
   openSignUp() {
     this.dialog.open(RegisterComponent);
   }

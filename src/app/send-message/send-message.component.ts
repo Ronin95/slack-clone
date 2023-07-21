@@ -18,8 +18,17 @@ export class SendMessageComponent implements OnInit {
 		// Assign the resolved value to the property
 	}
 
-	// console.log(this.user$);
-
+ /**
+  * The `async ngOnInit(): Promise<void>` method is the initialization method of the `SendMessageComponent` class. It is
+  * marked as `async` because it contains asynchronous operations.
+  * 
+  * @async
+  * @method
+  * @name ngOnInit
+  * @kind method
+  * @memberof SendMessageComponent
+  * @returns {Promise<void>}
+  */
 	async ngOnInit(): Promise<void> {
 		this.usersService.currentUserProfile$.subscribe((user) => {
 			this.loggedInUser = user;

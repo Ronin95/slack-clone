@@ -35,6 +35,16 @@ export class RegisterComponent {
     });
   }
 
+  /**
+   * The `closeDialog()` method is a function defined in the `RegisterComponent` class. It is used to close the dialog box
+   * and open the `VerifyEmailComponent` dialog if there is no error message during the registration process.
+   * 
+   * @method
+   * @name closeDialog
+   * @kind method
+   * @memberof RegisterComponent
+   * @returns {void}
+   */
   closeDialog() {
     if (!this.authService.errorMsgRegister) {
       this.dialogRef.close();

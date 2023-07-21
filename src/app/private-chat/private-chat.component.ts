@@ -41,11 +41,35 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
     this.displayUserName();
   }
 
+  /**
+   * The `ngOnDestroy()` method is a lifecycle hook in Angular that is called just before the component is destroyed. In this
+   * specific component, the `ngOnDestroy()` method is used to perform cleanup tasks and unsubscribe from any subscriptions
+   * or event listeners to prevent memory leaks.
+   * 
+   * @method
+   * @name ngOnDestroy
+   * @kind method
+   * @memberof PrivateChatComponent
+   * @returns {void}
+   */
   ngOnDestroy(): void {
     this.editor.destroy();
     localStorage.removeItem('currentChatId');
   }
 
+  /**
+   * The `ngOnInit()` method is a lifecycle hook in Angular that is called after the component has been initialized. In this
+   * specific component, the `ngOnInit()` method is used to perform initialization tasks such as creating an instance of the
+   * `Editor` class, subscribing to the `imageInsertedSubject` observable from the `channelService`, and retrieving chat
+   * messages based on the selected chat ID. It also checks if there is a stored chat ID in the local storage and sets the
+   * `chatListControl` value accordingly.
+   * 
+   * @method
+   * @name ngOnInit
+   * @kind method
+   * @memberof PrivateChatComponent
+   * @returns {void}
+   */
   ngOnInit(): void {
     this.editor = new Editor();
     this.imageInsertedSubscription = this.channelService.imageInsertedSubject.subscribe((url) => {
@@ -69,6 +93,18 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * The `sendMessage()` method is responsible for sending a chat message. It retrieves the message text from the
+   * `messageText` property and the selected chat ID from the `chatListControl` property. If both the message text and chat
+   * ID are available, it calls the `addChatMessage()` method of the `privateChatService` to add the chat message to the
+   * selected chat. After sending the message, it clears the `messageText` property.
+   * 
+   * @method
+   * @name sendMessage
+   * @kind method
+   * @memberof PrivateChatComponent
+   * @returns {void}
+   */
   sendMessage() {
     const message = this.messageText;
     const selectedChatId = this.chatListControlService.chatListControl.value[0];
@@ -81,14 +117,49 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * The `async deleteMessage(messageId: string)` method is responsible for deleting a chat message. It takes a `messageId`
+   * parameter, which is the ID of the message to be deleted.
+   * 
+   * @async
+   * @method
+   * @name deleteMessage
+   * @kind method
+   * @memberof PrivateChatComponent
+   * @param {string} messageId
+   * @returns {Promise<void>}
+   */
   async deleteMessage(messageId: string) {
     await this.privateChatService.deleteChatMessage(messageId, this.chatId);
   }
 
+  /**
+   * The `insertImageToEditor(url: string)` method is responsible for inserting an image into the editor. It takes a `url`
+   * parameter, which is the URL of the image to be inserted. Inside the method, it appends an HTML `<img>` tag with the
+   * provided URL to the `messageText` property. This allows the image to be displayed in the editor when the message is
+   * sent.
+   * 
+   * @method
+   * @name insertImageToEditor
+   * @kind method
+   * @memberof PrivateChatComponent
+   * @param {string} url
+   * @returns {void}
+   */
   insertImageToEditor(url: string) {
     this.messageText += `<img src="${url}" alt="Uploaded Image">`;
   }
 
+  /**
+   * The `displayUserName()` method is responsible for retrieving the display name of a user based on the user ID provided in
+   * the route parameters.
+   * 
+   * @method
+   * @name displayUserName
+   * @kind method
+   * @memberof PrivateChatComponent
+   * @returns {void}
+   */
   displayUserName() {
     this.route.paramMap
       .pipe(
@@ -108,6 +179,18 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * The `messageMatchesSearch(message: any): boolean` method is a helper method that checks if a chat message matches the
+   * search value entered by the user. It takes a `message` parameter, which represents a chat message object, and returns a
+   * boolean value indicating whether the message matches the search value.
+   * 
+   * @method
+   * @name messageMatchesSearch
+   * @kind method
+   * @memberof PrivateChatComponent
+   * @param {any} message
+   * @returns {boolean}
+   */
   messageMatchesSearch(message: any): boolean {
     const searchValue = this.channelService.searchValue.toLowerCase();
     return (

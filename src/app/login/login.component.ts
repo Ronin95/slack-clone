@@ -12,8 +12,7 @@ import { DialogErrorLoginComponent } from '../dialog-error-login/dialog-error-lo
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
-
-  // , public authService: AuthService
+  
   constructor(
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
@@ -25,6 +24,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /**
+   * The `openDialogForgotPassword()` method is responsible for opening a dialog box for the "Forgot Password" functionality.
+   * When called, it opens the `ForgotPasswordComponent` dialog using the `MatDialog` service.
+   * 
+   * @method
+   * @name openDialogForgotPassword
+   * @kind method
+   * @memberof LoginComponent
+   * @returns {void}
+   */
   openDialogForgotPassword() {
     this.dialog.open(ForgotPasswordComponent)
   }

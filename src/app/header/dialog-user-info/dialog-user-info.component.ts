@@ -25,6 +25,16 @@ export class DialogUserInfoComponent implements OnInit{
     private firestore: AngularFirestore,
   ) { }
 
+  /**
+   * The `ngOnInit()` method is a lifecycle hook in Angular that is called after the component has been initialized. In this
+   * code, the `ngOnInit()` method is used to perform some initialization tasks when the component is created.
+   * 
+   * @method
+   * @name ngOnInit
+   * @kind method
+   * @memberof DialogUserInfoComponent
+   * @returns {void}
+   */
   ngOnInit() {
     if (this.authService.userData) {
       this.uid = this.authService.userData.uid;
@@ -32,6 +42,17 @@ export class DialogUserInfoComponent implements OnInit{
     this.getOnlineStatus();
   }
 
+  /**
+   * The `getOnlineStatus()` method is retrieving the online status of the user from the Firestore database. It subscribes to
+   * the `valueChanges()` method of the Firestore document `users/${this.uid}` and updates the `selectedStatus` property with
+   * the retrieved status value.
+   * 
+   * @method
+   * @name getOnlineStatus
+   * @kind method
+   * @memberof DialogUserInfoComponent
+   * @returns {void}
+   */
   getOnlineStatus() {
     this.firestore
       .doc(`users/${this.uid}`)
@@ -43,10 +64,32 @@ export class DialogUserInfoComponent implements OnInit{
       });
   }
 
+  /**
+   * The `toggleDropdown()` method is used to toggle the state of the `dropdownOpen` property. When called, it will invert
+   * the value of `dropdownOpen`, which means if `dropdownOpen` is `true`, it will become `false`, and if `dropdownOpen` is
+   * `false`, it will become `true`. This method is typically used to show or hide a dropdown menu in the user interface.
+   * 
+   * @method
+   * @name toggleDropdown
+   * @kind method
+   * @memberof DialogUserInfoComponent
+   * @returns {void}
+   */
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
+  /**
+   * The `selectStatus(status: string)` method is used to update the selected status of the user in the Firestore database.
+   * It takes a `status` parameter of type string, which represents the selected status value.
+   * 
+   * @method
+   * @name selectStatus
+   * @kind method
+   * @memberof DialogUserInfoComponent
+   * @param {string} status
+   * @returns {void}
+   */
   selectStatus(status: string) {
     this.selectedStatus = status;
     this.dropdownOpen = true;
@@ -54,6 +97,18 @@ export class DialogUserInfoComponent implements OnInit{
   }
 
 
+  /**
+   * The `uploadFile(event: Event, uid: string)` method is responsible for uploading a file (image) to the Firebase storage
+   * and updating the user's photoURL in the Firestore database.
+   * 
+   * @method
+   * @name uploadFile
+   * @kind method
+   * @memberof DialogUserInfoComponent
+   * @param {Event} event
+   * @param {string} uid
+   * @returns {void}
+   */
   uploadFile(event: Event, uid: string) {
     const element = event.target as HTMLInputElement;
     const file = element.files ? element.files[0] : null;

@@ -13,6 +13,16 @@ export class SideMenuComponent {
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
+  /**
+   * The `ngAfterViewInit()` method is a lifecycle hook in Angular that is called after the component's view has been
+   * initialized. In this code, it is used to observe the screen width using the `BreakpointObserver` from Angular CDK.
+   * 
+   * @method
+   * @name ngAfterViewInit
+   * @kind method
+   * @memberof SideMenuComponent
+   * @returns {void}
+   */
   ngAfterViewInit() {
         this.breakpointObserver.observe([`(max-width: 600px)`])
       .subscribe((result) => {
@@ -28,6 +38,18 @@ export class SideMenuComponent {
       });
   }
 
+  /**
+   * The `closeDrawer()` method is a function that is called when the user wants to close the side menu drawer. It checks the
+   * width of the window and if it is less than 600 pixels, it closes the drawer by calling the `close()` method on the
+   * `MatDrawer` instance. This is done to ensure that on smaller screens, the drawer is closed automatically after a menu
+   * item is selected.
+   * 
+   * @method
+   * @name closeDrawer
+   * @kind method
+   * @memberof SideMenuComponent
+   * @returns {void}
+   */
   closeDrawer() {
     if (window.innerWidth < 600) {
       this.drawer.close();

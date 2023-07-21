@@ -29,6 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Angular
 import { CommonModule } from '@angular/common';
@@ -124,6 +125,7 @@ import { NewsComponent } from './slack-apps/news/news.component';
     provideStorage(() => getStorage()),
     HttpClientModule,
     NgxEditorModule,
+    MatProgressSpinnerModule
   ],
   providers: [AuthService, OpenAiService],
   bootstrap: [AppComponent],

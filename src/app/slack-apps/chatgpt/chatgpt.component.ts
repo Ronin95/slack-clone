@@ -13,7 +13,7 @@ export class ChatgptComponent implements OnInit {
   inputText: string = "";
   error: string | undefined;
   public buttonClicked = false;
-  
+  isLoading = false;
 
   constructor(private openaiservice: OpenAiService, public channelService: ChannelService, public authService: AuthService) {
     this.messages.push({role: 'system', content: 'You are a helpful assistant.'});
@@ -22,10 +22,12 @@ export class ChatgptComponent implements OnInit {
   ngOnInit() { }
 
   callOpenAiApi(text: string) {
+    this.isLoading = true;
     this.buttonClicked = true;
     console.log('callOpenAiApi function has been called with text:', text);
     this.openaiservice.getDataFromOpenAI(text).subscribe(
       (data: string | undefined) => {
+        this.isLoading = false;
         this.error = undefined;
         if (data) {
           this.messages.push({role: 'user', content: text, includesImage: true}); // Include image with user's message
@@ -34,6 +36,7 @@ export class ChatgptComponent implements OnInit {
         }
       },
       (error) => {
+        this.isLoading = false;
         this.error = error;
       }
     );

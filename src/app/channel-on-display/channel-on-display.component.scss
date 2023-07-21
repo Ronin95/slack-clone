@@ -53,7 +53,14 @@
 }
 
 .thread-container {
-  width: 50%;
+  width: 50%; position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  background-color: #ffffff;
+  padding: 10px;
+  border-left: 1px solid black;
 }
 
 .message-container {
@@ -216,15 +223,15 @@ mat-card-title {
 }
 
 .text-editor {
-  position: relative;
-  height: 25%;
-  width: 95%;
-  padding: 10px;
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  right: 10px;
 
   .editor-btn {
     position: absolute !important;
-    bottom: 40px;
-    right: 10px;
+    bottom: 0;
+    right: 0;
   }
 }
 

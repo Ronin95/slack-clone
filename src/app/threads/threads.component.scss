@@ -8,7 +8,7 @@
   scrollbar-width: auto;
   scrollbar-color: #8407a6 #ffffff;
   overflow-y: auto;
-  height: 600px;
+  height: 430px;
 }
 
 /* Chrome, Edge, and Safari */
@@ -33,6 +33,7 @@
   flex-direction: column; // this will stack the children vertically
   height: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .icon-thread {
@@ -64,6 +65,7 @@ mat-toolbar {
 .editor-style {
   padding: 5px;
   width: 100%;
+  overflow: hidden;
 }
 
 .thread-message-card {
@@ -95,6 +97,13 @@ mat-toolbar {
 .time-stamp {
   padding-left: 10px;
   font-size: 0.8rem;
+}
+
+.editor-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
 }
 
 @media (max-width: 1100px) {

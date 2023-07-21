@@ -1,16 +1,16 @@
 <div class="chat-gpt-style">
   <div class="intro-explaination">
-    <h1>Hello I am your personal SlackCloneAI assistant.</h1>
+    <h1>Hello I am your personal SlackClone AI assistant.</h1>
     <h3>If you need any help, with anything, I will give my best to help you out.</h3>
     <h5>(You can try this function 10 times every 24h)</h5>
   </div>
   <div class=" ai-user-field full border">
-    <div *ngFor="let message of messages" class="gpt-messages ">
-      <div class="user-box">
+    <div *ngFor="let message of messages">
+      <div class="user-box ">
         <img *ngIf="message.includesImage && buttonClicked" [src]="authService.photoURL" alt="user-img" >
         <p class="user-style" *ngIf="message.role === 'user'">{{ message.content }}</p>
       </div>    
-      <div class="ai-box">
+      <div class="ai-box ">
         <mat-icon class="mat-icon-style " *ngIf="message.role === 'assistant'">psychology</mat-icon>
         <p class="response-style" *ngIf="message.role === 'assistant'">GPT Model: {{ message.content }}</p>
       </div>
@@ -22,7 +22,7 @@
       <button class="send-btn" ><mat-icon (click)="callOpenAiApi(inputText)">send</mat-icon></button>
     </div>
     <div class="spinner-container">
-      <mat-progress-spinner [diameter]="30" *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+      <mat-progress-spinner [diameter]="20" *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
     </div>    
   </div>
 </div>

@@ -8,7 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 @Component({
   selector: 'app-threads',
   templateUrl: './threads.component.html',
-  styleUrls: ['./threads.component.scss']
+  styleUrls: ['./threads.component.scss'],
 })
 export class ThreadsComponent implements OnInit {
   threadMessages: any[] = [];
@@ -28,23 +28,26 @@ export class ThreadsComponent implements OnInit {
     private route: ActivatedRoute,
     private threadsService: ThreadsService,
     public channelService: ChannelService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.threadsService.fetchThreadMessages().subscribe(messages => {
+    this.threadsService.fetchThreadMessages().subscribe((messages) => {
       this.threadMessages = messages;
       // Get the selected_messageID from local storage
       const selected_messageID = localStorage.getItem('selected_messageID');
       // If selected_messageID exists, use it to check if a thread exists
       if (selected_messageID) {
-          this.hasChannelChatThread$ = this.threadsService.checkIfChannelChatThreadExists(selected_messageID);
+        this.hasChannelChatThread$ =
+          this.threadsService.checkIfChannelChatThreadExists(
+            selected_messageID
+          );
       } else {
-          // Handle the case where selected_messageID does not exist
-          console.error('No selected message ID found in local storage');
+        // Handle the case where selected_messageID does not exist
+        console.error('No selected message ID found in local storage');
       }
     });
     this.editor = new Editor();
-    this.paramsSubscription = this.route.params.subscribe(params => {
+    this.paramsSubscription = this.route.params.subscribe((params) => {
       this.threadsService.accessSelectedMessage().subscribe((message: any) => {
         if (message) {
           this.selectedMessage = message;
@@ -67,8 +70,10 @@ export class ThreadsComponent implements OnInit {
   }
 
   sendMessageToThread() {
-    this.threadsService.sendMessageToThread(this.messageText);
-    this.messageText = '';
+    if (this.messageText) {
+      this.threadsService.sendMessageToThread(this.messageText);
+      this.messageText = '';
+    }
   }
 
   onCloseIconClick() {

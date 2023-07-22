@@ -9,7 +9,7 @@
     </div>
   </mat-toolbar>
 
-  <div class="messages-for-thread">
+  <div class="messages-for-thread bstyle">
     <div class="thread-msg-container" *ngIf="selectedMessage">
       <mat-card class="thread-card ">
         <mat-card-title class="thread-message-card">
@@ -17,7 +17,7 @@
             class="message-card-image"
             mat-card-image
             [src]="selectedMessage.userPhotoURL || '../../assets/img/blank-profile-img.png'"
-            style="width: 50px;"
+            style="width: 50px; border-radius: 5px; border: 2px solid lightgrey;"
             alt="Photo"
           />
           <div class="name-date-style">
@@ -29,7 +29,10 @@
           <mat-card-content class="post-container">
             <p>{{ selectedMessage.message }}</p>
             <br />
-            <img *ngIf="selectedMessage.uploadedImgURL" [src]="selectedMessage.uploadedImgURL" alt="random-img" style="width: 200px;">
+            <img 
+              *ngIf="selectedMessage.uploadedImgURL" 
+              [src]="selectedMessage.uploadedImgURL" 
+              alt="random-img" style="width: 200px;">
           </mat-card-content>
         </div>
       </mat-card>
@@ -42,7 +45,7 @@
               class="message-card-image"
               mat-card-image
               [src]="threadMessage.userPhotoURL || '../../assets/img/blank-profile-img.png'"
-              style="width: 50px;"
+              style="width: 50px; border-radius: 5px; border: 2px solid lightgrey;"
               alt="Photo"
             />
             <div class="name-date-style">

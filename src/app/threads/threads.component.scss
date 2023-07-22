@@ -26,9 +26,13 @@
   border: 3px solid #ffffff;
 }
 
+.messages-for-thread {
+  padding: 10px;
+}
+
 .thread-container {
   display: flex;
-  justify-content: center;
+  // justify-content: space-between;
   align-items: center;
   flex-direction: column; // this will stack the children vertically
   height: 100%;

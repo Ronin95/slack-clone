@@ -2,17 +2,6 @@
   box-sizing: border-box !important;
 }
 
-/* ===== Scrollbar CSS ===== */
-/* Firefox */
-* {
-  scrollbar-width: auto;
-}
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 0;
-}
-
 .side-menu {
   display: flex;
   flex-direction: column;
@@ -22,7 +11,7 @@
   height: calc(100vh - 45px);
   border-left: unset !important;
   border-bottom: unset !important;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .min-width-255 {
@@ -41,21 +30,21 @@
   }
 }
 
-* {
+.side-menu {
   scrollbar-width: auto;
   scrollbar-color: #8407a6 #ffffff;
 }
 
 /* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
+.side-menu::-webkit-scrollbar {
   width: 12px;
 }
 
-*::-webkit-scrollbar-track {
+.side-menu::-webkit-scrollbar-track {
   background: #ffffff;
 }
 
-*::-webkit-scrollbar-thumb {
+.side-menu::-webkit-scrollbar-thumb {
   background-color: #8407a6;
   border-radius: 10px;
   border: 3px solid #ffffff;

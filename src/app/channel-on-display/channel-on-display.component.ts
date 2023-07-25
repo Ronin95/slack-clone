@@ -6,6 +6,7 @@ import { Observable, switchMap, Subscription } from 'rxjs';
 import { Editor, Toolbar } from 'ngx-editor';
 import { SafeHtml } from '@angular/platform-browser';
 import { ThreadsService } from '../services/threads.service';
+import { Renderer2, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-channel-on-display',
@@ -35,7 +36,9 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     public channelService: ChannelService,
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2, 
+    private el: ElementRef
   ) {}
 
   /**
@@ -55,6 +58,20 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
       this.messageText = '';
     }
   }
+
+  resizeMessagesAndEditor() {
+    const messageContainer = this.el.nativeElement.querySelector('.message-container');
+    const textEditor = this.el.nativeElement.querySelector('.text-editor');
+  
+    this.renderer.setStyle(messageContainer, 'width', '42vw');
+    this.renderer.setStyle(messageContainer, 'position', 'relative');
+    this.renderer.setStyle(messageContainer, 'right', '420px');
+    this.renderer.setStyle(textEditor, 'width', '42vw');
+  }
+  
+  
+  
+  
 
   async onDeleteSelectedMessage(messageId: string) {
     await this.channelService.deleteMessageFromFirebase(messageId);

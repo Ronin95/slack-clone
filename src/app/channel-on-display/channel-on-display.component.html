@@ -6,7 +6,7 @@
 
 	<div class="dual-container">
 		<div class="messages-editor">
-			<div class="message-container ">
+			<div class="message-container">
 				<div [class.d-none]="!(message.message?.toLowerCase().includes(channelService.searchValue.toLowerCase())) &&!((message.userName)?.displayName?.includes(channelService.searchValue.toLowerCase()))" class="msg-card-style" *ngFor="let message of messages | async">
 					<mat-card class="message-card">
 						<img class="message-card-image" mat-card-image alt="Photo" [src]="message.userPhotoURL || 'assets/img/blank-profile-img.png'"/>
@@ -17,7 +17,7 @@
 									<span class="time-stamp">{{ message.date }}</span>
 								</div>
 								<div class="edit-chat-delete-style">
-									<mat-icon (click)="onChatIconClick(message.messageId)" [routerLink]="'thread/' + message.messageId">chat</mat-icon>
+									<mat-icon (click)="onChatIconClick(message.messageId); resizeMessagesAndEditor()" [routerLink]="'thread/' + message.messageId">chat</mat-icon>
 									<mat-icon (click)="onDeleteSelectedMessage(message.messageId)">delete</mat-icon>
 								</div>
 							</mat-card-title>
@@ -31,7 +31,7 @@
 				</div>
 			</div>
 			
-			<div class="text-editor ">
+			<div class="text-editor">
 				<div class="NgxEditor__Wrapper">
 					<ngx-editor-menu [editor]="editor" [toolbar]="toolbar" [customMenuRef]="customMenu"></ngx-editor-menu>
 					<ngx-editor [editor]="editor" [(ngModel)]="messageText" [disabled]="false" [placeholder]="'Insert your message...'"></ngx-editor>

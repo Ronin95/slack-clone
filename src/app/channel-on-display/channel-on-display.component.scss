@@ -49,7 +49,7 @@
   display: flex;
   justify-content: center;
   flex-direction: row;
-  align-items: stretch; /* change from center to stretch to make sure containers fill the vertical space */
+  // align-items: stretch; /* change from center to stretch to make sure containers fill the vertical space */
 }
 
 .thread-container {
@@ -63,6 +63,8 @@
 }
 
 .message-container {
+  display: flex;
+  flex-direction: column;
   padding: 5px 5px;
   overflow-y: scroll;
   height: calc(100vh - 260px);

@@ -63,6 +63,7 @@ export class ThreadsComponent implements OnInit {
     if (this.paramsSubscription) {
       this.paramsSubscription.unsubscribe();
     }
+    localStorage.removeItem('selected_messageID');
   }
 
   insertImageToEditor(url: string) {

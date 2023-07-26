@@ -91,7 +91,6 @@ mat-card-title {
 
   &-main {
     min-width: 280px;
-    max-width: 1000px;
 
     &-header {
       padding-top: unset;
@@ -172,7 +171,7 @@ mat-card-title {
 .edit-chat-delete-style {
   width: 120px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: center;
 
   mat-icon {

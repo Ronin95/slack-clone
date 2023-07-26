@@ -238,11 +238,11 @@ mat-card-title {
 }
 
 .threads-opened-card {
-  width: 490px !important;
+  width: calc(100% - 50%) !important;
 }
 
 .text-editor-thread {
-  width: 495px !important;
+  width: calc(100% - 52%) !important;
   height: 135px !important;
 }
 

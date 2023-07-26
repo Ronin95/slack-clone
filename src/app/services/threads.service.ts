@@ -1,9 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, Subject, map, of } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ChannelService } from './channel.service';
-import { Firestore, collection, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
+import { collection } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { getDocs, getFirestore } from 'firebase/firestore';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
@@ -22,9 +21,7 @@ export class ThreadsService implements OnInit {
 
   constructor(
     private firestore: AngularFirestore,
-    private sanitizer: DomSanitizer,
     private channelService: ChannelService,
-    private db: AngularFireDatabase,
   ) {}
 
   ngOnInit() {
@@ -67,7 +64,12 @@ export class ThreadsService implements OnInit {
     let {selected_channelID, selected_messageID} = ids;
 
     // Fetch the message from Firestore and return the Observable
-    return this.firestore.collection('channels').doc(selected_channelID).collection('ChannelChat').doc(selected_messageID).valueChanges()
+    return this.firestore
+      .collection('channels')
+      .doc(selected_channelID)
+      .collection('ChannelChat')
+      .doc(selected_messageID)
+      .valueChanges()
       .pipe(map(message => {
         // Check if message exists
         if (message) {

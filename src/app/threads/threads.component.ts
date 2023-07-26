@@ -37,10 +37,7 @@ export class ThreadsComponent implements OnInit {
       const selected_messageID = localStorage.getItem('selected_messageID');
       // If selected_messageID exists, use it to check if a thread exists
       if (selected_messageID) {
-        this.hasChannelChatThread$ =
-          this.threadsService.checkIfChannelChatThreadExists(
-            selected_messageID
-          );
+        this.hasChannelChatThread$ = this.threadsService.checkIfChannelChatThreadExists(selected_messageID);
       } else {
         // Handle the case where selected_messageID does not exist
         console.error('No selected message ID found in local storage');

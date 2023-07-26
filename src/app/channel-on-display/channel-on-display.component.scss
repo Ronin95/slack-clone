@@ -53,13 +53,14 @@
 }
 
 .thread-container {
-  width: 50%; position: absolute;
+  width: 50%;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   height: 100%;
   background-color: #ffffff;
-  border-left: 1px solid black;
+  border-left: 1px solid #818385;
 }
 
 .message-container {
@@ -236,6 +237,15 @@ mat-card-title {
   }
 }
 
+.threads-opened-card {
+  width: 490px !important;
+}
+
+.text-editor-thread {
+  width: 495px !important;
+  height: 135px !important;
+}
+
 @media (max-width: 1100px) {
   .thread-container {
     position: absolute;
@@ -265,7 +275,7 @@ mat-card-title {
   }
 }
 
-@media(max-width: 280px) {
+@media (max-width: 280px) {
   .message-container {
     width: 300px;
     overflow-x: hidden;
@@ -303,7 +313,6 @@ mat-card-title {
 
 // Galaxy S9+ / Nokia Lumia 520 / iPhone 4 / iPhone 5-SE /
 @media screen and (min-width: 281px) and (max-width: 320px) {
-  
   .message-container {
     width: 300px;
     overflow-x: hidden;
@@ -341,7 +350,7 @@ mat-card-title {
 
 // Pixel 4 (353px)
 // Galaxy Note 3/Note II/ S III/ S8 / Microsoft Lumia 950 / Moto G4 / Galaxy S8+ / Galaxy S5 (360px)
-@media screen and (min-width: 321px) and (max-width: 375px) {  
+@media screen and (min-width: 321px) and (max-width: 375px) {
   .message-container {
     width: 360px;
     overflow-x: hidden;

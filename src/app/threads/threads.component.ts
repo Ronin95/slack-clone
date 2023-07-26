@@ -79,5 +79,6 @@ export class ThreadsComponent implements OnInit {
 
   onCloseIconClick() {
     this.threadsService.closeThread();
+    this.channelService.isOpenThread = false;
   }
 }

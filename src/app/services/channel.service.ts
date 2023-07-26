@@ -24,6 +24,7 @@ export class ChannelService implements OnInit {
 	channelIDSource = new BehaviorSubject<string>('');
 	currentChannelID$ = this.channelIDSource.asObservable();
 	searchValue: string = '';
+	isOpenThread: boolean = false; 
 
 	constructor(
 		private afs: AngularFirestore,

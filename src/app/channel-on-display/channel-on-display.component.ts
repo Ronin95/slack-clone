@@ -68,10 +68,6 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   //   this.renderer.setStyle(messageContainer, 'right', '420px');
   //   this.renderer.setStyle(textEditor, 'width', '42vw');
   // }
-  
-  
-  
-  
 
   async onDeleteSelectedMessage(messageId: string) {
     await this.channelService.deleteMessageFromFirebase(messageId);
@@ -135,6 +131,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.showThreadContainer = true;
       }, 0);
+      this.channelService.isOpenThread = true;
     }
 
     localStorage.setItem("selected_messageID", messageId);

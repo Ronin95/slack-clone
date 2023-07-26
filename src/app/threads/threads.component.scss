@@ -49,12 +49,14 @@
   h2 {
     position: relative;
     top: 7px;
+    color: #ffff;
   }
 }
 
 .close-icon {
   position: relative;
   top: 5px;
+  color: #ffff;
 }
 
 mat-icon {
@@ -65,6 +67,9 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 72.6px;
+  background-color: #4a154b;
+  border-top: 1px solid #818385;
 }
 
 .editor-style {

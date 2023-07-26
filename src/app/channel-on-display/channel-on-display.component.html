@@ -8,7 +8,7 @@
 		<div class="messages-editor">
 			<div class="message-container">
 				<div [class.d-none]="!(message.message?.toLowerCase().includes(channelService.searchValue.toLowerCase())) &&!((message.userName)?.displayName?.includes(channelService.searchValue.toLowerCase()))" class="msg-card-style" *ngFor="let message of messages | async">
-					<mat-card class="message-card">
+					<mat-card [ngClass]="{'threads-opened-card': channelService.isOpenThread}" class="message-card">
 						<img class="message-card-image" mat-card-image alt="Photo" [src]="message.userPhotoURL || 'assets/img/blank-profile-img.png'"/>
 						<div class="message-card-main">
 							<mat-card-title class="message-card-main-header-title">
@@ -31,7 +31,7 @@
 				</div>
 			</div>
 			
-			<div class="text-editor">
+			<div [ngClass]="{'text-editor-thread': channelService.isOpenThread}" class="text-editor"> 
 				<div class="NgxEditor__Wrapper">
 					<ngx-editor-menu [editor]="editor" [toolbar]="toolbar" [customMenuRef]="customMenu"></ngx-editor-menu>
 					<ngx-editor [editor]="editor" [(ngModel)]="messageText" [disabled]="false" [placeholder]="'Insert your message...'"></ngx-editor>

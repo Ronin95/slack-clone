@@ -122,6 +122,9 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
         this.showThreadContainer = true;
       }, 0);
       this.channelService.isOpenThread = true;
+    } else if (currentMessageID == messageId) {
+      this.showThreadContainer = true;
+      this.channelService.isOpenThread = true;
     }
 
     localStorage.setItem("selected_messageID", messageId);

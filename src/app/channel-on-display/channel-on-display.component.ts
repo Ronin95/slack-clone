@@ -59,16 +59,6 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     }
   }
 
-  // resizeMessagesAndEditor() {
-  //   const messageContainer = this.el.nativeElement.querySelector('.message-container');
-  //   const textEditor = this.el.nativeElement.querySelector('.text-editor');
-  
-  //   this.renderer.setStyle(messageContainer, 'width', '42vw');
-  //   this.renderer.setStyle(messageContainer, 'position', 'relative');
-  //   this.renderer.setStyle(messageContainer, 'right', '420px');
-  //   this.renderer.setStyle(textEditor, 'width', '42vw');
-  // }
-
   async onDeleteSelectedMessage(messageId: string) {
     await this.channelService.deleteMessageFromFirebase(messageId);
   }

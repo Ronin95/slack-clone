@@ -98,5 +98,6 @@ export class ChannelsComponent implements OnInit {
 		// save the current selected channel id to local storage
 		localStorage.setItem('selected_channelID', channelId);
     this.threadsService.closeThread();
+    this.channelService.isOpenThread = false;
 	}
 }

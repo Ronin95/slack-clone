@@ -61,6 +61,9 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
 
   async onDeleteSelectedMessage(messageId: string) {
     await this.channelService.deleteMessageFromFirebase(messageId);
+    this.channelService.isOpenThread = false;
+    this.showThreadContainer = false;
+
   }
 
   // make sure to destory the editor

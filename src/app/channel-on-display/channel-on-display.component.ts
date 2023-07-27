@@ -29,7 +29,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   channelId: string = '';
 
   constructor(
-    private threadsService: ThreadsService,
+    public threadsService: ThreadsService,
     public channelService: ChannelService,
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
@@ -49,8 +49,6 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
    */
   sendMessage() {
     if (this.messageText) {
-      // Delete the uploaded Image from localStorage
-      localStorage.removeItem('lastImageUpload');
       this.channelService.saveMessageToFirebase(this.messageText);
       this.messageText = '';
     }
@@ -176,10 +174,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
    * @memberof ChannelOnDisplayComponent
    * @returns {Promise<{ channelName: string; channelId: string; }>}
    */
-  displayChannelNameAndID(): Promise<{
-    channelName: string;
-    channelId: string;
-  }> {
+  displayChannelNameAndID(): Promise<{ channelName: string; channelId: string; }> {
     return new Promise((resolve) => {
       this.route.paramMap
         .pipe(

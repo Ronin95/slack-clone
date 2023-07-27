@@ -295,6 +295,9 @@ export class ChannelService implements OnInit {
       userPhotoURL: this.photoURL, // Adding photoURL to the document
       uploadedImgURL: localStorage.getItem('lastImageUpload'), // Adding uploadedImgURL to the document
     });
+
+    // Delete the uploaded Image from localStorage
+    localStorage.removeItem('lastImageUpload');
   }
   
 

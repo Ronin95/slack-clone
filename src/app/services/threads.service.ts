@@ -224,8 +224,9 @@ export class ThreadsService implements OnInit {
       userPhotoURL: this.photoURL,
       uploadedImgURL: localStorage.getItem('lastImageUpload'),
     })
-      .then(() => console.log('Message sent!'))
-      .catch(err => console.error('Error sending message: ', err));
+
+    // Delete the uploaded Image from localStorage
+    localStorage.removeItem('lastImageUpload');
   }
   
 
@@ -271,5 +272,25 @@ export class ThreadsService implements OnInit {
       }))
     );
   }
+
+  async countDocumentsInCollection() {
+    const ids = this.retrieveFromLocalStorage();
+    if (!ids) {
+      console.error('Cannot count documents: IDs are null');
+      return;
+    }
+    const { selected_channelID, selected_messageID } = ids;
+    const path = `channels/${selected_channelID}/ChannelChat/${selected_messageID}/ChannelChatThread`;
+  
+    const collection = this.firestore.collection(path);
+    const snapshot = await collection.get().toPromise();
+    if (snapshot) {
+      console.log(`Number of documents in collection: ${snapshot.size}`);
+    } else {
+      console.log('Collection does not exist');
+    }
+  }
+  
+  
   
 }

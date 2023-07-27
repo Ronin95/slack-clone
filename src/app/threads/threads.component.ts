@@ -16,13 +16,14 @@ export class ThreadsComponent implements OnInit {
   private paramsSubscription!: Subscription;
   channel!: Observable<any>;
   thread!: Observable<any>;
-  messageText: string = '';
-  editor!: Editor;
+  messageTextThread: string = '';
+  editorThread!: Editor;
   toolbar: Toolbar = [
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote'],
   ];
   router: any;
   hasChannelChatThread$: Observable<boolean> | undefined;
+  imageInsertedSubscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +44,7 @@ export class ThreadsComponent implements OnInit {
         console.error('No selected message ID found in local storage');
       }
     });
-    this.editor = new Editor();
+    this.editorThread = new Editor();
     this.paramsSubscription = this.route.params.subscribe((params) => {
       this.threadsService.accessSelectedMessage().subscribe((message: any) => {
         if (message) {
@@ -53,6 +54,10 @@ export class ThreadsComponent implements OnInit {
         }
       });
     });
+    this.imageInsertedSubscription =
+    this.channelService.imageInsertedSubject.subscribe((url) => {
+      this.insertImageToEditor(url);
+    });
   }
 
   ngOnDestroy() {
@@ -60,17 +65,18 @@ export class ThreadsComponent implements OnInit {
     if (this.paramsSubscription) {
       this.paramsSubscription.unsubscribe();
     }
+    this.imageInsertedSubscription.unsubscribe();
     // localStorage.removeItem('selected_messageID');
   }
 
   insertImageToEditor(url: string) {
-    this.messageText += `<img src="${url}" alt="Uploaded Image">`;
+    this.messageTextThread += `<img src="${url}" alt="Uploaded Image">`;
   }
 
   sendMessageToThread() {
-    if (this.messageText) {
-      this.threadsService.sendMessageToThread(this.messageText);
-      this.messageText = '';
+    if (this.messageTextThread) {
+      this.threadsService.sendMessageToThread(this.messageTextThread);
+      this.messageTextThread = '';
     }
   }
 

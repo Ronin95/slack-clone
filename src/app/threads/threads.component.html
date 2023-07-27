@@ -55,8 +55,9 @@
           </mat-card-title>
           <div class="thread-card">
             <mat-card-content class="post-container">
-              <p>{{ threadMessage.message }}</p>
-              <img *ngIf="threadMessage.uploadedImgURL" [src]="threadMessage.uploadedImgURL" alt="random-img" style="width: 200px;">
+              <p  [innerHTML]="
+              channelService.sanitizeHtmlWithImageSize(threadMessage.message)
+            "></p>
             </mat-card-content>
           </div>
         </mat-card>
@@ -66,15 +67,15 @@
 
   <div class="editor-style">
     <div class="NgxEditor__Wrapper ngx-editor position-relative overflow-hidden">
-      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" [customMenuRef]="customMenu"></ngx-editor-menu>
-      <ngx-editor [editor]="editor" [(ngModel)]="messageText" [disabled]="false" [placeholder]="'Respond to message...'"></ngx-editor>
+      <ngx-editor-menu [editor]="editorThread" [toolbar]="toolbar" [customMenuRef]="customMenu"></ngx-editor-menu>
+      <ngx-editor [editor]="editorThread" [(ngModel)]="messageTextThread" [disabled]="false" [placeholder]="'Respond to message...'"></ngx-editor>
       <button class="editor-btn" mat-icon-button (click)="sendMessageToThread()">
         <mat-icon>send</mat-icon>
       </button>
     </div>
-    <input id="fileInput" type="file" style="display: none;" class="overflow-hidden" (change)="channelService.onFileChange($event)" />
+    <input id="fileInput" type="file" style="display: none;" class="overflow-hidden" (change)="channelService.channelImageUpload($event)" />
     <ng-template #customMenu>
-      <app-custom-menu class="overflow-hidden" [editor]="editor"></app-custom-menu>
+      <app-custom-menu class="overflow-hidden" [editor]="editorThread"></app-custom-menu>
     </ng-template>
   </div>
 </div>

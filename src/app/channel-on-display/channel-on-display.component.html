@@ -39,7 +39,7 @@
 						<mat-icon>send</mat-icon>
 					</button>
 				</div>
-				<input id="fileInput" type="file" style="display: none" (change)="channelService.onFileChange($event)"/>
+				<input id="fileInput" type="file" style="display: none" (change)="channelService.channelImageUpload($event)"/>
 				<ng-template #customMenu>
 					<app-custom-menu [editor]="editor"></app-custom-menu>
 				</ng-template>

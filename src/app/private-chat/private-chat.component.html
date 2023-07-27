@@ -76,7 +76,7 @@
       id="fileInput"
       type="file"
       style="display: none"
-      (change)="channelService.onFileChange($event)"
+      (change)="channelService.channelImageUpload($event)"
     />
     <ng-template #customMenu>
       <app-custom-menu [editor]="editor"></app-custom-menu>

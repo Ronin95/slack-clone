@@ -4,9 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, switchMap, Subscription } from 'rxjs';
 import { Editor, Toolbar } from 'ngx-editor';
-import { SafeHtml } from '@angular/platform-browser';
 import { ThreadsService } from '../services/threads.service';
-import { Renderer2, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-channel-on-display',
@@ -29,23 +27,20 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote'],
   ];
   channelId: string = '';
-  sanitizer: any;
 
   constructor(
     private threadsService: ThreadsService,
     public channelService: ChannelService,
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
-    private router: Router,
-    private renderer: Renderer2, 
-    private el: ElementRef
+    private router: Router
   ) {}
 
   /**
    * The `sendMessage()` method is responsible for sending a message to the Firebase database. It first checks if the
    * `messageText` variable is not empty. If it is not empty, it calls the `saveMessageToFirebase()` method from the
    * `channelService` to save the message to Firebase. After that, it resets the `messageText` variable to an empty string.
-   * 
+   *
    * @method
    * @name sendMessage
    * @kind method
@@ -63,7 +58,6 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     await this.channelService.deleteMessageFromFirebase(messageId);
     this.channelService.isOpenThread = false;
     this.showThreadContainer = false;
-
   }
 
   // make sure to destory the editor
@@ -102,7 +96,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
    * parameter, which is the URL of the image to be inserted. Inside the method, it appends an HTML `<img>` tag with the
    * `src` attribute set to the provided `url` to the `messageText` variable. This allows the image to be displayed in the
    * editor when the message is sent.
-   * 
+   *
    * @method
    * @name insertImageToEditor
    * @kind method
@@ -111,11 +105,13 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
    * @returns {void}
    */
   insertImageToEditor(url: string) {
-    this.messageText += `<img src="${url}" alt="Uploaded Image">`;
+    if (!this.showThreadContainer) {
+      this.messageText += `<img src="${url}" alt="Uploaded Image">`;
+    }
   }
 
   onChatIconClick(messageId: string) {
-    const currentMessageID = localStorage.getItem("selected_messageID");
+    const currentMessageID = localStorage.getItem('selected_messageID');
 
     if (currentMessageID !== messageId) {
       this.showThreadContainer = false;
@@ -130,7 +126,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
       this.channelService.isOpenThread = true;
     }
 
-    localStorage.setItem("selected_messageID", messageId);
+    localStorage.setItem('selected_messageID', messageId);
   }
 
   /**
@@ -139,7 +135,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
    * the URL, which represents the channel ID. Then, it uses the `AngularFirestore` service to fetch the channel document
    * from the `channels` collection in Firebase based on the `id`. Once the channel document is retrieved, it extracts the
    * `channelName` field from the document and assigns it to the `channelName` variable in the component.
-   * 
+   *
    * @method
    * @name displayChannelName
    * @kind method
@@ -171,7 +167,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
    * Then, it uses the `AngularFirestore` service to fetch the channel document from the `channels` collection in Firebase
    * based on the `id`. Once the channel document is retrieved, it extracts the `channelName` and `channelId` fields from the
    * document and returns them as a resolved promise.
-   * 
+   *
    * @method
    * @name displayChannelNameAndID
    * @kind method

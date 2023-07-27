@@ -1,16 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from '../../models/user.model';
-import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {
-	AngularFirestore,
-	AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { signInAnonymously } from 'firebase/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogErrorLoginComponent } from '../dialog-error-login/dialog-error-login.component';
-import { Observable, first } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Auth, authState } from '@angular/fire/auth';
 @Injectable({
 	providedIn: 'root',

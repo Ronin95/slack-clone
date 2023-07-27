@@ -1,25 +1,9 @@
 import { Injectable, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import {
-  Firestore,
-  collection,
-  collectionData,
-  deleteDoc,
-  doc,
-} from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { getDocs, getFirestore } from 'firebase/firestore';
-import {
-  Observable,
-  Subscription,
-  take,
-  firstValueFrom,
-  map,
-  Subject,
-  BehaviorSubject,
-  of,
-} from 'rxjs';
+import { Observable, Subscription, take, firstValueFrom, map, Subject, BehaviorSubject, of } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Injectable({

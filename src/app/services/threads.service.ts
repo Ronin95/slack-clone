@@ -3,9 +3,7 @@ import { Observable, Subject, map, of } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ChannelService } from './channel.service';
 import { collection } from '@angular/fire/firestore';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { getDocs, getFirestore } from 'firebase/firestore';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +24,33 @@ export class ThreadsService implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * The `closeThread()` method is used to emit a signal that indicates that the thread should be closed. It calls the
+   * `next()` method on the `closeSource` subject, which emits a value to all subscribers of the `close$` observable. This
+   * can be used to trigger any necessary actions when the thread is closed.
+   * 
+   * @method
+   * @name closeThread
+   * @kind method
+   * @memberof ThreadsService
+   * @returns {void}
+   */
   closeThread() {
     this.closeSource.next();
   }
 
+  /**
+   * The `stripHtmlTags` method is used to remove HTML tags from a given string. It takes a string as input and returns a new
+   * string with all HTML tags removed. It does this by creating a temporary DOM div element, setting its HTML to the input
+   * string, and then retrieving the text content of the div element, which does not include any HTML tags.
+   * 
+   * @method
+   * @name stripHtmlTags
+   * @kind method
+   * @memberof ThreadsService
+   * @param {string} str
+   * @returns {string}
+   */
   stripHtmlTags(str: string): string {
     // Create a new DOM div element
     const tmp = document.createElement('div');
@@ -39,6 +60,17 @@ export class ThreadsService implements OnInit {
     return tmp.textContent || tmp.innerText || '';
   }
 
+  /**
+   * The `retrieveFromLocalStorage()` method is used to retrieve the selected channel ID and selected message ID from the
+   * local storage. It checks if the IDs are null and returns them as an object if they are not null. If either of the IDs is
+   * null, it logs an error message and returns null.
+   * 
+   * @method
+   * @name retrieveFromLocalStorage
+   * @kind method
+   * @memberof ThreadsService
+   * @returns {{ selected_channelID: string; selected_messageID: string; } | null}
+   */
   retrieveFromLocalStorage() {
     // Retrieve IDs from local storage
     const selected_channelID = localStorage.getItem('selected_channelID');
@@ -54,6 +86,19 @@ export class ThreadsService implements OnInit {
     return { selected_channelID, selected_messageID };
   }
 
+  /**
+   * The `accessSelectedMessage()` method is used to retrieve a specific message from Firestore. It first retrieves the
+   * selected channel ID and selected message ID from local storage. If either of these IDs is null, it returns an empty
+   * observable. If the IDs are not null, it constructs the path to the specific message in Firestore and retrieves it using
+   * the `valueChanges()` method. It then sanitizes the message text by removing any HTML tags and returns the message as an
+   * observable.
+   * 
+   * @method
+   * @name accessSelectedMessage
+   * @kind method
+   * @memberof ThreadsService
+   * @returns {Observable<any>}
+   */
   accessSelectedMessage(): Observable<any> {
     const ids = this.retrieveFromLocalStorage();
     if (!ids) {
@@ -79,6 +124,17 @@ export class ThreadsService implements OnInit {
       }));
   }
 
+  /**
+   * The `checkIfChannelChatThreadExists` method is used to check if a specific channel chat thread exists in Firestore. It
+   * takes a `messageId` as input and returns an observable of type boolean.
+   * 
+   * @method
+   * @name checkIfChannelChatThreadExists
+   * @kind method
+   * @memberof ThreadsService
+   * @param {string} messageId
+   * @returns {Observable<boolean>}
+   */
   checkIfChannelChatThreadExists(messageId: string): Observable<boolean> {
     const selected_channelID = localStorage.getItem('selected_channelID');
     console.log('selected Message Id is: ' ,messageId);
@@ -98,6 +154,18 @@ export class ThreadsService implements OnInit {
 }
 
 
+  /**
+   * The `async accessUserData()` method is retrieving user data from the Firestore database. It first creates a reference to
+   * the "users" collection in Firestore. Then, it retrieves all the documents in the collection using the `getDocs()`
+   * function. It also retrieves the user ID from the local storage.
+   * 
+   * @async
+   * @method
+   * @name accessUserData
+   * @kind method
+   * @memberof ThreadsService
+   * @returns {Promise<void>}
+   */
   async accessUserData() {
     const userData = collection(this.firestoreDB, 'users');
 		const docsSnap = await getDocs(userData);
@@ -115,6 +183,18 @@ export class ThreadsService implements OnInit {
 		}
   }
 
+  /**
+   * The `async sendMessageToThread(messageText: string): Promise<void>` method is used to send a message to a specific
+   * thread in Firestore.
+   * 
+   * @async
+   * @method
+   * @name sendMessageToThread
+   * @kind method
+   * @memberof ThreadsService
+   * @param {string} messageText
+   * @returns {Promise<void>}
+   */
   async sendMessageToThread(messageText: string): Promise<void> {
     // Get the user's name and image from Firebase
     await this.accessUserData();
@@ -149,6 +229,19 @@ export class ThreadsService implements OnInit {
   }
   
 
+  /**
+   * The `fetchThreadMessages()` method is used to retrieve the messages from a specific thread in Firestore. It first
+   * retrieves the selected channel ID and selected message ID from local storage. If either of these IDs is null, it returns
+   * an empty observable array. If the IDs are not null, it constructs the path to the specific thread in Firestore and
+   * retrieves the messages using the `snapshotChanges()` method. It then maps the retrieved data to an array of objects,
+   * sanitizes the message text by removing any HTML tags, and returns the array as an observable.
+   * 
+   * @method
+   * @name fetchThreadMessages
+   * @kind method
+   * @memberof ThreadsService
+   * @returns {Observable<any[]>}
+   */
   fetchThreadMessages() {
     // Retrieve IDs from local storage
     const ids = this.retrieveFromLocalStorage();
@@ -157,10 +250,14 @@ export class ThreadsService implements OnInit {
       return of([]);
     }
     let {selected_channelID, selected_messageID} = ids;
-
+  
     // Access the specific collection
-    const collection = this.firestore.collection('channels').doc(selected_channelID).collection('ChannelChat').doc(selected_messageID).collection('ChannelChatThread');
-
+    const collection = this.firestore.collection('channels')
+      .doc(selected_channelID)
+      .collection('ChannelChat')
+      .doc(selected_messageID)
+      .collection('ChannelChatThread', ref => ref.orderBy('date', 'asc')); // Order by date in ascending order
+  
     return collection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data();
@@ -174,4 +271,5 @@ export class ThreadsService implements OnInit {
       }))
     );
   }
+  
 }

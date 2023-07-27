@@ -49,6 +49,8 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
    */
   sendMessage() {
     if (this.messageText) {
+      // Delete the uploaded Image from localStorage
+      localStorage.removeItem('lastImageUpload');
       this.channelService.saveMessageToFirebase(this.messageText);
       this.messageText = '';
     }

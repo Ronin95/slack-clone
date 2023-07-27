@@ -1,17 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  addDoc,
-  collection,
-  collectionData,
-  deleteDoc,
-  doc,
-  DocumentData,
-  Firestore,
-  orderBy,
-  query,
-  updateDoc,
-  where,
-} from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, DocumentData, Firestore, orderBy, query, where } from '@angular/fire/firestore';
 import { BehaviorSubject, concatMap, map, Observable, take } from 'rxjs';
 import { UsersService } from './users.service';
 import { User } from '../../models/user.model';
@@ -36,6 +24,18 @@ export class PrivateChatService {
     private channelService: ChannelService
   ) {}
 
+  /**
+   * The `get myChats$(): Observable<PrivateChat[]>` is a getter method that returns an observable of type `PrivateChat[]`.
+   * It retrieves the private chats of the current user by querying the Firestore collection 'chats' and filtering the chats
+   * based on the current user's ID. It also adds the chat name and profile picture to each private chat object before
+   * returning the observable.
+   * 
+   * @method
+   * @name (get) myChats$
+   * @kind property
+   * @memberof PrivateChatService
+   * @returns {$: Observable<PrivateChat[]>}
+   */
   get myChats$(): Observable<PrivateChat[]> {
     const ref = collection(this.firestore, 'chats');
     return this.userService.currentUserProfile$.pipe(

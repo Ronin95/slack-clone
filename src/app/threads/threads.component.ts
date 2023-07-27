@@ -75,6 +75,8 @@ export class ThreadsComponent implements OnInit {
 
   sendMessageToThread() {
     if (this.messageTextThread) {
+      // Delete the uploaded Image from localStorage
+      localStorage.removeItem('lastImageUpload');
       this.threadsService.sendMessageToThread(this.messageTextThread);
       this.messageTextThread = '';
     }

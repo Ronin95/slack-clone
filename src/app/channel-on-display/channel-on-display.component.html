@@ -17,6 +17,7 @@
 									<span class="time-stamp">{{ message.date }}</span>
 								</div>
 								<div class="edit-chat-delete-style">
+									<p class="docAmount">1</p>
 									<mat-icon (click)="onChatIconClick(message.messageId);" [routerLink]="'thread/' + message.messageId">chat</mat-icon>
 									<!-- <mat-icon (click)="threadsService.countDocumentsInCollection()">edit</mat-icon> -->
 									<mat-icon (click)="onDeleteSelectedMessage(message.messageId)">delete</mat-icon>

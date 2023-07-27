@@ -2,7 +2,7 @@
   <div class="intro-explaination">
     <h1>Hello I am your personal SlackClone AI assistant.</h1>
     <h3>If you need any help, with anything, I will give my best to help you out.</h3>
-    <h5>(You can try this function 10 times every 24h)</h5>
+    <h5 [ngClass]="{'red-text': callCount >= 10}">(You can try this function 10 times every 24h)</h5>
   </div>
   <div class=" ai-user-field full border">
     <div *ngFor="let message of messages">
@@ -19,7 +19,9 @@
   <div class="input-style ">
     <div class="input-send ">
       <input type="text" [(ngModel)]="inputText" placeholder="Place your concerns..." (keydown.enter)="callOpenAiApi(inputText)" />
-      <button class="send-btn" ><mat-icon (click)="callOpenAiApi(inputText)">send</mat-icon></button>
+      <button class="send-btn">
+        <mat-icon (click)="callOpenAiApi(inputText)">send</mat-icon>
+      </button>
     </div>
     <div class="spinner-container">
       <mat-progress-spinner [diameter]="20" *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>

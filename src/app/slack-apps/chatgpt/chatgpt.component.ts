@@ -14,6 +14,8 @@ export class ChatgptComponent implements OnInit {
   error: string | undefined;
   public buttonClicked = false;
   isLoading = false;
+  callCount: number = 0;
+
 
   constructor(private openaiservice: OpenAiService, public channelService: ChannelService, public authService: AuthService) {
     this.messages.push({role: 'system', content: 'You are a helpful assistant.'});
@@ -33,6 +35,8 @@ export class ChatgptComponent implements OnInit {
    * @returns {void}
    */
   callOpenAiApi(text: string) {
+    this.checkFunctionCall();
+    
     this.isLoading = true;
     this.buttonClicked = true;
     console.log('callOpenAiApi function has been called with text:', text);
@@ -51,6 +55,19 @@ export class ChatgptComponent implements OnInit {
         this.error = error;
       }
     );
+  }
+
+  checkFunctionCall() {
+    // Retrieve the count from localStorage
+    let apiCallData = JSON.parse(localStorage.getItem('apiCallData') || '{}');
+    this.callCount = apiCallData.count || 0;
+
+    // Increment the count
+    this.callCount++;
+
+    // Store the updated count in localStorage
+    apiCallData.count = this.callCount;
+    localStorage.setItem('apiCallData', JSON.stringify(apiCallData));
   }
   
 }

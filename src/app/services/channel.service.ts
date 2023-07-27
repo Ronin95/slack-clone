@@ -104,7 +104,8 @@ export class ChannelService implements OnInit {
   */
 	onFileChange(event: any) {
 		const file = event.target.files[0];
-		const filePath = `/channelImages/${file.name}`;
+		let channelID = localStorage.getItem('selected_channelID')
+		const filePath = `/channelImages/${channelID}/${file.name}`;
 		const fileRef = this.storage.ref(filePath);
 		const task = this.storage.upload(filePath, file);
 

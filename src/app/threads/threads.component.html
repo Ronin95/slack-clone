@@ -41,13 +41,7 @@
       <div class="thread-msg-container " *ngIf="hasChannelChatThread$ | async">
         <mat-card class="thread-card ">
           <mat-card-title class="thread-message-card">
-            <img
-              class="message-card-image"
-              mat-card-image
-              [src]="threadMessage.userPhotoURL || '../../assets/img/blank-profile-img.png'"
-              style="width: 50px; border-radius: 5px; border: 2px solid lightgrey;"
-              alt="Photo"
-            />
+            <img class="message-card-image" mat-card-image [src]="threadMessage.userPhotoURL || '../../assets/img/blank-profile-img.png'" style="width: 50px; border-radius: 5px; border: 2px solid lightgrey;" alt="Photo"/>
             <div class="name-date-style">
               <span class="author">{{ threadMessage.userName }}</span>
               <span class="time-stamp">{{ threadMessage.date }}</span>
@@ -55,14 +49,14 @@
           </mat-card-title>
           <div class="thread-card">
             <mat-card-content class="post-container">
-              <p  [innerHTML]="
-              channelService.sanitizeHtmlWithImageSize(threadMessage.message)
-            "></p>
+              <p [innerHTML]="channelService.sanitizeHtmlWithImageSize(threadMessage.message)"></p>
+              <img *ngIf="threadMessage.uploadedImgURL" [src]="threadMessage.uploadedImgURL" alt="Uploaded Image" style="width: 250px"/>
             </mat-card-content>
           </div>
         </mat-card>
       </div>
     </ng-container>
+    
   </div>
 
   <div class="editor-style">

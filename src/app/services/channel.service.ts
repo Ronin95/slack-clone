@@ -106,18 +106,22 @@ export class ChannelService implements OnInit {
   }
 
   /**
-   * The above code is defining a function called `onFileChange` that takes an event object as a parameter. The purpose of
+   * The above code is defining a function called `channelImageUpload` that takes an event object as a parameter. The purpose of
    * this function is not clear from the provided code snippet alone, as the body of the function is represented by three
    * hash symbols (`
    *
    * @method
-   * @name onFileChange
+   * @name channelImageUpload
    * @kind method
    * @memberof ChannelService
    * @param {any} event
    * @returns {void}
    */
   channelImageUpload(event: any) {
+    // Check if some image has already been uploaded to localstorage
+    if (localStorage.getItem('lastImageUpload') !== null) { // if not null
+      localStorage.removeItem('lastImageUpload'); // delete that last uploaded image
+    }
     const file = event.target.files[0];
     let channelID = localStorage.getItem('selected_channelID');
     const filePath = `/channelImages/${channelID}/${file.name}`;
@@ -134,6 +138,7 @@ export class ChannelService implements OnInit {
       if (snapshot && snapshot.state === 'success') {
         fileRef.getDownloadURL().subscribe((downloadURL) => {
           console.log('File available at', downloadURL);
+          localStorage.setItem('lastImageUpload', downloadURL);
           this.imageInsertedSubject.next(downloadURL); // Notify the component that an image has been inserted
           this.clearFileInput();
         });
@@ -220,20 +225,7 @@ export class ChannelService implements OnInit {
    */
   getFormattedDate(date: Date): string {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const dayName = days[date.getDay()];
     const day = String(date.getDate()).padStart(2, '0');
     const month = months[date.getMonth()];
@@ -300,21 +292,27 @@ export class ChannelService implements OnInit {
       .collection('channels')
       .doc(channelID)
       .collection('ChannelChat');
-
+  
     // Generate a unique ID for the message
     const messageId = this.afs.createId();
-
+  
     const date = new Date();
     const formattedDate = this.getFormattedDate(date);
+    
+    // Remove <img> tags from the message
+    const sanitizedMessage = this.removeImgTag(message);
+  
     // Add the message, the formatted date, username, photoURL, and uploadedImgURL to the collection
     channelChatRef.doc(messageId).set({
       messageId: messageId, // Adding the message ID to the document
-      message: message,
+      message: sanitizedMessage,
       date: formattedDate,
       userName: this.name, // Adding username to the document
       userPhotoURL: this.photoURL, // Adding photoURL to the document
+      uploadedImgURL: localStorage.getItem('lastImageUpload'), // Adding uploadedImgURL to the document
     });
   }
+  
 
   /**
    * `fetchMessagesFromFirebase(channelId: string): Observable<any[]>` is a method in the `ChannelService` class that
@@ -430,4 +428,23 @@ export class ChannelService implements OnInit {
     );
     return sanitizedHtml;
   }
+
+  /**
+   * The above code is defining a function called `removeImgTag` that takes a string parameter called `message`. The function
+   * is expected to return a string.
+   * 
+   * @method
+   * @name removeImgTag
+   * @kind method
+   * @memberof ChannelService
+   * @param {string} message
+   * @returns {string}
+   */
+  removeImgTag(message: string): string {
+    // Regular expression to match <img> tags
+    const imgTagRegex = /<img[^>]*>/g;
+    // Replace <img> tags with an empty string
+    return message.replace(imgTagRegex, '');
+  }
+  
 }

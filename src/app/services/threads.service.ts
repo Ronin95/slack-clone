@@ -15,7 +15,6 @@ export class ThreadsService implements OnInit {
   firestoreDB: any = getFirestore();
   close$ = this.closeSource.asObservable();
   foundUser!: any;
-  uploadedImgURL: string = '';
   name!: string;
 	photoURL!: string;
 
@@ -132,21 +131,23 @@ export class ThreadsService implements OnInit {
     const threadId = this.firestore.createId();
     const date = new Date();
     const formattedDate = this.channelService.getFormattedDate(date);
+  
+    // Remove <img> tags from the message
+    const sanitizedMessage = this.channelService.removeImgTag(messageText);
+  
     // Create a new document in the ChannelChatThread collection with your own ID
     this.firestore.collection(path).doc(threadId).set({
       threadId: threadId,
-      message: messageText,
+      message: sanitizedMessage,
       date: formattedDate,
       userName: this.name,
       userPhotoURL: this.photoURL,
-      uploadedImgURL: this.uploadedImgURL,
+      uploadedImgURL: localStorage.getItem('lastImageUpload'),
     })
       .then(() => console.log('Message sent!'))
       .catch(err => console.error('Error sending message: ', err));
-
-    // Reset the uploadedImgURL
-    this.uploadedImgURL = '';
   }
+  
 
   fetchThreadMessages() {
     // Retrieve IDs from local storage

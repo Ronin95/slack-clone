@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
-import { DialogErrorLoginComponent } from '../dialog-error-login/dialog-error-login.component';
 
 @Component({
   selector: 'app-login',
@@ -38,5 +37,5 @@ export class LoginComponent implements OnInit {
     this.dialog.open(ForgotPasswordComponent)
   }
 
-  ngOnInit(): void {}
+  ngOnInit() {}
 }

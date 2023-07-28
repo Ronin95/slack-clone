@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Firestore, addDoc, collection, doc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, updateDoc } from '@angular/fire/firestore';
 
 @Component({
 	selector: 'app-dialog-new-channel',
@@ -9,7 +9,6 @@ import { Firestore, addDoc, collection, doc, setDoc, updateDoc } from '@angular/
 })
 export class DialogNewChannelComponent {
 	firestore: Firestore = inject(Firestore);
-
 	channelName: string = '';
 	channelChat: object[] = [];
 

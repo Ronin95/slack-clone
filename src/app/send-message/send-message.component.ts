@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, combineLatest, map } from 'rxjs';
+import {  map } from 'rxjs';
 import { UsersService } from '../services/users.service';
 
 @Component({
@@ -8,15 +8,11 @@ import { UsersService } from '../services/users.service';
 	styleUrls: ['./send-message.component.scss'],
 })
 export class SendMessageComponent implements OnInit {
-	// allUsers!: Array<any>;
 	otherUsers$ = this.usersService.getUsers;
 	loggedInUser!: any;
-
 	currentUserProfile$!: any;
 
-	constructor(private usersService: UsersService) {
-		// Assign the resolved value to the property
-	}
+	constructor(private usersService: UsersService) {}
 
  /**
   * The `async ngOnInit(): Promise<void>` method is the initialization method of the `SendMessageComponent` class. It is

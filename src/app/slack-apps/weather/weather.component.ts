@@ -12,7 +12,7 @@ export class WeatherComponent implements OnInit {
 
   constructor(private weatherService: WeatherService) { }
 
-  ngOnInit(): void {}
+  ngOnInit() {}
 
   /**
    * The `search(city: string)` method is a function that takes a `city` parameter of type string. It is used to search for

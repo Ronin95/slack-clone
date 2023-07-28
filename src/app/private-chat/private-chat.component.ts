@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription, combineLatest, map, switchMap, tap } from 'rxjs';
+import { Observable, Subscription, map, switchMap, tap } from 'rxjs';
 import { Editor, Toolbar } from 'ngx-editor';
 import { ChannelService } from '../services/channel.service';
 import { PrivateChatService } from '../services/private-chat.service';

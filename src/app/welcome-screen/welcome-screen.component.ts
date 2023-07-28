@@ -11,7 +11,7 @@ import { RegisterComponent } from '../register/register.component';
 export class WelcomeScreenComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {}
 
   /**
    * The `openLogin()` method is responsible for opening a dialog box that displays the LoginComponent.

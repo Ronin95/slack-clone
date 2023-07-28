@@ -28,6 +28,18 @@ export class ChannelsComponent implements OnInit {
     public threadsService: ThreadsService,
 	) {}
 
+ /**
+  * The `ngOnInit()` method is a lifecycle hook in Angular that is called after the component has been initialized. In this
+  * code, the `ngOnInit()` method is used to fetch all the channels from the `ChannelService` and assign them to the
+  * `channel` property of the component. It subscribes to the `getAllChannels()` method of the `ChannelService` and receives
+  * the channels as a parameter in the callback function. The channels are then assigned to the `channel` property.
+  * 
+  * @method
+  * @name ngOnInit
+  * @kind method
+  * @memberof ChannelsComponent
+  * @returns {void}
+  */
 	ngOnInit() {
 		this.channelService.getAllChannels().subscribe((channels: any) => {
       	this.channel = channels;

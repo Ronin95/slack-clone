@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, combineLatest, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { PrivateChatService } from '../../services/private-chat.service';
-import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { User } from '../../../models/user.model';
 import { ChatListControlService } from '../../services/chat-list-control.service';
@@ -21,6 +20,17 @@ export class DirectMessagesComponent implements OnInit {
   user$ = this.userService.currentUserProfile$;
   myChats$ = this.privateChatService.myChats$;
 
+  /**
+   * The `ngOnInit()` method is a lifecycle hook in Angular that is called after the component has been initialized. In this
+   * code, it is used to subscribe to the authentication state of the user using `this.afAuth.authState.subscribe()`. This
+   * allows the component to get the currently logged in user and assign it to the `loggedInUser` property.
+   * 
+   * @method
+   * @name ngOnInit
+   * @kind method
+   * @memberof DirectMessagesComponent
+   * @returns {void}
+   */
   ngOnInit() {
     this.afAuth.authState.subscribe((user) => {
       this.loggedInUser = user;

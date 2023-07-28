@@ -1,14 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import {
-  Firestore,
-} from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { AuthService } from '../services/auth.service';
 import { VerifyEmailComponent } from '../verify-email/verify-email.component';
 

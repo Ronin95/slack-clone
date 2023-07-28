@@ -60,6 +60,17 @@ export class CustomMenuComponent implements OnInit {
     return setBlockType(schema.nodes['code_mirror'])(state, dispatch);
   }
 
+  /**
+   * The `update` property in the `CustomMenuComponent` class is a function that takes an `EditorView` object as a parameter.
+   * It is used to update the state of the `isActive` and `isDisabled` properties based on the current state of the editor.
+   * 
+   * @method
+   * @name update
+   * @kind property
+   * @memberof CustomMenuComponent
+   * @param {EditorView} view
+   * @returns {void}
+   */
   update = (view: EditorView) => {
     const { state } = view;
     const { schema } = state;

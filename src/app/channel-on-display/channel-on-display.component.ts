@@ -54,23 +54,55 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * The `onDeleteSelectedMessage()` method is an asynchronous method that is responsible for deleting a selected message
+   * from Firebase. It takes a `messageId` parameter, which represents the ID of the message to be deleted.
+   * 
+   * @async
+   * @method
+   * @name onDeleteSelectedMessage
+   * @kind method
+   * @memberof ChannelOnDisplayComponent
+   * @param {string} messageId
+   * @returns {Promise<void>}
+   */
   async onDeleteSelectedMessage(messageId: string) {
     await this.channelService.deleteMessageFromFirebase(messageId);
     this.channelService.isOpenThread = false;
     this.showThreadContainer = false;
   }
 
-  // make sure to destory the editor
+  /**
+   * The `ngOnDestroy()` method is a lifecycle hook in Angular that is called when a component is about to be destroyed. In
+   * this specific component, the `ngOnDestroy()` method is used to perform cleanup tasks before the component is destroyed.
+   * 
+   * @method
+   * @name ngOnDestroy
+   * @kind method
+   * @memberof ChannelOnDisplayComponent
+   * @returns {void}
+   */
   ngOnDestroy(): void {
     this.editor.destroy();
     this.imageInsertedSubscription.unsubscribe();
     this.closeSub.unsubscribe();
   }
 
+  /**
+   * The `async ngOnInit() {` method is the initialization method of the Angular component. It is called when the component
+   * is being initialized.
+   * 
+   * @async
+   * @method
+   * @name ngOnInit
+   * @kind method
+   * @memberof ChannelOnDisplayComponent
+   * @returns {Promise<void>}
+   */
   async ngOnInit() {
     this.editor = new Editor();
     let { channelName, channelId } = await this.displayChannelNameAndID();
-    this.displayChannelName();
+    // this.displayChannelName();
     this.messages = this.channelService.fetchMessagesFromFirebase(channelId);
     this.imageInsertedSubscription =
       this.channelService.imageInsertedSubject.subscribe((url) => {
@@ -110,6 +142,17 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * The `onChatIconClick(messageId: string)` method is a click event handler that is triggered when a chat icon is clicked.
+   * It takes a `messageId` parameter, which represents the ID of the message associated with the clicked chat icon.
+   * 
+   * @method
+   * @name onChatIconClick
+   * @kind method
+   * @memberof ChannelOnDisplayComponent
+   * @param {string} messageId
+   * @returns {void}
+   */
   onChatIconClick(messageId: string) {
     const currentMessageID = localStorage.getItem('selected_messageID');
 
@@ -127,38 +170,6 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     }
 
     localStorage.setItem('selected_messageID', messageId);
-  }
-
-  /**
-   * The `displayChannelName()` method is responsible for retrieving the channel name from the Firebase database and
-   * assigning it to the `channelName` variable in the component. It uses the `route.paramMap` to get the `id` parameter from
-   * the URL, which represents the channel ID. Then, it uses the `AngularFirestore` service to fetch the channel document
-   * from the `channels` collection in Firebase based on the `id`. Once the channel document is retrieved, it extracts the
-   * `channelName` field from the document and assigns it to the `channelName` variable in the component.
-   *
-   * @method
-   * @name displayChannelName
-   * @kind method
-   * @memberof ChannelOnDisplayComponent
-   * @returns {void}
-   */
-  displayChannelName() {
-    this.route.paramMap
-      .pipe(
-        switchMap((params) => {
-          this.subscribedParam = params.get('id');
-          return this.firestore
-            .collection('channels')
-            .doc(this.subscribedParam)
-            .valueChanges();
-        })
-      )
-      .subscribe((channel: any) => {
-        if (channel) {
-          this.channelName = channel.channelName; // Annahme: Das Feld mit dem Namen ist 'channelName'
-          console.log(this.channelName);
-        }
-      });
   }
 
   /**

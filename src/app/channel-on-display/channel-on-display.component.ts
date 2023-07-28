@@ -27,6 +27,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote'],
   ];
   channelId: string = '';
+  threadMessages: any[] = [];
 
   constructor(
     public threadsService: ThreadsService,
@@ -102,6 +103,9 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.editor = new Editor();
     let { channelName, channelId } = await this.displayChannelNameAndID();
+    this.threadsService.fetchThreadMessages().subscribe((messages) => {
+      this.threadMessages = messages;
+    });
     // this.displayChannelName();
     this.messages = this.channelService.fetchMessagesFromFirebase(channelId);
     this.imageInsertedSubscription =

@@ -6,7 +6,7 @@ import { collection } from '@angular/fire/firestore';
 import { getDocs, getFirestore } from 'firebase/firestore';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThreadsService implements OnInit {
   private closeSource = new Subject<void>();
@@ -14,21 +14,20 @@ export class ThreadsService implements OnInit {
   close$ = this.closeSource.asObservable();
   foundUser!: any;
   name!: string;
-	photoURL!: string;
+  photoURL!: string;
 
   constructor(
     private firestore: AngularFirestore,
-    private channelService: ChannelService,
+    private channelService: ChannelService
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /**
    * The `closeThread()` method is used to emit a signal that indicates that the thread should be closed. It calls the
    * `next()` method on the `closeSource` subject, which emits a value to all subscribers of the `close$` observable. This
    * can be used to trigger any necessary actions when the thread is closed.
-   * 
+   *
    * @method
    * @name closeThread
    * @kind method
@@ -43,7 +42,7 @@ export class ThreadsService implements OnInit {
    * The `stripHtmlTags` method is used to remove HTML tags from a given string. It takes a string as input and returns a new
    * string with all HTML tags removed. It does this by creating a temporary DOM div element, setting its HTML to the input
    * string, and then retrieving the text content of the div element, which does not include any HTML tags.
-   * 
+   *
    * @method
    * @name stripHtmlTags
    * @kind method
@@ -64,7 +63,7 @@ export class ThreadsService implements OnInit {
    * The `retrieveFromLocalStorage()` method is used to retrieve the selected channel ID and selected message ID from the
    * local storage. It checks if the IDs are null and returns them as an object if they are not null. If either of the IDs is
    * null, it logs an error message and returns null.
-   * 
+   *
    * @method
    * @name retrieveFromLocalStorage
    * @kind method
@@ -92,7 +91,7 @@ export class ThreadsService implements OnInit {
    * observable. If the IDs are not null, it constructs the path to the specific message in Firestore and retrieves it using
    * the `valueChanges()` method. It then sanitizes the message text by removing any HTML tags and returns the message as an
    * observable.
-   * 
+   *
    * @method
    * @name accessSelectedMessage
    * @kind method
@@ -105,7 +104,7 @@ export class ThreadsService implements OnInit {
       // If ids are null, handle this scenario (perhaps by returning an empty Observable)
       return of({});
     }
-    let {selected_channelID, selected_messageID} = ids;
+    let { selected_channelID, selected_messageID } = ids;
 
     // Fetch the message from Firestore and return the Observable
     return this.firestore
@@ -114,20 +113,22 @@ export class ThreadsService implements OnInit {
       .collection('ChannelChat')
       .doc(selected_messageID)
       .valueChanges()
-      .pipe(map(message => {
-        // Check if message exists
-        if (message) {
-          // Sanitize message text
-          message['message'] = this.stripHtmlTags(message['message']);
-        }
-        return message;
-      }));
+      .pipe(
+        map((message) => {
+          // Check if message exists
+          if (message) {
+            // Sanitize message text
+            message['message'] = this.stripHtmlTags(message['message']);
+          }
+          return message;
+        })
+      );
   }
 
   /**
    * The `checkIfChannelChatThreadExists` method is used to check if a specific channel chat thread exists in Firestore. It
    * takes a `messageId` as input and returns an observable of type boolean.
-   * 
+   *
    * @method
    * @name checkIfChannelChatThreadExists
    * @kind method
@@ -137,10 +138,10 @@ export class ThreadsService implements OnInit {
    */
   checkIfChannelChatThreadExists(messageId: string): Observable<boolean> {
     const selected_channelID = localStorage.getItem('selected_channelID');
-    console.log('selected Message Id is: ' ,messageId);
+    console.log('selected Message Id is: ', messageId);
     if (!selected_channelID || !messageId) {
-        // If either ID is null, return false
-        return of(false);
+      // If either ID is null, return false
+      return of(false);
     }
 
     // Construct the path to the possible ChannelChatThread collection
@@ -148,17 +149,16 @@ export class ThreadsService implements OnInit {
 
     // Try to get the collection
     const collectionRef = this.firestore.collection(path);
-    return collectionRef.snapshotChanges().pipe(
-        map(actions => actions.length > 0)
-    );
-}
-
+    return collectionRef
+      .snapshotChanges()
+      .pipe(map((actions) => actions.length > 0));
+  }
 
   /**
    * The `async accessUserData()` method is retrieving user data from the Firestore database. It first creates a reference to
    * the "users" collection in Firestore. Then, it retrieves all the documents in the collection using the `getDocs()`
    * function. It also retrieves the user ID from the local storage.
-   * 
+   *
    * @async
    * @method
    * @name accessUserData
@@ -168,25 +168,25 @@ export class ThreadsService implements OnInit {
    */
   async accessUserData() {
     const userData = collection(this.firestoreDB, 'users');
-		const docsSnap = await getDocs(userData);
-		const getUIDFromLocalStorage = localStorage.getItem('loggedInUser');
-		const getArrayForm = docsSnap.docs.map((doc) => doc.data());
-		for (let i = 0; i < getArrayForm.length; i++) {
-			if (getArrayForm[i]['uid'] === getUIDFromLocalStorage?.slice(1, -1)) {
-				this.foundUser = getArrayForm[i];
-				break;
-			}
-		}
-		if (this.foundUser !== null) {
-			this.name = this.foundUser['displayName'];
-			this.photoURL = this.foundUser['photoURL'];
-		}
+    const docsSnap = await getDocs(userData);
+    const getUIDFromLocalStorage = localStorage.getItem('loggedInUser');
+    const getArrayForm = docsSnap.docs.map((doc) => doc.data());
+    for (let i = 0; i < getArrayForm.length; i++) {
+      if (getArrayForm[i]['uid'] === getUIDFromLocalStorage?.slice(1, -1)) {
+        this.foundUser = getArrayForm[i];
+        break;
+      }
+    }
+    if (this.foundUser !== null) {
+      this.name = this.foundUser['displayName'];
+      this.photoURL = this.foundUser['photoURL'];
+    }
   }
 
   /**
    * The `async sendMessageToThread(messageText: string): Promise<void>` method is used to send a message to a specific
    * thread in Firestore.
-   * 
+   *
    * @async
    * @method
    * @name sendMessageToThread
@@ -211,24 +211,26 @@ export class ThreadsService implements OnInit {
     const threadId = this.firestore.createId();
     const date = new Date();
     const formattedDate = this.channelService.getFormattedDate(date);
-  
+
     // Remove <img> tags from the message
     const sanitizedMessage = this.channelService.removeImgTag(messageText);
-  
+
     // Create a new document in the ChannelChatThread collection with your own ID
-    this.firestore.collection(path).doc(threadId).set({
-      threadId: threadId,
-      message: sanitizedMessage,
-      date: formattedDate,
-      userName: this.name,
-      userPhotoURL: this.photoURL,
-      uploadedImgURL: localStorage.getItem('lastImageUpload'),
-    })
+    this.firestore
+      .collection(path)
+      .doc(threadId)
+      .set({
+        threadId: threadId,
+        message: sanitizedMessage,
+        date: formattedDate,
+        userName: this.name,
+        userPhotoURL: this.photoURL,
+        uploadedImgURL: localStorage.getItem('lastImageUpload'),
+      });
 
     // Delete the uploaded Image from localStorage
     localStorage.removeItem('lastImageUpload');
   }
-  
 
   /**
    * The `fetchThreadMessages()` method is used to retrieve the messages from a specific thread in Firestore. It first
@@ -236,7 +238,7 @@ export class ThreadsService implements OnInit {
    * an empty observable array. If the IDs are not null, it constructs the path to the specific thread in Firestore and
    * retrieves the messages using the `snapshotChanges()` method. It then maps the retrieved data to an array of objects,
    * sanitizes the message text by removing any HTML tags, and returns the array as an observable.
-   * 
+   *
    * @method
    * @name fetchThreadMessages
    * @kind method
@@ -250,47 +252,29 @@ export class ThreadsService implements OnInit {
       // If ids are null, handle this scenario by returning an empty Observable array
       return of([]);
     }
-    let {selected_channelID, selected_messageID} = ids;
-  
+    let { selected_channelID, selected_messageID } = ids;
+
     // Access the specific collection
-    const collection = this.firestore.collection('channels')
+    const collection = this.firestore
+      .collection('channels')
       .doc(selected_channelID)
       .collection('ChannelChat')
       .doc(selected_messageID)
-      .collection('ChannelChatThread', ref => ref.orderBy('date', 'asc')); // Order by date in ascending order
-  
+      .collection('ChannelChatThread', (ref) => ref.orderBy('date', 'asc')); // Order by date in ascending order
+
     return collection.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data();
-        const id = a.payload.doc.id;
-        // Check if message exists
-        if (data.message) {
-          // Sanitize message text
-          data.message = this.stripHtmlTags(data.message);
-        }
-        return { id, ...data };
-      }))
+      map((actions) =>
+        actions.map((a) => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          // Check if message exists
+          if (data.message) {
+            // Sanitize message text
+            data.message = this.stripHtmlTags(data.message);
+          }
+          return { id, ...data };
+        })
+      )
     );
   }
-
-  async countDocumentsInCollection() {
-    const ids = this.retrieveFromLocalStorage();
-    if (!ids) {
-      console.error('Cannot count documents: IDs are null');
-      return;
-    }
-    const { selected_channelID, selected_messageID } = ids;
-    const path = `channels/${selected_channelID}/ChannelChat/${selected_messageID}/ChannelChatThread`;
-  
-    const collection = this.firestore.collection(path);
-    const snapshot = await collection.get().toPromise();
-    if (snapshot) {
-      console.log(`Number of documents in collection: ${snapshot.size}`);
-    } else {
-      console.log('Collection does not exist');
-    }
-  }
-  
-  
-  
 }

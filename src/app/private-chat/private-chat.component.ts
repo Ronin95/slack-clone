@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { ChatListControlService } from '../services/chat-list-control.service';
 import { UsersService } from '../services/users.service';
 import { privateMessage } from '../../models/private-chat';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-private-chat',
@@ -37,9 +38,21 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
     public privateChatService: PrivateChatService,
     private chatListControlService: ChatListControlService,
     private usersService: UsersService,
+    private datePipe: DatePipe
   ) {
     this.displayUserName();
   }
+
+  getFormattedDate(timestamp: any): string {
+    if (!timestamp || !timestamp.seconds) {
+      return ''; // Return an empty string if the timestamp is invalid
+    }
+  
+    const date = new Date(timestamp.seconds * 1000 + (timestamp.nanoseconds || 0) / 1000000);
+    return this.datePipe.transform(date, 'dd.MM.yy | HH:mm') || '';
+  }
+  
+  
 
   /**
    * The `ngOnDestroy()` method is a lifecycle hook in Angular that is called just before the component is destroyed. In this

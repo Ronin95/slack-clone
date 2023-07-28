@@ -38,6 +38,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxEditorModule } from 'ngx-editor';
+import { DatePipe } from '@angular/common';
 
 // Components
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -127,7 +128,7 @@ import { NewsComponent } from './slack-apps/news/news.component';
     NgxEditorModule,
     MatProgressSpinnerModule
   ],
-  providers: [AuthService, OpenAiService],
+  providers: [AuthService, OpenAiService, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

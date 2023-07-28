@@ -82,7 +82,6 @@ export class PrivateChatService {
             },
             {
               displayName: otherUser.displayName ?? '',
-              photoURL: otherUser.photoURL ?? '',
             },
           ],
         })
@@ -143,7 +142,7 @@ export class PrivateChatService {
           text: message,
           messageId: messageId,
           senderId: user?.['uid'],
-          sentDate: formattedDate,
+          sentDate: new Date(),
           displayName: user?.['displayName'],
           photoURL: user?.['photoURL'],
         })
@@ -205,9 +204,8 @@ export class PrivateChatService {
     chats.forEach((chat: PrivateChat) => {
       const otherUserIndex =
         chat.userIds.indexOf(currentUserId ?? '') === 0 ? 1 : 0;
-      const { displayName, photoURL } = chat.users[otherUserIndex];
+      const { displayName } = chat.users[otherUserIndex];
       chat.chatName = displayName;
-      chat.chatPic = photoURL;
     });
 
     return chats;

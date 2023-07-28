@@ -222,7 +222,7 @@ export class AuthService {
 			email: user.email,
 			displayName: user.displayName,
 			emailVerified: user.emailVerified,
-			photoURL: this.photoURL,
+
 		};
 		return userRef.set(userData, {
 			merge: true,

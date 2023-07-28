@@ -1,7 +1,7 @@
 <div class="outer-container">
   <mat-toolbar class="header header-height border">
     <mat-icon style="color: white">tag</mat-icon>
-    <h2>{{ userName }}</h2>
+    <h2>{{ userName || 'Guest' }}</h2>
   </mat-toolbar>
 
   <div class="message-container">
@@ -27,7 +27,7 @@
               <mat-card-title class="message-card-main-header-title">
                 <div class="name-date-style">
                   <span class="author">{{ message.displayName }}</span>
-                  <span class="time-stamp">{{ message.sentDate }}</span>
+                  <span class="time-stamp">{{ getFormattedDate(message.sentDate) }}</span>
                 </div>
                 <div class="edit-chat-delete-style">
                   <mat-icon (click)="deleteMessage(message.messageId)"

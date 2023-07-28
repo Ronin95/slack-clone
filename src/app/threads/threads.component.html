@@ -50,7 +50,7 @@
           <div class="thread-card">
             <mat-card-content class="post-container">
               <p [innerHTML]="channelService.sanitizeHtmlWithImageSize(threadMessage.message)"></p>
-              <img *ngIf="threadMessage.uploadedImgURL" [src]="threadMessage.uploadedImgURL" alt="Uploaded Image" style="width: 250px"/>
+              <img *ngIf="threadMessage.uploadedImgURL" [src]="threadMessage.uploadedImgURL" alt="Uploaded Image" style="width: 200px"/>
             </mat-card-content>
           </div>
         </mat-card>

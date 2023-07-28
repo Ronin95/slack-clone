@@ -218,7 +218,7 @@ mat-card-title {
 
   .docAmount {
     position: relative;
-    left: 38px;
+    left: 47px;
     top: 20px;
     display: flex;
     justify-content: center;
@@ -305,6 +305,12 @@ mat-card-title {
     right: 5px;
     top: 15px;
     width: unset;
+
+    .docAmount {
+      position: absolute;
+      left: 17px;
+      top: 20px;
+    }
   }
 
   .post-container {
@@ -342,6 +348,12 @@ mat-card-title {
     right: 5px;
     top: 15px;
     width: unset;
+
+    .docAmount {
+      position: absolute;
+      left: 17px;
+      top: 20px;
+    }
   }
 
   .post-container {
@@ -380,6 +392,12 @@ mat-card-title {
     right: 5px;
     top: 15px;
     width: unset;
+
+    .docAmount {
+      position: absolute;
+      left: 17px;
+      top: 20px;
+    }
   }
 
   .post-container {
@@ -417,6 +435,12 @@ mat-card-title {
     right: 5px;
     top: 15px;
     width: unset;
+
+    .docAmount {
+      position: absolute;
+      left: 17px;
+      top: 20px;
+    }
   }
 
   .post-container {
@@ -454,6 +478,12 @@ mat-card-title {
     right: 5px;
     top: 15px;
     width: unset;
+
+    .docAmount {
+      position: absolute;
+      left: 17px;
+      top: 20px;
+    }
   }
 
   .post-container {
@@ -491,6 +521,12 @@ mat-card-title {
     right: 5px;
     top: 15px;
     width: unset;
+
+    .docAmount {
+      position: absolute;
+      left: 17px;
+      top: 20px;
+    }
   }
 
   .post-container {
@@ -528,6 +564,12 @@ mat-card-title {
     right: 5px;
     top: 15px;
     width: unset;
+
+    .docAmount {
+      position: absolute;
+      left: 17px;
+      top: 20px;
+    }
   }
 
   .post-container {
@@ -556,5 +598,76 @@ mat-card-title {
 
   .post-container {
     padding-top: 20px;
+  }
+
+  .edit-chat-delete-style {
+
+    .docAmount {
+      position: absolute;
+      left: 320px;
+      top: 40px;
+    }
+  }
+}
+
+
+// iPad Mini / iPad
+@media screen and (min-width: 713px) and (max-width: 768px) {
+  .edit-chat-delete-style {
+
+    .docAmount {
+      position: absolute;
+      left: 365px;
+      top: 40px;
+    }
+  }
+}
+
+// Kindle Fire HDX / Nexus 10 (800px)
+// iPad Air (820px)
+@media screen and (min-width: 769px) and (max-width: 820px) {
+  .edit-chat-delete-style {
+
+    .docAmount {
+      position: absolute;
+      left: 410px;
+      top: 40px;
+    }
+  }
+}
+
+// Surface Pro 7
+@media screen and (min-width: 821px) and (max-width: 912px) {
+  .edit-chat-delete-style {
+
+    .docAmount {
+      position: absolute;
+      left: 505px;
+      top: 40px;
+    }
+  }
+}
+
+// Nest Hub / iPad Pro
+@media screen and (min-width: 913px) and (max-width: 1024px) {
+  .edit-chat-delete-style {
+
+    .docAmount {
+      position: absolute;
+      left: 615px;
+      top: 40px;
+    }
+  }
+}
+
+// Nest Hub Max
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .edit-chat-delete-style {
+
+    .docAmount {
+      position: absolute;
+      left: 870px;
+      top: 40px;
+    }
   }
 }

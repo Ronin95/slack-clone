@@ -94,6 +94,10 @@ mat-toolbar {
   margin-bottom: 15px;
   margin-left: 50px;
   border-left: 0.3rem solid lightgrey;
+
+  img {
+    width: 200px;
+  }
 }
 
 .name-date-style {
@@ -128,4 +132,36 @@ mat-toolbar {
   .messages-for-thread {
     height: calc(100vh - 260px);
   }
+}
+
+@media (max-width: 280px) {
+  .name-date-style {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    
+    .time-stamp {
+      padding: 0;
+      position: relative;
+      right: 5px;
+    }
+
+    .author {
+      position: relative;
+      right: 40px;
+      top: 10px;
+    }
+  }
+
+  .post-container {
+    img {
+      width: 170px;
+    }
+  }
+
+  .thread-img-responsive {
+    position: relative;
+    right: 10px;
+  }
+
 }

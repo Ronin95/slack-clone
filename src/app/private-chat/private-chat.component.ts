@@ -43,22 +43,33 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
     this.displayUserName();
   }
 
+  /**
+   * The `getFormattedDate(timestamp: any): string` method is a helper method that takes a `timestamp` parameter and returns
+   * a formatted date string.
+   * 
+   * @method
+   * @name getFormattedDate
+   * @kind method
+   * @memberof PrivateChatComponent
+   * @param {any} timestamp
+   * @returns {string}
+   */
   getFormattedDate(timestamp: any): string {
     if (!timestamp || !timestamp.seconds) {
       return ''; // Return an empty string if the timestamp is invalid
     }
-  
-    const date = new Date(timestamp.seconds * 1000 + (timestamp.nanoseconds || 0) / 1000000);
+
+    const date = new Date(
+      timestamp.seconds * 1000 + (timestamp.nanoseconds || 0) / 1000000
+    );
     return this.datePipe.transform(date, 'E, dd. MMM yy | HH:mm') || '';
   }
-  
-  
 
   /**
    * The `ngOnDestroy()` method is a lifecycle hook in Angular that is called just before the component is destroyed. In this
    * specific component, the `ngOnDestroy()` method is used to perform cleanup tasks and unsubscribe from any subscriptions
    * or event listeners to prevent memory leaks.
-   * 
+   *
    * @method
    * @name ngOnDestroy
    * @kind method
@@ -76,7 +87,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
    * `Editor` class, subscribing to the `imageInsertedSubject` observable from the `channelService`, and retrieving chat
    * messages based on the selected chat ID. It also checks if there is a stored chat ID in the local storage and sets the
    * `chatListControl` value accordingly.
-   * 
+   *
    * @method
    * @name ngOnInit
    * @kind method
@@ -85,9 +96,10 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.editor = new Editor();
-    this.imageInsertedSubscription = this.channelService.imageInsertedSubject.subscribe((url) => {
-      this.insertImageToEditor(url);
-    });
+    this.imageInsertedSubscription =
+      this.channelService.imageInsertedSubject.subscribe((url) => {
+        this.insertImageToEditor(url);
+      });
 
     const storedChatId = localStorage.getItem('currentChatId');
     if (storedChatId) {
@@ -95,14 +107,17 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
       this.chatId = storedChatId;
       this.messages$ = this.privateChatService.getChatMessages$(storedChatId);
     } else {
-      this.messages$ = this.chatListControlService.chatListControl.valueChanges.pipe(
-        map((value) => value[0]),
-        tap((chatId) => {
-          this.chatId = chatId;
-        }),
-        switchMap((chatId) => this.privateChatService.getChatMessages$(chatId)),
-        tap(() => {})
-      );
+      this.messages$ =
+        this.chatListControlService.chatListControl.valueChanges.pipe(
+          map((value) => value[0]),
+          tap((chatId) => {
+            this.chatId = chatId;
+          }),
+          switchMap((chatId) =>
+            this.privateChatService.getChatMessages$(chatId)
+          ),
+          tap(() => {})
+        );
     }
   }
 
@@ -111,7 +126,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
    * `messageText` property and the selected chat ID from the `chatListControl` property. If both the message text and chat
    * ID are available, it calls the `addChatMessage()` method of the `privateChatService` to add the chat message to the
    * selected chat. After sending the message, it clears the `messageText` property.
-   * 
+   *
    * @method
    * @name sendMessage
    * @kind method
@@ -124,8 +139,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
     if (message && selectedChatId) {
       this.privateChatService
         .addChatMessage(selectedChatId, message)
-        .subscribe(() => {
-        });
+        .subscribe(() => {});
       this.messageText = '';
     }
   }
@@ -133,7 +147,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
   /**
    * The `async deleteMessage(messageId: string)` method is responsible for deleting a chat message. It takes a `messageId`
    * parameter, which is the ID of the message to be deleted.
-   * 
+   *
    * @async
    * @method
    * @name deleteMessage
@@ -151,7 +165,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
    * parameter, which is the URL of the image to be inserted. Inside the method, it appends an HTML `<img>` tag with the
    * provided URL to the `messageText` property. This allows the image to be displayed in the editor when the message is
    * sent.
-   * 
+   *
    * @method
    * @name insertImageToEditor
    * @kind method
@@ -166,7 +180,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
   /**
    * The `displayUserName()` method is responsible for retrieving the display name of a user based on the user ID provided in
    * the route parameters.
-   * 
+   *
    * @method
    * @name displayUserName
    * @kind method
@@ -195,7 +209,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
    * The `messageMatchesSearch(message: any): boolean` method is a helper method that checks if a chat message matches the
    * search value entered by the user. It takes a `message` parameter, which represents a chat message object, and returns a
    * boolean value indicating whether the message matches the search value.
-   * 
+   *
    * @method
    * @name messageMatchesSearch
    * @kind method
@@ -211,5 +225,4 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
         message.displayName.toLowerCase().includes(searchValue))
     );
   }
-  
 }

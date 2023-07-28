@@ -47,7 +47,6 @@ export class ChannelService implements OnInit {
    */
   sendChannelID(channelID: string) {
     this.channelIDSource.next(channelID);
-    console.log(channelID);
   }
 
   /**
@@ -66,7 +65,6 @@ export class ChannelService implements OnInit {
     this.channels = collectionData(channelColl, { idField: 'channelId' });
     this.channels.subscribe((changes: any) => {
       this.channel = changes;
-      // console.log(this.channel);
     });
     return this.channels; // Return the Observable
   }
@@ -112,16 +110,10 @@ export class ChannelService implements OnInit {
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
 
-    // observe percentage changes
-    task.percentageChanges().subscribe((percentage) => {
-      console.log(percentage);
-    });
-
     // get notified when the download URL is available
     task.snapshotChanges().subscribe((snapshot) => {
       if (snapshot && snapshot.state === 'success') {
         fileRef.getDownloadURL().subscribe((downloadURL) => {
-          console.log('File available at', downloadURL);
           localStorage.setItem('lastImageUpload', downloadURL);
           this.imageInsertedSubject.next(downloadURL); // Notify the component that an image has been inserted
           this.clearFileInput();

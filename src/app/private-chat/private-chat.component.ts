@@ -174,7 +174,6 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
       .subscribe((user: any) => {
         if (user) {
           this.userName = user.displayName;
-          console.log(this.userName);
         }
       });
   }

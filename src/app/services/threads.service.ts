@@ -138,7 +138,6 @@ export class ThreadsService implements OnInit {
    */
   checkIfChannelChatThreadExists(messageId: string): Observable<boolean> {
     const selected_channelID = localStorage.getItem('selected_channelID');
-    console.log('selected Message Id is: ', messageId);
     if (!selected_channelID || !messageId) {
       // If either ID is null, return false
       return of(false);

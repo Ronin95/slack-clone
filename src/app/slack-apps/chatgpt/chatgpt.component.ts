@@ -39,7 +39,6 @@ export class ChatgptComponent implements OnInit {
     
     this.isLoading = true;
     this.buttonClicked = true;
-    console.log('callOpenAiApi function has been called with text:', text);
     this.openaiservice.getDataFromOpenAI(text).subscribe(
       (data: string | undefined) => {
         this.isLoading = false;

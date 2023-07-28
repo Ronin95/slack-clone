@@ -130,12 +130,6 @@ export class DialogUserInfoComponent implements OnInit{
                 .doc(uid)
                 .update({
                   photoURL: url,
-                })
-                .then(() => {
-                  console.log(`URL ${url} saved to Firestore for user ${uid}`);
-                })
-                .catch((error: any) => {
-                  console.error(`Error saving URL to Firestore: ${error}`);
                 });
             })
           )

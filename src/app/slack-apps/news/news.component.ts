@@ -26,7 +26,6 @@ export class NewsComponent {
    */
   ngOnInit() {
     this.newsApi.topHeadlines().subscribe((data) => {
-      console.log(data);
       this.topHeadlines = data.articles;
     });
   }

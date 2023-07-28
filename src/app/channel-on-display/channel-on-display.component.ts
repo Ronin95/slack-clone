@@ -206,7 +206,6 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
             const { channelName, channelId } = channel;
             this.channelId = channelId;
             this.channelName = channelName;
-            // console.log(this.channelName, this.channelId);
             resolve({ channelName, channelId });
           }
         });

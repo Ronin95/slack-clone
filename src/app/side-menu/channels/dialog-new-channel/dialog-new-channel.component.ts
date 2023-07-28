@@ -53,8 +53,6 @@ export class DialogNewChannelComponent {
         channelId: docRef.id,
       });
 
-      // console.log('New channel added:', this.channelName);
-
       this.dialogRef.close();
     } catch (error) {
       console.error('Error adding document: ', error);

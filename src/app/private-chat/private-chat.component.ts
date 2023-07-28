@@ -49,7 +49,7 @@ export class PrivateChatComponent implements OnInit, OnDestroy {
     }
   
     const date = new Date(timestamp.seconds * 1000 + (timestamp.nanoseconds || 0) / 1000000);
-    return this.datePipe.transform(date, 'dd.MM.yy | HH:mm') || '';
+    return this.datePipe.transform(date, 'E, dd. MMM yy | HH:mm') || '';
   }
   
   

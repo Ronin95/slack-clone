@@ -8,11 +8,7 @@ import { ThreadsComponent } from './threads/threads.component';
 import { SendMessageComponent } from './send-message/send-message.component';
 import { ChatgptComponent } from './slack-apps/chatgpt/chatgpt.component';
 import { ChannelOnDisplayComponent } from './channel-on-display/channel-on-display.component';
-import {
-  canActivate,
-  redirectUnauthorizedTo,
-  redirectLoggedInTo,
-} from '@angular/fire/auth-guard';
+import { canActivate, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { PrivateChatComponent } from './private-chat/private-chat.component';
 import { WeatherComponent } from './slack-apps/weather/weather.component';
 import { NewsComponent } from './slack-apps/news/news.component';
@@ -24,7 +20,6 @@ const routes: Routes = [
   { path: 'chat/:id', component: PrivateChatComponent },
   { path: 'headerMenu', component: HeaderComponent },
   { path: 'home', component: HomeComponent, ...canActivate(redirectToLogin) },
-  // { path: 'home/threads', component: ThreadsComponent },
   { path: 'home/chatgpt', component: ChatgptComponent },
   { path: 'home/weather', component: WeatherComponent },
   { path: 'home/news', component: NewsComponent },
@@ -40,7 +35,6 @@ const routes: Routes = [
     component: ChannelOnDisplayComponent,
     children: [{ path: 'thread/:id', component: ThreadsComponent }],
   },
-  // { path: 'thread/:id', component: ThreadsComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 

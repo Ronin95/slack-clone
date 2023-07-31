@@ -18,7 +18,7 @@ export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<RegisterComponent>,
-    public dialog: MatDialog /* public authService: AuthService */ /* private firestore: AngularFirestore */,
+    public dialog: MatDialog,
     public authService: AuthService
   ) {
     this.registerForm = this.formBuilder.group({
@@ -41,7 +41,7 @@ export class RegisterComponent {
   closeDialog() {
     if (!this.authService.errorMsgRegister) {
       this.dialogRef.close();
-      this.dialog.open(VerifyEmailComponent);
+      // this.dialog.open(VerifyEmailComponent);
     }
   }
 }

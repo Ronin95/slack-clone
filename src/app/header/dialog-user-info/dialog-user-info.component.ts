@@ -114,31 +114,16 @@ export class DialogUserInfoComponent implements OnInit{
     const file = element.files ? element.files[0] : null;
 
     if (file) {
-      const filePath = `profileImages/${new Date().getTime()}_${file.name}`;
+      const filePath = `profileImages/${file.name}`;
       const fileRef = this.storage.ref(filePath);
       const task = this.storage.upload(filePath, file);
 
       // get notified when the download URL is available
-      task
-        .snapshotChanges()
-        .pipe(
-          finalize(() =>
-            fileRef.getDownloadURL().subscribe((url) => {
-              // Update the user's photoURL in Firestore
-              this.firestore
-                .collection('users')
-                .doc(uid)
-                .update({
-                  photoURL: url,
-                });
-            })
-          )
-        )
-        .subscribe();
+      task.snapshotChanges().pipe(finalize(() =>
+        fileRef.getDownloadURL().subscribe((url) => {
+          // Update the user's photoURL in Firestore
+          this.firestore.collection('users').doc(uid).update({photoURL: url});
+        }))).subscribe();
     }
-
-    // Delete capability to upload a new image
-    this.onDisplay = false;
-
   }
 }

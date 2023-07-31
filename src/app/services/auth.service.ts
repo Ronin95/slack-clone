@@ -31,8 +31,7 @@ export class AuthService {
 		private auth: Auth
 	) {
 		this.userData$ = this.afAuth.authState;
-		/* Saving user data in localstorage when
-    logged in and setting up null when logged out */
+		/* Saving user data in localstorage when logged in and setting up null when logged out */
 		this.afAuth.onAuthStateChanged((user) => {
 			if (user) {
 				this.afs
@@ -53,7 +52,7 @@ export class AuthService {
 									JSON.stringify(this.userData.uid)
 								); // saving uid from user in localstorage
 							} else {
-								console.log('User data not found in Firestore');
+								console.log('1) User data not found in Firestore');
 							}
 						},
 						(error) => {
@@ -148,14 +147,13 @@ export class AuthService {
 		return this.afAuth
 			.createUserWithEmailAndPassword(email, password)
 			.then((result) => {
-				/* Call the SendVerificaitonMail() function when new user sign
-        up and returns promise */
+				/* Call the SendVerificaitonMail() function when new user sign up and returns promise */
 				this.SendVerificationMail();
 				if (result.user) {
 					// set display name of user
 					result.user.updateProfile({ displayName: displayName }).then(() => {
 						this.SetUserData(result.user);
-						this.router.navigate(['/']);
+						this.router.navigate(['/home']);
 					});
 				}
 			})
@@ -287,13 +285,12 @@ export class AuthService {
 					.collection('users')
 					.doc(user.uid);
 				this.userData$ = userDoc.valueChanges();
-
 				this.userData$.subscribe((userData) => {
 					if (userData) {
 						this.uid = user.uid;
 						this.photoURL = userData['photoURL'];
 					} else {
-						console.log('User data not found in Firestore');
+						console.log('2) User data not found in Firestore');
 					}
 				});
 			}

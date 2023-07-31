@@ -284,7 +284,7 @@ export class ChannelService implements OnInit {
       message: sanitizedMessage,
       date: new Date(),
       userName: this.name, // Adding username to the document
-      userPhotoURL: this.photoURL, // Adding photoURL to the document
+      userPhotoURL: this.photoURL || 'assets/img/blank-profile-img.png', // Adding photoURL to the document
       uploadedImgURL: localStorage.getItem('lastImageUpload'), // Adding uploadedImgURL to the document
     });
 

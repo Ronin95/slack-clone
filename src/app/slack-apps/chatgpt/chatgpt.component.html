@@ -7,7 +7,7 @@
   <div class=" ai-user-field full border">
     <div *ngFor="let message of messages">
       <div class="user-box ">
-        <img *ngIf="message.includesImage && buttonClicked" [src]="authService.photoURL" alt="user-img" >
+        <img *ngIf="message.includesImage && buttonClicked" [src]="(authService.photoURL || '../assets/img/blank-profile-img.png')" alt="user-img" >
         <p class="user-style" *ngIf="message.role === 'user'">{{ message.content }}</p>
       </div>    
       <div class="ai-box ">

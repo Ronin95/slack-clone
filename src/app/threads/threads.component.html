@@ -16,7 +16,7 @@
           <img class="message-card-image" mat-card-image [src]="selectedMessage.userPhotoURL || '../../assets/img/blank-profile-img.png'" style="width: 50px; border-radius: 5px; border: 2px solid lightgrey;" alt="Photo"/>
           <div class="name-date-style">
             <span class="author">{{ selectedMessage.userName }}</span>
-            <span class="time-stamp">{{ selectedMessage.date }}</span>
+            <span class="time-stamp">{{ getFormattedDate(selectedMessage.date) }}</span>
           </div>
         </mat-card-title>
         <div class="thread-card">
@@ -34,7 +34,7 @@
             <img class="message-card-image" mat-card-image [src]="threadMessage.userPhotoURL || '../../assets/img/blank-profile-img.png'" style="width: 50px; border-radius: 5px; border: 2px solid lightgrey;" alt="Photo"/>
             <div class="name-date-style">
               <span class="author">{{ threadMessage.userName }}</span>
-              <span class="time-stamp">{{ threadMessage.date }}</span>
+              <span class="time-stamp">{{ getFormattedDate(threadMessage.date) }}</span>
             </div>
           </mat-card-title>
           <div class="thread-card">

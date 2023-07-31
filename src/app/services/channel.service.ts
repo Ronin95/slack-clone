@@ -282,7 +282,7 @@ export class ChannelService implements OnInit {
     channelChatRef.doc(messageId).set({
       messageId: messageId, // Adding the message ID to the document
       message: sanitizedMessage,
-      date: formattedDate,
+      date: new Date(),
       userName: this.name, // Adding username to the document
       userPhotoURL: this.photoURL, // Adding photoURL to the document
       uploadedImgURL: localStorage.getItem('lastImageUpload'), // Adding uploadedImgURL to the document

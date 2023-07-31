@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ThreadsService } from '../services/threads.service';
 import { Editor, Toolbar } from 'ngx-editor';
 import { Observable, Subscription } from 'rxjs';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 
 @Component({
   selector: 'app-threads',
@@ -30,7 +30,8 @@ export class ThreadsComponent implements OnInit {
     private route: ActivatedRoute,
     private threadsService: ThreadsService,
     public channelService: ChannelService,
-    private location: Location
+    private location: Location,
+    private datePipe: DatePipe
   ) {}
 
   /**
@@ -70,6 +71,17 @@ export class ThreadsComponent implements OnInit {
     this.channelService.imageInsertedSubject.subscribe((url) => {
       this.insertImageToEditor(url);
     });
+  }
+
+  getFormattedDate(timestamp: any): string {
+    if (!timestamp || !timestamp.seconds) {
+      return ''; // Return an empty string if the timestamp is invalid
+    }
+
+    const date = new Date(
+      timestamp.seconds * 1000 + (timestamp.nanoseconds || 0) / 1000000
+    );
+    return this.datePipe.transform(date, 'E, dd. MMM yy | HH:mm') || '';
   }
 
   /**

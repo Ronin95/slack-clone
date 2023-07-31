@@ -209,7 +209,6 @@ export class ThreadsService implements OnInit {
     // Create a unique ID for the message
     const threadId = this.firestore.createId();
     const date = new Date();
-    const formattedDate = this.channelService.getFormattedDate(date);
 
     // Remove <img> tags from the message
     const sanitizedMessage = this.channelService.removeImgTag(messageText);
@@ -221,7 +220,7 @@ export class ThreadsService implements OnInit {
       .set({
         threadId: threadId,
         message: sanitizedMessage,
-        date: formattedDate,
+        date: new Date(),
         userName: this.name,
         userPhotoURL: this.photoURL,
         uploadedImgURL: localStorage.getItem('lastImageUpload'),

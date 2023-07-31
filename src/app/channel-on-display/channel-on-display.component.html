@@ -14,7 +14,7 @@
 							<mat-card-title class="message-card-main-header-title">
 								<div class="name-date-style">
 									<span class="author">{{ message.userName }}</span>
-									<span class="time-stamp">{{ message.date }}</span>
+									<span class="time-stamp">{{ getFormattedDate(message.date) }}</span>
 								</div>
 								<div class="edit-chat-delete-style">
 									<p class="docAmount">{{ threadMessages.length }}</p>

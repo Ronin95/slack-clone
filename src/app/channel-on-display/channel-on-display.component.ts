@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, switchMap, Subscription } from 'rxjs';
 import { Editor, Toolbar } from 'ngx-editor';
 import { ThreadsService } from '../services/threads.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-channel-on-display',
@@ -34,7 +35,8 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     public channelService: ChannelService,
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe
   ) {}
 
   /**
@@ -125,6 +127,17 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     this.closeSub = this.threadsService.close$.subscribe(() => {
       this.showThreadContainer = false;
     });
+  }
+
+  getFormattedDate(timestamp: any): string {
+    if (!timestamp || !timestamp.seconds) {
+      return ''; // Return an empty string if the timestamp is invalid
+    }
+
+    const date = new Date(
+      timestamp.seconds * 1000 + (timestamp.nanoseconds || 0) / 1000000
+    );
+    return this.datePipe.transform(date, 'E, dd. MMM yy | HH:mm') || '';
   }
 
   /**

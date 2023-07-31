@@ -21,14 +21,14 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   subscribedParam!: any;
   messageText: string = '';
   messages!: Observable<any[]>;
-  messages$!: Observable<any[]>;
   data = '';
   editor!: Editor;
   toolbar: Toolbar = [
     ['bold', 'italic', 'underline', 'strike', 'code', 'blockquote'],
   ];
   channelId: string = '';
-  threadMessages: any[] = [];
+  threadMessagesWithReplies: any[] = [];
+  private routeSubscription!: Subscription;
 
   constructor(
     public threadsService: ThreadsService,
@@ -60,7 +60,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   /**
    * The `onDeleteSelectedMessage()` method is an asynchronous method that is responsible for deleting a selected message
    * from Firebase. It takes a `messageId` parameter, which represents the ID of the message to be deleted.
-   * 
+   *
    * @async
    * @method
    * @name onDeleteSelectedMessage
@@ -78,7 +78,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   /**
    * The `ngOnDestroy()` method is a lifecycle hook in Angular that is called when a component is about to be destroyed. In
    * this specific component, the `ngOnDestroy()` method is used to perform cleanup tasks before the component is destroyed.
-   * 
+   *
    * @method
    * @name ngOnDestroy
    * @kind method
@@ -89,12 +89,13 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
     this.editor.destroy();
     this.imageInsertedSubscription.unsubscribe();
     this.closeSub.unsubscribe();
+    this.routeSubscription.unsubscribe();
   }
 
   /**
    * The `async ngOnInit() {` method is the initialization method of the Angular component. It is called when the component
    * is being initialized.
-   * 
+   *
    * @async
    * @method
    * @name ngOnInit
@@ -104,11 +105,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
    */
   async ngOnInit() {
     this.editor = new Editor();
-    let { channelName, channelId } = await this.displayChannelNameAndID();
-    this.threadsService.fetchThreadMessages().subscribe((messages) => {
-      this.threadMessages = messages;
-    });
-    // this.displayChannelName();
+    let { channelId } = await this.displayChannelNameAndID();
     this.messages = this.channelService.fetchMessagesFromFirebase(channelId);
     this.imageInsertedSubscription =
       this.channelService.imageInsertedSubject.subscribe((url) => {
@@ -117,23 +114,98 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
 
     this.router.events.subscribe(async (event) => {
       if (event instanceof NavigationEnd) {
-        let { channelName, channelId } = await this.displayChannelNameAndID();
+        let { channelId } = await this.displayChannelNameAndID();
         this.messages =
           this.channelService.fetchMessagesFromFirebase(channelId);
         this.channelService.sendChannelID(channelId);
       }
     });
 
+    this.routeSubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.updateMessageAmount();
+      }
+    });
+
+    this.getMessageAmount(channelId);
+
     this.closeSub = this.threadsService.close$.subscribe(() => {
       this.showThreadContainer = false;
     });
   }
 
+  /**
+   * The `updateMessageAmount()` method is a private method in the `ChannelOnDisplayComponent` class. It is responsible for
+   * updating the number of messages for a specific channel.
+   * 
+   * @method
+   * @name updateMessageAmount
+   * @kind method
+   * @memberof ChannelOnDisplayComponent
+   * @private
+   * @returns {void}
+   */
+  private updateMessageAmount() {
+    const channelId = this.route.snapshot.paramMap.get('id');
+    if (channelId) {
+      this.channelId = channelId;
+      this.getMessageAmount(channelId);
+    }
+  }
+
+  /**
+   * The `getMessageAmount(channelId: string): any` method is responsible for fetching the messages with their replies from
+   * Firebase for a specific channel. It takes a `channelId` parameter, which represents the ID of the channel for which the
+   * messages are being fetched.
+   * 
+   * @method
+   * @name getMessageAmount
+   * @kind method
+   * @memberof ChannelOnDisplayComponent
+   * @param {string} channelId
+   * @returns {any}
+   */
+  getMessageAmount(channelId: string): any {
+    this.channelService
+      .fetchMessagesWithReplies(channelId)
+      .subscribe((threadMessagesWithReplies) => {
+        this.threadMessagesWithReplies = threadMessagesWithReplies;
+      });
+  }
+
+  /**
+   * The `getMessageAmountForMessage(messageId: string): number` method is a helper method that takes a `messageId` parameter
+   * and returns the number of replies for that message.
+   * 
+   * @method
+   * @name getMessageAmountForMessage
+   * @kind method
+   * @memberof ChannelOnDisplayComponent
+   * @param {string} messageId
+   * @returns {number}
+   */
+  getMessageAmountForMessage(messageId: string): number {
+    const messageInfo = this.threadMessagesWithReplies.find(
+      (info) => info.id === messageId
+    );
+    return messageInfo ? messageInfo.numReplies : 0;
+  }
+
+  /**
+   * The `getFormattedDate(timestamp: any): string` method is a helper method that takes a `timestamp` parameter and returns
+   * a formatted date string.
+   * 
+   * @method
+   * @name getFormattedDate
+   * @kind method
+   * @memberof ChannelOnDisplayComponent
+   * @param {any} timestamp
+   * @returns {string}
+   */
   getFormattedDate(timestamp: any): string {
     if (!timestamp || !timestamp.seconds) {
       return ''; // Return an empty string if the timestamp is invalid
     }
-
     const date = new Date(
       timestamp.seconds * 1000 + (timestamp.nanoseconds || 0) / 1000000
     );
@@ -162,7 +234,7 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
   /**
    * The `onChatIconClick(messageId: string)` method is a click event handler that is triggered when a chat icon is clicked.
    * It takes a `messageId` parameter, which represents the ID of the message associated with the clicked chat icon.
-   * 
+   *
    * @method
    * @name onChatIconClick
    * @kind method
@@ -202,7 +274,10 @@ export class ChannelOnDisplayComponent implements OnInit, OnDestroy {
    * @memberof ChannelOnDisplayComponent
    * @returns {Promise<{ channelName: string; channelId: string; }>}
    */
-  displayChannelNameAndID(): Promise<{ channelName: string; channelId: string; }> {
+  displayChannelNameAndID(): Promise<{
+    channelName: string;
+    channelId: string;
+  }> {
     return new Promise((resolve) => {
       this.route.paramMap
         .pipe(

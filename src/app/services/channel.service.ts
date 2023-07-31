@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Firestore, collection, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { getDocs, getFirestore } from 'firebase/firestore';
-import { Observable, Subscription, take, firstValueFrom, map, Subject, BehaviorSubject, of } from 'rxjs';
+import { Observable, Subscription, take, firstValueFrom, map, Subject, BehaviorSubject, of, forkJoin, switchMap, combineLatest } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Injectable({
@@ -326,6 +326,50 @@ export class ChannelService implements OnInit {
           })
         )
       );
+  }
+
+  /**
+   * The above code is defining a function called `fetchMessagesWithReplies` that takes a `channelId` parameter of type
+   * string. This function returns an Observable that emits an array of any type of values.
+   * 
+   * @method
+   * @name fetchMessagesWithReplies
+   * @kind method
+   * @memberof ChannelService
+   * @param {string} channelId
+   * @returns {Observable<any[]>}
+   */
+  fetchMessagesWithReplies(channelId: string): Observable<any[]> {
+    if (!channelId) {
+      return of([]); // Return an empty observable if channelId is not set
+    }
+
+    const channelChatCollection = this.afs
+      .collection('channels')
+      .doc(channelId)
+      .collection('ChannelChat');
+
+    return channelChatCollection.snapshotChanges().pipe(
+      switchMap((messages) => {
+        const replyObservables = messages.map((message) => {
+          const messageId = message.payload.doc.id;
+          const threadCollection = channelChatCollection
+            .doc(messageId)
+            .collection('ChannelChatThread');
+
+          return threadCollection.valueChanges().pipe(
+            map((replies) => {
+              return {
+                id: messageId,
+                numReplies: replies.length,
+              };
+            })
+          );
+        });
+
+        return combineLatest(replyObservables);
+      })
+    );
   }
 
   // this function deletes the message from the firestore database

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NewsApiService } from '../../services/news-api.service';
+// import { NewsApiService } from '../../services/news-api.service';
 
 @Component({
   selector: 'app-news',
@@ -9,7 +9,7 @@ import { NewsApiService } from '../../services/news-api.service';
 export class NewsComponent {
   topHeadlines: any[] = [];
   
-  constructor(private newsApi: NewsApiService) {}
+  // constructor(private newsApi: NewsApiService) {}
 
   /**
    * The `ngOnInit()` method is a lifecycle hook in Angular that is called after the component has been initialized. In this
@@ -24,9 +24,9 @@ export class NewsComponent {
    * @memberof NewsComponent
    * @returns {void}
    */
-  ngOnInit() {
-    this.newsApi.topHeadlines().subscribe((data) => {
-      this.topHeadlines = data.articles;
-    });
-  }
+  // ngOnInit() {
+  //   this.newsApi.topHeadlines().subscribe((data) => {
+  //     this.topHeadlines = data.articles;
+  //   });
+  // }
 }

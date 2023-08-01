@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from '../../models/user.model';
+import { GuestCounterData, User } from '../../models/user.model';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   AngularFirestore,
@@ -17,6 +17,7 @@ export class AuthService {
   static authenticateUserGetImg() {
     throw new Error('Method not implemented.');
   }
+
   userData: any; // Save logged in user data
   errorMsgRegister!: string;
   errorLogin = false;
@@ -110,20 +111,62 @@ export class AuthService {
    * @returns {Promise<void>}
    */
   guestLogin() {
-    return this.afAuth
-      .signInAnonymously()
-      .then((result) => {
-        this.SetUserData(result.user);
-        this.afAuth.onAuthStateChanged((user) => {
-          if (user) {
-            this.router.navigate(['home']);
-          }
-        });
-      })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+	return this.afAuth
+	  .signInAnonymously()
+	  .then(async (result) => {
+		// Erhöhe die Zählvariable und erstelle den Gästenamen
+		const guestCounter = await this.incrementGuestCounter();
+		const guestName = `Guest${guestCounter}`;
+		
+		// Setze den Gästenamen im User-Profil
+		if (result && result.user) {
+		  await result.user.updateProfile({ displayName: guestName });
+		}
+  
+		// Speichere die Benutzerdaten und leite den Benutzer zur Home-Seite weiter
+		this.SetUserData(result.user);
+		this.router.navigate(['home']);
+	  })
+	  .catch((error) => {
+		window.alert(error.message);
+	  });
   }
+  
+  /**
+   * The above code is defining an async function called "incrementGuestCounter" that returns a Promise of a number.
+   * 
+   * @async
+   * @method
+   * @name incrementGuestCounter
+   * @kind method
+   * @memberof AuthService
+   * @private
+   * @returns {Promise<number>}
+   */
+  private async incrementGuestCounter(): Promise<number> {
+	try {
+	  const guestCounterRef = this.afs.collection('guestCounter').doc('counter');
+	  const snapshot = await guestCounterRef.get().toPromise();
+	  if (snapshot && snapshot.exists) {
+		const data = snapshot.data() as GuestCounterData;
+		if (data && data.count !== undefined) {
+		  const currentCounter = data.count || 0;
+		  const newCounter = currentCounter + 1;
+		  await guestCounterRef.set({ count: newCounter });
+		  return newCounter;
+		} else {
+		  await guestCounterRef.set({ count: 1 });
+		  return 1;
+		}
+	  } else {
+		await guestCounterRef.set({ count: 1 });
+		return 1;
+	  }
+	} catch (error) {
+	  console.error('Error incrementing guest counter:', error);
+	  return 1;
+	}
+  }  
 
   /**
    * The `SignUp` method is used to create a new user account with the provided email, password, and display name. It uses
@@ -218,6 +261,7 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       emailVerified: user.emailVerified,
+	  photoURL: this.photoURL || 'assets/img/blank-profile-img.png',
     };
     try {
       await userRef.set(userData, { merge: true });

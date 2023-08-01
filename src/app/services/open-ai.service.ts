@@ -34,7 +34,7 @@ export class OpenAiService {
     const oneDayAgo = now - 24 * 60 * 60 * 1000;
 
     if (apiCallData.timestamp && apiCallData.timestamp > oneDayAgo) {
-      if (apiCallData.count >= 100) {
+      if (apiCallData.count >= 10) {
         return throwError('You have exceeded the maximum number of API calls within 24 hours.');
       } else {
         apiCallData.count += 1;

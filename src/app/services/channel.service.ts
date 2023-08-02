@@ -5,6 +5,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { getDocs, getFirestore } from 'firebase/firestore';
 import { Observable, Subscription, take, firstValueFrom, map, Subject, BehaviorSubject, of, forkJoin, switchMap, combineLatest } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +29,8 @@ export class ChannelService implements OnInit {
   constructor(
     private afs: AngularFirestore,
     private storage: AngularFireStorage,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -85,6 +87,7 @@ export class ChannelService implements OnInit {
     const channelColl = collection(this.firestore, 'channels');
     const docRef = doc(channelColl, channelId);
     deleteDoc(docRef);
+    this.router.navigate(['home']);
   }
 
   /**

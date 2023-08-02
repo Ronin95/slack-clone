@@ -18,6 +18,7 @@
             email.value.length > 0 && !loginForm.controls['email'].valid
           "
         />
+        <mat-error>Please insert a email</mat-error>
       </mat-form-field>
 
       <mat-form-field class="inputStyle" appearance="outline">
@@ -33,6 +34,7 @@
           autocomplete="none"
           [class.invalid-filled-input]="!loginForm.controls['password'].valid"
         />
+        <mat-error>Please enter a password</mat-error>
       </mat-form-field>
 
       <div class="forgotPassword">

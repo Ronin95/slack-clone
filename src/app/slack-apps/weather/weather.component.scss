@@ -38,6 +38,7 @@ h1 {
 .weather-img {
   position: relative;
   top: -30px;
+  object-fit: none;
 }
 
 mat-card-content {

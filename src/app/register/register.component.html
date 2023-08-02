@@ -19,6 +19,7 @@
             minlength="3"
             #userName
           />
+          <mat-error>Please insert a user name</mat-error>
         </mat-form-field>
 
         <mat-form-field class="inputStyle" appearance="outline">
@@ -36,6 +37,7 @@
               email.value.length > 0 && !registerForm.controls['email'].valid
             "
           />
+          <mat-error>Please insert a email</mat-error>
         </mat-form-field>
 
         <mat-form-field class="inputStyle" appearance="outline">
@@ -54,13 +56,30 @@
             "
             minlength="6"
           />
+          <mat-error>Please enter a password</mat-error>
         </mat-form-field>
-        <span
-          class="errorMsg"
-          *ngIf="authService.errorMsgRegister"
-        >{{ authService.errorMsgRegister }}</span>
+        <span class="errorMsg" *ngIf="authService.errorMsgRegister">{{
+          authService.errorMsgRegister
+        }}</span>
         <div mat-dialog-actions>
-          <button (click)="authService.SignUp(userEmail.value,userPwd.value,userName.value);closeDialog()" mat-raised-button [disabled]="!(registerForm.valid && (registerForm.dirty || registerForm.touched))" type="submit">
+          <button
+            (click)="
+              authService.SignUp(
+                userEmail.value,
+                userPwd.value,
+                userName.value
+              );
+              closeDialog()
+            "
+            mat-raised-button
+            [disabled]="
+              !(
+                registerForm.valid &&
+                (registerForm.dirty || registerForm.touched)
+              )
+            "
+            type="submit"
+          >
             Register
           </button>
         </div>

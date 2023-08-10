@@ -165,3 +165,10 @@ mat-toolbar {
   }
 
 }
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .editor-style {
+    position: absolute;
+    bottom: 0;
+  }
+}
